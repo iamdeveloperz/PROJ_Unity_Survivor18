@@ -275,7 +275,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_LocalPosition.x
@@ -437,7 +437,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1834729608
 GameObject:
@@ -471,7 +471,11 @@ MonoBehaviour:
   cam: {fileID: 124936954}
   tempPrefab: {fileID: 6715049721476618475, guid: 37d1c3b1152809346beccd664c620486, type: 3}
   previewMat: {fileID: 2100000, guid: 7d380342618d1d148a3af1efe02ec4f2, type: 2}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   raycastRange: 20
+  yGridSize: 0.1
 --- !u!4 &1834729610
 Transform:
   m_ObjectHideFlags: 0
