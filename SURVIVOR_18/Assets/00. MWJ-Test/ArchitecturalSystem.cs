@@ -22,8 +22,8 @@ public class ArchitecturalSystem : MonoBehaviour
         {
             RaycastHit hit = RaycastHit();
             if (hit.collider != null
-                && groundLayer.value == (groundLayer.value | (1 << hit.collider.gameObject.layer)))
-                SetObjPos(hit.point);
+                && groundLayer == (groundLayer | (1 << hit.collider.gameObject.layer)))
+                SetObjPosition(hit.point);
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -52,10 +52,9 @@ public class ArchitecturalSystem : MonoBehaviour
         return hit;
     }
 
-    private void SetObjPos(Vector3 hitPos)
+    private void SetObjPosition(Vector3 hitPos)
     {
         Vector3 _location = hitPos;
-        // Round -> 실수를 정수로 반올림하는 함수
         _location.Set(Mathf.Round(_location.x), Mathf.Round(_location.y / yGridSize) * yGridSize, Mathf.Round(_location.z));
 
         obj.transform.position = _location;
@@ -63,7 +62,8 @@ public class ArchitecturalSystem : MonoBehaviour
 
     private void CreateBluePrintObject(Vector3 pos)
     {
-        obj = Instantiate(tempPrefab, pos, Quaternion.identity);
+        obj = Instantiate(tempPrefab);
+        SetObjPosition(pos);
         originMat = obj.GetComponentInChildren<MeshRenderer>().material;
         obj.GetComponentInChildren<Renderer>().material = previewMat;
     }
@@ -72,7 +72,10 @@ public class ArchitecturalSystem : MonoBehaviour
     {
         obj.GetComponentInChildren<MeshRenderer>().material = originMat;
 
-        //obj.layer = groundLayer.value;
+        obj.layer = 30;
+        for (int i = 0; i < obj.transform.childCount; ++i)
+            obj.transform.GetChild(i).gameObject.layer = 30;
+        //obj.layer = LayerMask.GetMask("Building");
         //obj.transform.GetChild(0).gameObject.layer = groundLayer.value;
     }
 }

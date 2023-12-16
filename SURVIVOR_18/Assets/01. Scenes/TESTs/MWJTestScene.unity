@@ -321,9 +321,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerArmature
       objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: GroundLayers.m_Bits
-      value: 65
+      value: 1610612736
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -345,7 +349,7 @@ GameObject:
   - component: {fileID: 1770610305}
   - component: {fileID: 1770610304}
   - component: {fileID: 1770610303}
-  m_Layer: 6
+  m_Layer: 29
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,9 +477,9 @@ MonoBehaviour:
   previewMat: {fileID: 2100000, guid: 7d380342618d1d148a3af1efe02ec4f2, type: 2}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1610612736
   raycastRange: 20
-  yGridSize: 0.1
+  yGridSize: 1
 --- !u!4 &1834729610
 Transform:
   m_ObjectHideFlags: 0
