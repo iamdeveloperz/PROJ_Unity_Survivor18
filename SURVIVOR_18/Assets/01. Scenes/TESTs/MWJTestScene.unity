@@ -471,6 +471,7 @@ MonoBehaviour:
   cam: {fileID: 124936954}
   tempPrefab: {fileID: 6715049721476618475, guid: 37d1c3b1152809346beccd664c620486, type: 3}
   previewMat: {fileID: 2100000, guid: 7d380342618d1d148a3af1efe02ec4f2, type: 2}
+  raycastRange: 20
 --- !u!4 &1834729610
 Transform:
   m_ObjectHideFlags: 0
