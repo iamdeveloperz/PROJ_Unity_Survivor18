@@ -1,3 +1,4 @@
+using StarterAssets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ public class PlayerStatHandler : MonoBehaviour, IHitable
     [Header("IsEnough")]
     [SerializeField] private bool _isHungerEnough;
     [SerializeField] private bool _isMoistureEnough;
+    private float _limittedStamina = 70.0f;
+
+    private StarterAssetsInputs _input;
 
     private void Awake()
     {
@@ -28,6 +32,11 @@ public class PlayerStatHandler : MonoBehaviour, IHitable
 
         Hunger.OnBelowedToZero += (() => { StartCoroutine(HitPerSec()); });
         Hunger.OnRecovered += ((x) => { StopCoroutine(HitPerSec()); });
+
+        Moisture.OnBelowedToZero += LimitMaxStamina;
+
+        _input = GetComponent<StarterAssetsInputs>();
+
         // Do it : Condition UI Load
     }
 
@@ -37,17 +46,72 @@ public class PlayerStatHandler : MonoBehaviour, IHitable
         _isHungerEnough = Hunger.curValue != 0;
         _isMoistureEnough = Moisture.curValue != 0;
 
-        // RejenCondition();
-        HP.Add(HP.regenRate * Time.deltaTime * Convert.ToInt32(_isHungerEnough));
-        Stamina.Add(Stamina.regenRate * Time.deltaTime * Convert.ToInt32(_isMoistureEnough));
+        ControlHP();
+        ControlHunger();
+        ControlMoisture();
+        ControlStemina();
+    }
 
-        // DecayCondition();
+    private void ControlHP()
+    {
+        RecoveryHPbyTime();
+    }
+
+    private void ControlHunger()
+    {
+        DigestFood();
+    }
+
+    private void ControlMoisture()
+    {
+        Sweat();
+    }
+
+    private void ControlStemina()
+    {
+        ConsumeStamina();
+        RecoeryStaminaAtTime();
+    }
+
+    private void RecoveryHPbyTime()
+    {
+        if(_isHungerEnough)
+        {
+            HP.Add(HP.regenRate * Time.deltaTime);
+        }
+    }
+    
+    private void DigestFood()
+    {
         Hunger.Subtract(Hunger.decayRate * Time.deltaTime);
-        Moisture.Subtract(Moisture.decayRate * Time.deltaTime);
+    }
 
-        if(true /* is sprint */)
+    private void Sweat()
+    {
+        Moisture.Subtract(Moisture.decayRate * Time.deltaTime);
+    }
+
+    private void ConsumeStamina()
+    {
+        if (_input.sprint)
         {
             Stamina.Subtract(Stamina.decayRate * Time.deltaTime);
+        }
+    }
+
+    private void RecoeryStaminaAtTime()
+    {
+        if (!_input.sprint)
+        {
+            if(_isMoistureEnough)
+            {
+                Stamina.Add(Stamina.regenRate * Time.deltaTime);
+            }
+            else
+            {
+                if(Stamina.curValue <= _limittedStamina)
+                    Stamina.Add(Stamina.regenRate * Time.deltaTime);
+            }
         }
     }
 
@@ -78,5 +142,10 @@ public class PlayerStatHandler : MonoBehaviour, IHitable
     public void Hit(float amount)
     {
         HP.Subtract(amount);
+    }
+
+    private void LimitMaxStamina()
+    {
+        Stamina.curValue = Stamina.curValue > _limittedStamina ? _limittedStamina : Stamina.curValue;
     }
 }

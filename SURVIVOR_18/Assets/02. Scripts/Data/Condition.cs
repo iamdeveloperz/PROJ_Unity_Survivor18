@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 [System.Serializable]
 public class Condition
@@ -23,12 +24,16 @@ public class Condition
 
     public void Add(float amount)
     {
+        if (curValue >= maxValue) return;
+
         curValue = Mathf.Min(curValue + amount, maxValue);
         OnUpdated?.Invoke(GetPercentage());
     }
 
     public void Subtract(float amount)
     {
+        if (curValue == 0) return;
+
         curValue = Mathf.Max(curValue - amount, 0.0f);
         OnUpdated?.Invoke(GetPercentage());
         if(curValue == 0)

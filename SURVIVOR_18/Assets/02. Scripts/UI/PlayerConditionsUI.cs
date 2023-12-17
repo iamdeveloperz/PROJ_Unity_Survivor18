@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerConditionsUI : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerConditionsUI : MonoBehaviour
     private ConditionUI _hungerUI;
     private ConditionUI _moistureUI;
     private ConditionUI _staminaUI;
+    public GameObject staminaBlock;
 
     private void Awake()
     {
@@ -23,7 +25,9 @@ public class PlayerConditionsUI : MonoBehaviour
         playerStatHandler.Hunger.OnUpdated = _hungerUI.UpdateBar;
         _moistureUI.SetMaximum((int)playerStatHandler.Moisture.maxValue);
         playerStatHandler.Moisture.OnUpdated = _moistureUI.UpdateBar;
+        playerStatHandler.Moisture.OnBelowedToZero += (() => { staminaBlock.SetActive(true); });
+        playerStatHandler.Moisture.OnRecovered += ((x) => { staminaBlock.SetActive(false); });
         _staminaUI.SetMaximum((int)playerStatHandler.Stamina.maxValue);
-        playerStatHandler.Stamina.OnUpdated = _staminaUI.UpdateBar;
+        playerStatHandler.Stamina.OnUpdated = _staminaUI.UpdateBar;        
     }
 }

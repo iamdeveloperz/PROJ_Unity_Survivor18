@@ -11,6 +11,7 @@ public class ConditionUI : MonoBehaviour
     private Image _icon;
     private TextMeshProUGUI _text;
     private int _max;
+
     private void Awake()
     {
         _bar = transform.Find("Bar").GetComponent<Slider>();
@@ -24,8 +25,8 @@ public class ConditionUI : MonoBehaviour
     }
 
     public void UpdateBar(float percent)
-    {
+    {        
         _bar.value = percent;
-        _text.text = $"{(int)(_max * percent)} / {_max}";
+        _text.text = $"{(int)Mathf.Round(_max * percent)}";
     }
 }
