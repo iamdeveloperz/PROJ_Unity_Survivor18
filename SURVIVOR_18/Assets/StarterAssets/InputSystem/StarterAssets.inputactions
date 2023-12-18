@@ -42,13 +42,31 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Use",
-                    "type": "Button",
+                    "name": "Attack",
+                    "type": "Value",
                     "id": "e112dd91-b27c-49a5-ac2d-6e6c7c5eb01f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Interact",
+                    "type": "Value",
+                    "id": "e79e3a2a-45df-40ed-8f86-c49a1611a205",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "QuickSlot",
+                    "type": "Value",
+                    "id": "41a3b8b1-3bf9-4ab6-bf9a-93e48f032d79",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -231,11 +249,44 @@
                 {
                     "name": "",
                     "id": "92382e26-445d-447e-b8b6-3b12ed653461",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Use",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b7403afa-ae49-414b-a67c-caaa119f02ea",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a5aaa34-a2a5-4168-9828-842339778f53",
+                    "path": "<Keyboard>/1",
+                    "interactions": "Press(pressPoint=0.5)",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "QuickSlot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1a5fc00b-163f-4b9a-817a-fdb97e316c92",
+                    "path": "<Keyboard>/2",
+                    "interactions": "Press(pressPoint=0.5)",
+                    "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "QuickSlot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
