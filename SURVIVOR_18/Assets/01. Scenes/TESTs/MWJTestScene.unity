@@ -472,14 +472,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39aaea758ddee84aa576caedc699eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 124936954}
-  tempPrefab: {fileID: 6715049721476618475, guid: 37d1c3b1152809346beccd664c620486, type: 3}
-  previewMat: {fileID: 2100000, guid: 7d380342618d1d148a3af1efe02ec4f2, type: 2}
-  groundLayer:
+  _cam: {fileID: 124936954}
+  _tempPrefab: {fileID: 6715049721476618475, guid: 37d1c3b1152809346beccd664c620486, type: 3}
+  _previewMat: {fileID: 2100000, guid: 7d380342618d1d148a3af1efe02ec4f2, type: 2}
+  _groundLayer:
     serializedVersion: 2
     m_Bits: 1610612736
-  raycastRange: 20
-  yGridSize: 1
+  _raycastRange: 20
+  _yGridSize: 0.1
+  _rotationAngle: 45
 --- !u!4 &1834729610
 Transform:
   m_ObjectHideFlags: 0
