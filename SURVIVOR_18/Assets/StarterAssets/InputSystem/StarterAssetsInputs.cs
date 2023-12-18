@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -20,8 +21,11 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		public GameObject inventory;
+		public bool isinvenOpen = false;
+
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -33,20 +37,22 @@ namespace StarterAssets
 				LookInput(value.Get<Vector2>());
 			}
 		}
-
 		public void OnJump(InputValue value)
 		{
 			JumpInput(value.isPressed);
 		}
-
 		public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
 		}
+		public void OnInventory(InputValue value)
+		{
+			OpenInventory();
+        }
 #endif
 
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -75,6 +81,20 @@ namespace StarterAssets
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
-	}
-	
+		public void OpenInventory()
+		{
+			if (!isinvenOpen)
+			{
+				inventory.SetActive(true);
+				isinvenOpen = true;
+				SetCursorState(false);
+            }
+			else
+			{ 
+				inventory.SetActive(false);
+                isinvenOpen = false;
+                SetCursorState(true);
+            }
+        }
+    }
 }

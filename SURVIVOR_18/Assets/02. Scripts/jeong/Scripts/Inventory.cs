@@ -1,6 +1,9 @@
+using StarterAssets;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class Inventory : MonoBehaviour
 {
@@ -9,6 +12,7 @@ public class Inventory : MonoBehaviour
     private GameObject go_SlotsParent;  // Slot들의 부모인 Grid Setting 
 
     private Slot[] slots;  // 슬롯들 배열
+
 
     void Start()
     {
