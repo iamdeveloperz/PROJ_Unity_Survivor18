@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public interface IInteractable
 {
     string GetName();
-    void OnInteract();
+    void ObjectDestroy();
 }
 public class interactionManager : MonoBehaviour
 {
@@ -57,5 +58,15 @@ public class interactionManager : MonoBehaviour
     {
         promptText.gameObject.SetActive(true);
         promptText.text = $"[E] {curInteractable.GetName()} ащ╠Б";
+    }
+    public void OnInteract()
+    {
+        if (curInteractable != null)
+        {
+            curInteractable.ObjectDestroy();
+            curInteractable = null;
+            curInteractGameObject = null;
+            promptText.gameObject.SetActive(false);
+        }
     }
 }

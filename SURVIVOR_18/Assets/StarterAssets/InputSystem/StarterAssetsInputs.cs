@@ -21,8 +21,6 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
-		public GameObject inventory;
-		public bool isinvenOpen = false;
 
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
@@ -45,10 +43,7 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
-		public void OnInventory(InputValue value)
-		{
-			OpenInventory();
-        }
+		
 #endif
 
 
@@ -81,20 +76,6 @@ namespace StarterAssets
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
-		public void OpenInventory()
-		{
-			if (!isinvenOpen)
-			{
-				inventory.SetActive(true);
-				isinvenOpen = true;
-				SetCursorState(false);
-            }
-			else
-			{ 
-				inventory.SetActive(false);
-                isinvenOpen = false;
-                SetCursorState(true);
-            }
-        }
+		
     }
 }

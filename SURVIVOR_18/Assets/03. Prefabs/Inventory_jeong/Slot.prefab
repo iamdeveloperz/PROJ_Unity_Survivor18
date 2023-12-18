@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &243552030376818389
 RectTransform:
   m_ObjectHideFlags: 0
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  itemImage: {fileID: 817366003003672454}
+  itemImage: {fileID: 2369649222924678849}
   itemSelectBtn: {fileID: 8219258189669110055}
 --- !u!1 &8313032390279827700
 GameObject:
