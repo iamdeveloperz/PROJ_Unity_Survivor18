@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - Stone
+  - Tree
   layers:
   - Default
   - TransparentFX
@@ -13,10 +15,10 @@ TagManager:
   - Water
   - UI
   - 
+  - Player
   - 
-  - 
-  - 
-  - 
+  - NotNeedEquipmentResource
+  - NeedEquipmentResource
   - 
   - 
   - 
