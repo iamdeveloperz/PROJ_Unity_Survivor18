@@ -6,9 +6,9 @@ public class ItemObject : MonoBehaviour, IInteractable
 {
     public ItemData itemData;
 
-    public string GetInteractPrompt()
+    public string GetName()
     {
-        return string.Format("Pickup {0}", itemData.name);
+        return itemData.name;
     }
 
     public void OnInteract()

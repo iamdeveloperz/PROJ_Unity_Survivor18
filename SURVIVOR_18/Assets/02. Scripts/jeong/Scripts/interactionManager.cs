@@ -6,7 +6,7 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    string GetInteractPrompt();
+    string GetName();
     void OnInteract();
 }
 public class interactionManager : MonoBehaviour
@@ -56,6 +56,6 @@ public class interactionManager : MonoBehaviour
     private void SetPromptText()
     {
         promptText.gameObject.SetActive(true);
-        promptText.text = string.Format("<b>[E]</b> {0}", curInteractable.GetInteractPrompt());
+        promptText.text = $"[E] {curInteractable.GetName()} ащ╠Б";
     }
 }
