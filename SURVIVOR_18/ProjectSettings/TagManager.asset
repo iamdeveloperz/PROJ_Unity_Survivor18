@@ -37,8 +37,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Ground
+  - Building
   - 
   m_SortingLayers:
   - name: Default
