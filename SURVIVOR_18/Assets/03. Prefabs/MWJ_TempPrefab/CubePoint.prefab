@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _redMat: {fileID: 2100000, guid: fedb6c69e954eb545977b62926bff384, type: 2}
   _bluePrintMat: {fileID: 2100000, guid: 7d380342618d1d148a3af1efe02ec4f2, type: 2}
-  _renderer: {fileID: 3984224311608650704}
+  _thisObjectRenderer: {fileID: 3984224311608650704}
   _thisObjectAnotherColldier: {fileID: 2032270295600581037}
 --- !u!1 &6715049721476618475
 GameObject:
@@ -79,6 +79,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4418460747071579455}
+  - component: {fileID: 6567582436953928676}
   m_Layer: 0
   m_Name: CubePoint
   m_TagString: Untagged
@@ -103,6 +104,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6567582436953928676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6715049721476618475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafbde58dfa195b45a0d90f4ec7cdc51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buildingHealth: 1
+  _renderer: {fileID: 3984224311608650704}
+  _previewMat: {fileID: 2100000, guid: 7d380342618d1d148a3af1efe02ec4f2, type: 2}
+  _nonBuildableMat: {fileID: 2100000, guid: fedb6c69e954eb545977b62926bff384, type: 2}
 --- !u!1 &8795396878757134957
 GameObject:
   m_ObjectHideFlags: 0

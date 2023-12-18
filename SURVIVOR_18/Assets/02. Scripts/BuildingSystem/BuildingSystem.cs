@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class ArchitecturalSystem : MonoBehaviour
+public class BuildingSystem : MonoBehaviour
 {
     [SerializeField] private Camera _cam;
     [SerializeField] private GameObject _tempPrefab;
-    [SerializeField] private Material _previewMat;
     [SerializeField] private LayerMask _groundLayer;
 
     [SerializeField] private int _raycastRange = 20;
     [SerializeField] private float _yGridSize = 0.1f;
     [SerializeField] private int _rotationAngle = 45;
 
-    private Material _originMat;
+    [SerializeField] private Material _previewMat;
+    [SerializeField] private Material _nonBuildableMat;
+
     private GameObject _obj;
+    private BuildableObject _buildableObject;
+
     private bool _isHold = false;
     private bool _canCreateObject = true;
+    private bool _isBreakMode = false;
 
     void Update()
     {
@@ -32,11 +33,11 @@ public class ArchitecturalSystem : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && _canCreateObject)
             {
-                SetInitialObject();
                 _isHold = false;
                 _obj.GetComponentInChildren<BoxCollider>().isTrigger = false;
-
-                Destroy(_obj.GetComponentInChildren<BuildableObject>());
+                
+                _buildableObject.SetInitialObject();
+                _buildableObject.DestroyColliderManager();
             }
             else if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -48,11 +49,33 @@ public class ArchitecturalSystem : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.C))
                 _obj.transform.Rotate(Vector3.up, -_rotationAngle);
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.J))
         {
             _isHold = true;
             CreateBluePrintObject(RaycastHit().point);
         }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if(_isHold)
+            {
+                Destroy(_obj);
+                _isHold = false;
+            }
+            _isBreakMode = _isBreakMode ? false : true;
+            Debug.Log("Ã¶°Å¸ðµå");
+        }
+
+        //if (_isBreakMode)
+        //{
+        //    GameObject toBeDestroyedObject = RaycastHit().collider.gameObject;
+        //    if (toBeDestroyedObject.layer == 30)
+        //    {
+        //        toBeDestroyedObject.GetComponentInChildren<BuildableObject>().SetMaterial(_nonBuildableMat);
+        //        if (Input.GetMouseButtonDown(0))
+        //            Destroy(toBeDestroyedObject);
+        //    }
+        //}
     }
 
     private RaycastHit RaycastHit()
@@ -76,24 +99,13 @@ public class ArchitecturalSystem : MonoBehaviour
     {
         _obj = Instantiate(_tempPrefab);
         SetObjPosition(pos);
-        _originMat = _obj.GetComponentInChildren<Renderer>().material;
-        _obj.GetComponentInChildren<Renderer>().material = _previewMat;
 
-        BuildableObject buildableObject = _obj.GetComponentInChildren<BuildableObject>();
+        _buildableObject = _obj.GetComponent<BuildableObject>();
+        _buildableObject.SetMaterial(_previewMat);
+
+        BuildableObjectColliderManager buildableObject = _obj.GetComponentInChildren<BuildableObjectColliderManager>();
         buildableObject.OnRedMatAction += HandleBuildableObjectTriggerEnter;
         buildableObject.OnBluePrintMatAction += HandleBuildableObjectTriggerExit;
-    }
-
-    private void SetInitialObject()
-    {
-        _obj.GetComponentInChildren<Renderer>().material = _originMat;
-
-        // TODO
-        _obj.layer = 30;
-        for (int i = 0; i < _obj.transform.childCount; ++i)
-            _obj.transform.GetChild(i).gameObject.layer = 30;
-        //obj.layer = LayerMask.GetMask("Building");
-        //obj.transform.GetChild(0).gameObject.layer = groundLayer.value;
     }
 
     private void HandleBuildableObjectTriggerEnter()
