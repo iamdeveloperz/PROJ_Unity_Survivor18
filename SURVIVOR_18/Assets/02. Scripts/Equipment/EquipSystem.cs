@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Âø¿ë °¡´ÉÇÑ ¾ÆÀÌÅÛ ºÎÀ§
+// ì°©ìš© ê°€ëŠ¥í•œ ì•„ì´í…œ ë¶€ìœ„
 public enum EquipableParts
 {
     Head,
@@ -20,7 +20,7 @@ public enum HandableType // GrabType
 
 public class EquipSystem : MonoBehaviour
 {
-    // ¼Õ¿¡ µé°í ÀÖ´Â ¾ÆÀÌÅÛ Á¤º¸
+    // ì†ì— ë“¤ê³  ìˆëŠ” ì•„ì´í…œ ì •ë³´
     [field:SerializeField] public GrabbableItem HandleItem { get; private set; }
 
     public GameObject[] items;
@@ -43,7 +43,7 @@ public class EquipSystem : MonoBehaviour
         items[0] = CreateItemObject("Pick");
         SwitchingHandleItem(1);
     }
-    // ¾ÆÀÌÅÛ º°·Î ¸®Ä¡°¡ ÀÖÀ¸¸é ÁÁÀ»µí
+    // ì•„ì´í…œ ë³„ë¡œ ë¦¬ì¹˜ê°€ ìˆìœ¼ë©´ ì¢‹ì„ë“¯
     // 
 
     private GameObject CreateItemObject(string itemName)
@@ -73,17 +73,17 @@ public class EquipSystem : MonoBehaviour
         }
     }
 
-    // Âø¿ë ÇÔ¼ö
+    // ì°©ìš© í•¨ìˆ˜
     public void Registe(int index, Item item)
     {
-        // index ½½·Ô¿¡ item µî·Ï
+        // index ìŠ¬ë¡¯ì— item ë“±ë¡
 
-        // GameObject ¿¡ Resources.Load
+        // GameObject ì— Resources.Load
 
         // 
     }
 
-    // ÇØÁ¦ ÇÔ¼ö
+    // í•´ì œ í•¨ìˆ˜
     public void UnRegiste(int index)
     {
 

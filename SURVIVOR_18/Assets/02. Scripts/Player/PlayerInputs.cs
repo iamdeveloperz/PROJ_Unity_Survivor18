@@ -20,7 +20,7 @@ public class PlayerInputs : StarterAssetsInputs
 #if ENABLE_INPUT_SYSTEM
     public void OnAttack(InputValue value)
     {
-        // µé°íÀÖ´Â ¾ÆÀÌÅÛ Ã¼Å©
+        // ë“¤ê³ ìˆëŠ” ì•„ì´í…œ ì²´í¬
         AttackInput(value.isPressed);
     }
 
