@@ -778,7 +778,11 @@ PrefabInstance:
     - target: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_Follow
       value: 
+<<<<<<< Updated upstream
       objectReference: {fileID: 1051360836}
+=======
+      objectReference: {fileID: 700051398}
+>>>>>>> Stashed changes
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
