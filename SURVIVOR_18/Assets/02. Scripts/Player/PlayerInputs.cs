@@ -32,6 +32,7 @@ public class PlayerInputs : StarterAssetsInputs
     public void OnQuickSlot(InputValue value)
     {
         string strNumber = value.Get().ToString();
+        Debug.Log("Press" + strNumber);
         int num = int.Parse(strNumber);
         if(num != 0)
         {
@@ -58,7 +59,6 @@ public class PlayerInputs : StarterAssetsInputs
 
     public void QuickSlotInput(int newQuickSlot)
     {
-
         OnPressedQuickNumber?.Invoke(newQuickSlot);
     }
 }

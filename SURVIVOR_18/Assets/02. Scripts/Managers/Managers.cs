@@ -11,7 +11,7 @@ public class Managers : SingletonBehavior<Managers>
 
     #region Manager Properties
 
-    public GameManager Game => Instance._gameManager;
+    public static GameManager Game => Instance._gameManager;
 
     #endregion
 }

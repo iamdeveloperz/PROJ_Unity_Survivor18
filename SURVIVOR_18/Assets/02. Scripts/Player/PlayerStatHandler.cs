@@ -42,11 +42,9 @@ public class PlayerStatHandler : MonoBehaviour, IHitable
 
     private void Update()
     {
-        // CheckConditionRejenable();
         _isHungerEnough = Hunger.curValue != 0;
         _isMoistureEnough = Moisture.curValue != 0;
 
-        ControlHP();
         ControlHunger();
         ControlMoisture();
         ControlStemina();
@@ -70,7 +68,7 @@ public class PlayerStatHandler : MonoBehaviour, IHitable
     private void ControlStemina()
     {
         ConsumeStamina();
-        RecoeryStaminaAtTime();
+        RecoveryStaminaAtTime();
     }
 
     private void RecoveryHPbyTime()
@@ -99,7 +97,7 @@ public class PlayerStatHandler : MonoBehaviour, IHitable
         }
     }
 
-    private void RecoeryStaminaAtTime()
+    private void RecoveryStaminaAtTime()
     {
         if (!_input.sprint)
         {
