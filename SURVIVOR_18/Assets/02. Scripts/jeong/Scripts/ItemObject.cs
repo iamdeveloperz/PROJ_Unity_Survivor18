@@ -13,6 +13,14 @@ public class ItemObject : MonoBehaviour, IInteractable
 
     public void ObjectDestroy()
     {
-        Destroy(gameObject);
+        if (Inventory.Instance != null && itemData != null)
+        {
+            Inventory.Instance.AddItem(itemData);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("Inventory.Instance or itemData is null. Object destruction aborted.");
+        }
     }
 }

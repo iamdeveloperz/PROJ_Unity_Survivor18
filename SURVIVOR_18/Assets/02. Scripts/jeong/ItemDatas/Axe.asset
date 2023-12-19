@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   itemName: "\uB3C4\uB07C"
+  itemInfo: "\uB098\uBB34\uB97C \uC790\uB97C \uB54C \uC0AC\uC6A9\uD55C\uB2E4."
   type: 1
   itemImage: {fileID: 21300000, guid: 06e8d836c76eb494db7ab3784ffcb0eb, type: 3}
   dropPrefab: {fileID: 0}

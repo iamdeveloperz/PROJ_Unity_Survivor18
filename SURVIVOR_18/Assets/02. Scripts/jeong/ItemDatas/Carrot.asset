@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Carrot
   m_EditorClassIdentifier: 
   itemName: "\uB2F9\uADFC"
+  itemInfo: "\uD3EC\uB9CC\uAC10\uACFC \uCCB4\uB825\uC744 \uC18C\uB7C9 \uCC44\uC6CC\uC900\uB2E4."
   type: 2
   itemImage: {fileID: 21300000, guid: b53822ec75d701e49b9947d1d09fd81e, type: 3}
   dropPrefab: {fileID: 0}
