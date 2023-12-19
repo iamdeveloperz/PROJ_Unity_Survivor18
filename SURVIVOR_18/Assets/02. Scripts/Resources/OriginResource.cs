@@ -13,7 +13,7 @@ public class OriginResource : MonoBehaviour, IHitable
     
     #region Properties
 
-    public int Amount { get; set; }
+    private int Amount { get; set; }
 
     #endregion
 
@@ -24,10 +24,11 @@ public class OriginResource : MonoBehaviour, IHitable
 
     public void InitAmount(int amount)
     {
+        
         // 추 후 변경 가능성이 있어 보임 [By. 희성]
-        if (Amount is < 1 or > 10)
+        if (amount is < 1 or > 10)
         {
-            Debug.LogWarning("체력 구성은 1 ~ 10이어야만 합니다.");
+            Debug.LogWarning($"체력 구성은 1 ~ 10이어야만 합니다 : {amount}");
             return;
         }
         
@@ -41,15 +42,19 @@ public class OriginResource : MonoBehaviour, IHitable
         _config = config;
         
         // 테스트
-        Debug.Log(_config.ResourceType.ToString() +
+        /*Debug.Log(_config.ResourceType.ToString() +
                   _config.ModelPrefab.name +
-                  _config.GetResourceItem.name);
+                  _config.GetResourceItem.name);*/
     }
 
     #endregion
     
     public void Hit(float amount)
     {
-        
+        Amount -= 1;
+        if (Amount == 0)
+        {
+            
+        }
     }
 }
