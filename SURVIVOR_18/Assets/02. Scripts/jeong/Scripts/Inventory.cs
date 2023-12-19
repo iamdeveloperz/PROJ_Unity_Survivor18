@@ -23,10 +23,10 @@ public class ItemSlot
 }
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private GameObject go_SlotsParent;  // SlotµéÀÇ ºÎ¸ðÀÎ Grid Setting 
-    [SerializeField] private Slot[] slots;  // ½½·Ôµé ¹è¿­
-    public TextMeshProUGUI itemName;  // ½½·Ôµé ¹è¿­
-    public TextMeshProUGUI itemInfo;  // ½½·Ôµé ¹è¿­
+    [SerializeField] private GameObject go_SlotsParent;  // Slotï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½ Grid Setting 
+    [SerializeField] private Slot[] slots;  // ï¿½ï¿½ï¿½Ôµï¿½ ï¿½è¿­
+    public TextMeshProUGUI itemName;  // ï¿½ï¿½ï¿½Ôµï¿½ ï¿½è¿­
+    public TextMeshProUGUI itemInfo;  // ï¿½ï¿½ï¿½Ôµï¿½ ï¿½è¿­
 
     public List<ItemSlot> items;
 
@@ -44,7 +44,7 @@ public class Inventory : MonoBehaviour
     {
         CreateSlotItem();
     }
-    public void CreateSlotItem() //ÇöÀç °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛ »ý¼º ¹× Null
+    public void CreateSlotItem() //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Null
     {
         int i = 0;
         if (items != null)
@@ -61,15 +61,15 @@ public class Inventory : MonoBehaviour
     }
     public void AddItem(ItemData item)
     {
-        if (item.canStack) //¾ÆÀÌÅÛÀÌ ¼ö·®ÀÌ¸é
+        if (item.canStack) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
         {
             if (items.Find(itemSlot => itemSlot.item == item) == null)
             {
                 items.Add(new ItemSlot(item, 0));
             }
-            for (int i = 0; i < items.Count; i++) //ÇöÀç µé¾î¿Í ÀÖ´Â ¾ÆÀÌÅÛÀÌ¶û ´ëÁ¶
+            for (int i = 0; i < items.Count; i++) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
-                if (items[i].item.name == item.name) //¾ÆÀÌÅÛÀÌ ¸ÂÀ¸¸é ¼ö·® Áõ°¡
+                if (items[i].item.name == item.name) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 {
                     items[i].quantity++;
                     slots[i].CheckQuantity(items[i]);

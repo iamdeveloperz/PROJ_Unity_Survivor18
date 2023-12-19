@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        var handleItemData = _equipSystem.HandleItem.itemData;
+        var handleItemData = _equipSystem.HandleItem.itemData as HandleItemData;
         _attackDelayTimer += Time.deltaTime;
         if (_attackDelayTimer < _attackDelay) return;
                 
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log($"{hit.collider.gameObject.name}");
                     _attackDelayTimer = 0.0f;
                     _animator.SetTrigger(handleItemData.type.ToString());
-                    hit.collider.gameObject.GetComponent<IHitable>()?.Hit(_equipSystem.HandleItem.itemData.attackPower);
+                    hit.collider.gameObject.GetComponent<IHitable>()?.Hit(handleItemData.attackPower);
                 }                
             }
         }

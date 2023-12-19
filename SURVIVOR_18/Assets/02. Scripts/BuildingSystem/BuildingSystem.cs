@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class BuildingSystem : MonoBehaviour
@@ -63,7 +64,7 @@ public class BuildingSystem : MonoBehaviour
                 _isHold = false;
             }
             _isBreakMode = _isBreakMode ? false : true;
-            Debug.Log("ö�Ÿ��");
+            Debug.Log("철거모드");
         }
 
         //if (_isBreakMode)

@@ -7,87 +7,45 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
-public class Slot : MonoBehaviour, IPointerClickHandler
+public class Slot : MonoBehaviour, IDropHandler
 {
     public ItemData item; //아이템
-    public ItemSlot itemSlot; //아이템
     public Image itemImage;  // 아이템의 이미지
     public Button itemSelectBtn;  // 아이템 선택버튼
-
     [SerializeField]
     private GameObject quantityTxt;
-
-    int itemQuantity;
     // 인벤토리에 새로운 아이템 슬롯 추가
-    public void AddItem(ItemSlot _item)
+    public void AddItem(ItemData _item)
     {
-        if (_item != null)
-        {
-            item = _item.item;
-            itemSlot = _item;
-        }
+        item = _item;
         if (item != null)
         {
             itemImage.sprite = item.icon;
-            if (item.canStack)
-            {
-                itemQuantity = itemSlot.quantity;
-                CheckQuantity(itemSlot);
-            }
         }
+    }
+
+    // 해당 슬롯 하나 삭제
+    private void ClearSlot()
+    {
+        item = null;
+        itemImage.sprite = null;
     }
     public void CheckQuantity(ItemSlot slot)
     {
+        Debug.Log(slot.item.name);
         if (slot.item.canStack && slot.quantity > 1)
         {
             quantityTxt.SetActive(true);
             quantityTxt.GetComponent<TextMeshProUGUI>().text = slot.quantity.ToString();
-            itemQuantity = slot.quantity;
         }
     }
-    public void ClearSlot()
+    public void OnDrop(PointerEventData eventData)
     {
-        item = null;
-        itemImage.sprite = null;
-        quantityTxt.SetActive(false);
-        for (int i = 0; i < Inventory.Instance.items.Count; i++)
+        // 드롭한 아이템이 있다면 해당 아이템을 현재 슬롯에 추가합니다.
+        ItemDragHandler itemDragHandler = eventData.pointerDrag.GetComponent<ItemDragHandler>();
+        if (itemDragHandler != null)
         {
-            if (Inventory.Instance.items[i] == itemSlot)
-            {
-                Inventory.Instance.items.Remove(Inventory.Instance.items[i]);
-            }
-        }
-    }
-    public void TextUpdate()
-    {
-        Inventory.Instance.itemName.text = item.displayName;
-        Inventory.Instance.itemInfo.text = item.description;
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        TextUpdate();
-        if (eventData.button == PointerEventData.InputButton.Right) //오른쪽 클릭이면 해당 오브젝트의 아이템을 장착함
-        {
-            if (item != null)
-            {
-                //아이템 타입에 따라 장착, 사용
-                //if (item.GetType == )
-                //{
-
-                //}
-                if (true)
-                {
-                    // 소비
-                    itemQuantity--;
-                    if (itemQuantity <= 0)
-                    {
-                        ClearSlot();
-                        return;
-                    }
-                    quantityTxt.GetComponent<TextMeshProUGUI>().text = itemQuantity.ToString();
-                }
-            }
+            itemDragHandler.DropItemToSlot(this);
         }
     }
 }

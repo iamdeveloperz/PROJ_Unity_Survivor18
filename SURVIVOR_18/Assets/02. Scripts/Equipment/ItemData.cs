@@ -15,16 +15,16 @@ public class ItemData : ScriptableObject
     public GameObject dropPrefab;
 }
 
-public class RegistableItem : ItemData
+public class RegistableItemData : ItemData
 {
-    public RegistableItem()
+    public RegistableItemData()
     {
         equipPart = EquipableParts.Hand;
     }
 }
 
 [CreateAssetMenu(fileName = "EquipableItemData", menuName = "New Item/HandleItem", order = 1)]
-public class HandleItem : RegistableItem
+public class HandleItemData : RegistableItemData
 {
     [Header("Interact Setting")]
     public float attackPower;
@@ -33,7 +33,7 @@ public class HandleItem : RegistableItem
     public string target;
     public HandableType type; // Weapon Type // Gear?
 
-    public HandleItem() : base()
+    public HandleItemData() : base()
     {
         canStack = false;
         maxStackCount = 1;
@@ -41,35 +41,35 @@ public class HandleItem : RegistableItem
 }
 
 [CreateAssetMenu(fileName = "EquipableItemData", menuName = "New Item/ConsumableItem", order = 2)]
-public class ConsumableItem : RegistableItem
+public class ConsumableItemData : RegistableItemData
 {
-    public ConsumableItem() : base()
+    public ConsumableItemData() : base()
     {
         canStack = true;
     }
 }
 
-public class UnRegistableItem : ItemData
+public class UnRegistableItemData : ItemData
 {
-    public UnRegistableItem()
+    public UnRegistableItemData()
     {
         
     }
 }
 
 [CreateAssetMenu(fileName = "EquipableItemData", menuName = "New Item/IngredientItem", order = 3)]
-public class IngredientItem : UnRegistableItem
+public class IngredientItemData : UnRegistableItemData
 {
-    public IngredientItem()
+    public IngredientItemData()
     {
         canStack = true;
     }
 }
 
 [CreateAssetMenu(fileName = "EquipableItemData", menuName = "New Item/WearableItem", order = 4)]
-public  class WearableItem : UnRegistableItem
+public  class WearableItemData : UnRegistableItemData
 {
-    public WearableItem()
+    public WearableItemData()
     {
         canStack = false;
         maxStackCount = 1;
@@ -95,15 +95,6 @@ public class GrabbleItemData : EquipItemData
     }
 }
 
-public class WearableItemData : EquipItemData
-{
-    public float deffend;
-
-    public WearableItemData()
-    {
-        equipPart = EquipableParts.Head;
-    }
-}
 public class EatableItemData : ItemData
 {
 
