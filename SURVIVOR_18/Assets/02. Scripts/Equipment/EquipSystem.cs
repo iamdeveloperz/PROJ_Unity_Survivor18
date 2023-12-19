@@ -22,7 +22,7 @@ public enum HandableType // GrabType
 public class EquipSystem : MonoBehaviour
 {
     // 손에 들고 있는 아이템 정보
-    [field:SerializeField] public GrabbableItem HandleItem { get; private set; }
+    [field:SerializeField] public RegistableItem HandleItem { get; private set; }
 
     public GameObject[] items;
     public Transform hand;
@@ -66,7 +66,7 @@ public class EquipSystem : MonoBehaviour
             if(i == n)
             {
                 items[i].SetActive(true);
-                HandleItem = items[i].GetComponent<GrabbableItem>();
+                HandleItem = items[i].GetComponent<RegistableItem>();
             }
             else
             {
@@ -76,12 +76,16 @@ public class EquipSystem : MonoBehaviour
     }
 
     // 착용 함수
-    public void Registe(int index, GrabbleItemData itemData)
+    public void Registe(int index, RegistableItemData itemData)
     {
         // index 슬롯에 item 등록
         UnRegiste(index);
-        var itemObject = CreateItemObject(itemData.type.ToString());
-        items[index] = itemObject;
+        if(itemData is HandleItemData)
+        {
+            var itemdata = itemData as HandleItemData;
+            var itemObject = CreateItemObject(itemdata.type.ToString());
+            items[index] = itemObject;
+        }
 
         // GameObject 에 Resources.Load
 

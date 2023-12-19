@@ -12,10 +12,10 @@ using static UnityEditor.Progress;
 [Serializable]
 public class ItemSlot
 {
-    public ItemDataInfo item;
+    public ItemData item;
     public int quantity;
 
-    public ItemSlot(ItemDataInfo item,int quantity)
+    public ItemSlot(ItemData item,int quantity)
     {
         this.item = item;
         this.quantity = quantity;
@@ -62,7 +62,7 @@ public class Inventory : MonoBehaviour
             slots[i].AddItem(null);
         }
     }
-    public void AddItem(ItemDataInfo item)
+    public void AddItem(ItemData item)
     {
         if (item.canStack) //아이템이 수량이면
         {
@@ -84,7 +84,7 @@ public class Inventory : MonoBehaviour
             items.Add(new ItemSlot(item, 0));
         }
     }
-    public void HandleDroppedItem(Slot slot, ItemDataInfo droppedItem)
+    public void HandleDroppedItem(Slot slot, ItemData droppedItem)
     {
         // 드롭된 아이템 처리 로직을 구현합니다.
         // 여기서는 간단한 예시로 아이템을 슬롯에 추가합니다.
