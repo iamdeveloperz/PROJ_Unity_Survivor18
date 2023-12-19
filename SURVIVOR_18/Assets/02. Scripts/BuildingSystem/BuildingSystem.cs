@@ -63,7 +63,7 @@ public class BuildingSystem : MonoBehaviour
                 _isHold = false;
             }
             _isBreakMode = _isBreakMode ? false : true;
-            Debug.Log("ö�Ÿ��");
+            Debug.Log("철거모드");
         }
 
         //if (_isBreakMode)
