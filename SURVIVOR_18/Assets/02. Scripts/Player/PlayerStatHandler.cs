@@ -40,6 +40,12 @@ public class PlayerStatHandler : MonoBehaviour, IHitable
         // Do it : Condition UI Load
     }
 
+    private void Start()
+    {
+        //Resources.Load<GameObject>("UI/ConditionsUI")
+        //GameObject.Find("Canvas").transform;
+    }
+
     private void Update()
     {
         _isHungerEnough = Hunger.curValue != 0;
