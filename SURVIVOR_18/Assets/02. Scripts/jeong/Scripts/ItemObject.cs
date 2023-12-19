@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemObject : MonoBehaviour, IInteractable
 {
-    public ItemDataInfo itemData;
+    public ItemData itemData;
 
     public string GetName()
     {
