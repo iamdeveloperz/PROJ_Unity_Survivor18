@@ -61,8 +61,17 @@
                 },
                 {
                     "name": "QuickSlot",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "41a3b8b1-3bf9-4ab6-bf9a-93e48f032d79",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "7a05d1d3-0774-4a65-b2b4-21df66a38608",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -292,34 +301,12 @@
                 },
                 {
                     "name": "",
-                    "id": "7ebd2258-4f93-402c-b279-99cd567cf6ac",
-                    "path": "<Keyboard>/3",
-                    "interactions": "Press(pressPoint=0.5)",
-                    "processors": "Scale(factor=3)",
+                    "id": "fd8ef15f-7578-4b4c-a69c-d2070beeb494",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
                     "groups": "",
-                    "action": "QuickSlot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1f13075c-79a9-49db-aa0e-fabd3af3082c",
-                    "path": "<Keyboard>/4",
-                    "interactions": "Press(pressPoint=0.5)",
-                    "processors": "Scale(factor=4)",
-                    "groups": "",
-                    "action": "QuickSlot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e506f0a4-656e-4665-ba1b-abdb9f5e1206",
-                    "path": "<Keyboard>/5",
-                    "interactions": "Press(pressPoint=0.5)",
-                    "processors": "Scale(factor=5)",
-                    "groups": "",
-                    "action": "QuickSlot",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
