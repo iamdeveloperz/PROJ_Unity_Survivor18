@@ -20,7 +20,7 @@ public class Slot : MonoBehaviour, IDropHandler
         item = _item;
         if (item != null)
         {
-            itemImage.sprite = item.itemImage;
+            itemImage.sprite = item.icon;
         }
     }
 

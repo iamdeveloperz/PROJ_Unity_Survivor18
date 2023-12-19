@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public enum EquipableParts
 
 public enum HandableType // GrabType
 {
-    None,
+    EmptyHand,
     Weapon,
     Axe,
     Pick,
@@ -26,6 +27,9 @@ public class EquipSystem : MonoBehaviour
     public GameObject[] items;
     public Transform hand;
     private PlayerInputs _playerInputs;
+    public GrabbleItemData tempItemData;
+    public event Action OnRegisted;
+    public event Action OnUnRegisted;
 
     private void Awake()
     {
@@ -40,11 +44,9 @@ public class EquipSystem : MonoBehaviour
         _playerInputs.OnPressedQuickNumber += SwitchingHandleItem;
 
 
-        items[0] = CreateItemObject("Pick");
+        Registe(0, tempItemData);
         SwitchingHandleItem(1);
     }
-    // 아이템 별로 리치가 있으면 좋을듯
-    // 
 
     private GameObject CreateItemObject(string itemName)
     {
@@ -74,9 +76,12 @@ public class EquipSystem : MonoBehaviour
     }
 
     // 착용 함수
-    public void Registe(int index, Item item)
+    public void Registe(int index, GrabbleItemData itemData)
     {
         // index 슬롯에 item 등록
+        UnRegiste(index);
+        var itemObject = CreateItemObject(itemData.type.ToString());
+        items[index] = itemObject;
 
         // GameObject 에 Resources.Load
 
@@ -86,6 +91,7 @@ public class EquipSystem : MonoBehaviour
     // 해제 함수
     public void UnRegiste(int index)
     {
-
+        Destroy(items[index]);
+        items[index] = null;
     }
 }
