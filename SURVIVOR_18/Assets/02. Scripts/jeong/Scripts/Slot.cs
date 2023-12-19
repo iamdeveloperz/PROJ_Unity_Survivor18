@@ -7,45 +7,81 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
-public class Slot : MonoBehaviour, IDropHandler
+public class Slot : MonoBehaviour, IPointerClickHandler
 {
-    public ItemData item; //æ∆¿Ã≈€
-    public Image itemImage;  // æ∆¿Ã≈€¿« ¿ÃπÃ¡ˆ
-    public Button itemSelectBtn;  // æ∆¿Ã≈€ º±≈√πˆ∆∞
+    public ItemData item; //ÏïÑÏù¥ÌÖú
+    public ItemSlot itemSlot; //ÏïÑÏù¥ÌÖú
+    public Image itemImage;  // ÏïÑÏù¥ÌÖúÏùò Ïù¥ÎØ∏ÏßÄ
+    public Button itemSelectBtn;  // ÏïÑÏù¥ÌÖú ÏÑ†ÌÉùÎ≤ÑÌäº
+
     [SerializeField]
     private GameObject quantityTxt;
-    // ¿Œ∫•≈‰∏Æø° ªı∑ŒøÓ æ∆¿Ã≈€ ΩΩ∑‘ √ﬂ∞°
-    public void AddItem(ItemData _item)
+
+    int itemQuantity;
+    // Ïù∏Î≤§ÌÜ†Î¶¨Ïóê ÏÉàÎ°úÏö¥ ÏïÑÏù¥ÌÖú Ïä¨Î°Ø Ï∂îÍ∞Ä
+    public void AddItem(ItemSlot _item)
     {
-        item = _item;
+        if (_item != null)
+        {
+            item = _item.item;
+            itemSlot = _item;
+        }
         if (item != null)
         {
             itemImage.sprite = item.icon;
+            if (item.canStack)
+            {
+                itemQuantity = itemSlot.quantity;
+                CheckQuantity(itemSlot);
+            }
         }
-    }
-
-    // «ÿ¥Á ΩΩ∑‘ «œ≥™ ªË¡¶
-    private void ClearSlot()
-    {
-        item = null;
-        itemImage.sprite = null;
     }
     public void CheckQuantity(ItemSlot slot)
     {
-        Debug.Log(slot.item.name);
         if (slot.item.canStack && slot.quantity > 1)
         {
             quantityTxt.SetActive(true);
             quantityTxt.GetComponent<TextMeshProUGUI>().text = slot.quantity.ToString();
+            itemQuantity = slot.quantity;
         }
     }
-    public void OnDrop(PointerEventData eventData)
+    public void ClearSlot()
     {
-        // µÂ∑”«— æ∆¿Ã≈€¿Ã ¿÷¥Ÿ∏È «ÿ¥Á æ∆¿Ã≈€¿ª «ˆ¿Á ΩΩ∑‘ø° √ﬂ∞°«’¥œ¥Ÿ.
-        ItemDragHandler itemDragHandler = eventData.pointerDrag.GetComponent<ItemDragHandler>();
-        if (itemDragHandler != null)
+        item = null;
+        itemImage.sprite = null;
+        quantityTxt.SetActive(false);
+        for (int i = 0; i < Inventory.Instance.items.Count; i++)
         {
-            itemDragHandler.DropItemToSlot(this);
+            if (Inventory.Instance.items[i] == itemSlot)
+            {
+                Inventory.Instance.items.Remove(Inventory.Instance.items[i]);
+            }
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right) //Ïò§Î•∏Ï™Ω ÌÅ¥Î¶≠Ïù¥Î©¥ Ìï¥Îãπ Ïò§Î∏åÏ†ùÌä∏Ïùò ÏïÑÏù¥ÌÖúÏùÑ Ïû•Ï∞©Ìï®
+        {
+            if (item != null)
+            {
+                //ÏïÑÏù¥ÌÖú ÌÉÄÏûÖÏóê Îî∞Îùº Ïû•Ï∞©, ÏÇ¨Ïö©
+                //if (item.GetType == )
+                //{
+
+                //}
+                if (true)
+                {
+                    // ÏÜåÎπÑ
+                    itemQuantity--;
+                    if (itemQuantity <= 0)
+                    {
+                        ClearSlot();
+                        return;
+                    }
+                    quantityTxt.GetComponent<TextMeshProUGUI>().text = itemQuantity.ToString();
+                }
+            }
         }
     }
 }
