@@ -11,11 +11,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
   m_Name: Pick
-  m_EditorClassIdentifier: Assembly-CSharp::GrabbleItemData
-  displayName: "\uACE1\uAD2D\uC774"
+  m_EditorClassIdentifier: Assembly-CSharp::HandleItem
+  displayName: "\uB3C4\uB07C"
   description: 
   icon: {fileID: 21300000, guid: 2d5f2cee812b01c49975fb73bebc1d81, type: 3}
   equipPart: 1
+  canStack: 0
+  maxStackCount: 1
+  dropPrefab: {fileID: 0}
   attackPower: 1
   range: 7
   targetLayer:
