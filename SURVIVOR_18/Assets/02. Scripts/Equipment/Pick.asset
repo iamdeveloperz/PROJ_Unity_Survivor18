@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Pick
   m_EditorClassIdentifier: Assembly-CSharp::GrabbleItemData
-  displayName: 
+  displayName: "\uACE1\uAD2D\uC774"
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 2d5f2cee812b01c49975fb73bebc1d81, type: 3}
   equipPart: 1
   attackPower: 1
   range: 7

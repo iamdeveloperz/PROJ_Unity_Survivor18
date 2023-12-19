@@ -33,3 +33,9 @@ public class WearableItemData : EquipItemData
         equipPart = EquipableParts.Head;
     }
 }
+
+[CreateAssetMenu(fileName = "EquipableItemData", menuName = "New Item/Equipable/Eatable", order = 4)]
+public class EatableItemData : ItemData
+{
+
+}

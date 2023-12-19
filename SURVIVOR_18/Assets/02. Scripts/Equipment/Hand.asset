@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Hand
   m_EditorClassIdentifier: Assembly-CSharp::GrabbleItemData
-  displayName: 
+  displayName: "\uC190"
   description: 
   icon: {fileID: 0}
   equipPart: 1

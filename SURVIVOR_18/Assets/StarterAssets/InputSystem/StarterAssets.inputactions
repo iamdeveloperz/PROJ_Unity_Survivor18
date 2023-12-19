@@ -61,12 +61,12 @@
                 },
                 {
                     "name": "QuickSlot",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "41a3b8b1-3bf9-4ab6-bf9a-93e48f032d79",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -285,6 +285,39 @@
                     "path": "<Keyboard>/2",
                     "interactions": "Press(pressPoint=0.5)",
                     "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "QuickSlot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ebd2258-4f93-402c-b279-99cd567cf6ac",
+                    "path": "<Keyboard>/3",
+                    "interactions": "Press(pressPoint=0.5)",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "QuickSlot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f13075c-79a9-49db-aa0e-fabd3af3082c",
+                    "path": "<Keyboard>/4",
+                    "interactions": "Press(pressPoint=0.5)",
+                    "processors": "Scale(factor=4)",
+                    "groups": "",
+                    "action": "QuickSlot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e506f0a4-656e-4665-ba1b-abdb9f5e1206",
+                    "path": "<Keyboard>/5",
+                    "interactions": "Press(pressPoint=0.5)",
+                    "processors": "Scale(factor=5)",
                     "groups": "",
                     "action": "QuickSlot",
                     "isComposite": false,
