@@ -19,11 +19,13 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] private PlayerInputs _playerInputs;
 
     private GameObject _obj;
+    private GameObject _lastHitObjectForBreakMode;
     private BuildableObject _buildableObject;
 
     private bool _isHold = false;
     private bool _canCreateObject = true;
     private bool _isBreakMode = false;
+
 
     private void Start()
     {
@@ -45,6 +47,8 @@ public class BuildingSystem : MonoBehaviour
                 && _groundLayer == (_groundLayer | (1 << hit.collider.gameObject.layer)))
                 SetObjPosition(hit.point);
         }
+        else if (_isBreakMode)
+            SetMaterialForDeletion();
     }
 
     #region
@@ -77,14 +81,31 @@ public class BuildingSystem : MonoBehaviour
         buildableObject.OnRedMatAction += HandleBuildableObjectTriggerEnter;
         buildableObject.OnBluePrintMatAction += HandleBuildableObjectTriggerExit;
     }
+
+    private void SetMaterialForDeletion()
+    {
+        RaycastHit hit = RaycastHit();
+        if (hit.collider != null && hit.collider.gameObject.layer == 30)
+        {
+            if (_lastHitObjectForBreakMode != null && _lastHitObjectForBreakMode != hit.collider.gameObject)
+                _lastHitObjectForBreakMode.GetComponentInParent<BuildableObject>().SetOriginMaterial();
+
+            _lastHitObjectForBreakMode = hit.collider.gameObject;
+            _lastHitObjectForBreakMode.GetComponentInParent<BuildableObject>().SetMaterial(_nonBuildableMat);
+        }
+    }
+
     #endregion
 
     #region Player Input Action Handle
 
     private void HandleCreateBluePrint()
     {
-        _isHold = true;
-        CreateBluePrintObject(RaycastHit().point);
+        if (!_isHold)
+        {
+            _isHold = true;
+            CreateBluePrintObject(RaycastHit().point);
+        }
     }
 
     private void HandleRotateArchitectureLeft()
@@ -136,11 +157,8 @@ public class BuildingSystem : MonoBehaviour
         {
             GameObject toBeDestroyedObject = RaycastHit().collider.gameObject;
             if (toBeDestroyedObject.layer == 30)
-            {
-                toBeDestroyedObject.GetComponentInParent<BuildableObject>().SetMaterial(_nonBuildableMat);
                 if (Input.GetMouseButtonDown(0))
-                    Destroy(toBeDestroyedObject);
-            }
+                    Destroy(toBeDestroyedObject.transform.parent.gameObject);
         }
     }
 

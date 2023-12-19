@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class BuildableObject : MonoBehaviour
 
     public void SetInitialObject()
     {
-        SetMaterial(_originMat);
+        SetOriginMaterial();
 
         // TODO
         gameObject.layer = 30;
@@ -36,6 +37,11 @@ public class BuildableObject : MonoBehaviour
     public void SetMaterial(Material material)
     {
         _renderer.material = material;
+    }
+
+    public void SetOriginMaterial()
+    {
+        _renderer.material = _originMat;
     }
 
     public void DestroyObject()

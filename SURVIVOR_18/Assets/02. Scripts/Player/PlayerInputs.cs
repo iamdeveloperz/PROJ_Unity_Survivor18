@@ -51,37 +51,37 @@ public class PlayerInputs : StarterAssetsInputs
 
     #region Building System
 
-    public void OnCreateBluePrintArchitecture(InputValue value)
+    public void OnCreateBluePrintArchitecture()
     {
         OnCreateBluePrintAction?.Invoke();
     }
 
-    public void OnRotateArchitectureLeft(InputValue value)
+    public void OnRotateArchitectureLeft()
     {
         OnRotateArchitectureLeftAction?.Invoke();
     }
 
-    public void OnRotateArchitectureRight(InputValue value)
+    public void OnRotateArchitectureRight()
     {
         OnRotateArchitectureRightAction?.Invoke();
     }
 
-    public void OnCancelBuildMode(InputValue value)
+    public void OnCancelBuildMode()
     {
         OnCancelBuildModeAction?.Invoke();
     }
 
-    public void OnInstallArchitecture(InputValue value)
+    public void OnInstallArchitecture()
     {
         OnInstallArchitectureAction?.Invoke();
     }
 
-    public void OnBreakMode(InputValue value)
+    public void OnBreakMode()
     {
         OnBreakModeAction?.Invoke();
     }
 
-    public void OnBreakArchitecture(InputValue value)
+    public void OnBreakArchitecture()
     {
         OnBreakArchitectureAction?.Invoke();
     }
