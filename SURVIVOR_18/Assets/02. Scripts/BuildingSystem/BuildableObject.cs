@@ -11,6 +11,8 @@ public class BuildableObject : MonoBehaviour
     private Material _originMat;
     private BuildableObjectColliderManager _colliderManager;
 
+    private int buildingLayer = 30;
+
     void Awake()
     {
         _originMat = new Material(_renderer.material);
@@ -26,12 +28,9 @@ public class BuildableObject : MonoBehaviour
     {
         SetOriginMaterial();
 
-        // TODO
-        gameObject.layer = 30;
+        gameObject.layer = buildingLayer;
         for (int i = 0; i < transform.childCount; ++i)
-            transform.GetChild(i).gameObject.layer = 30;
-        //obj.layer = LayerMask.GetMask("Building");
-        //obj.transform.GetChild(0).gameObject.layer = groundLayer.value;
+            transform.GetChild(i).gameObject.layer = buildingLayer;
     }
 
     public void SetMaterial(Material material)

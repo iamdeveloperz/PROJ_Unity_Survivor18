@@ -7,25 +7,23 @@ public class BuildingSystem : MonoBehaviour
 {
     [SerializeField] private Camera _cam;
     [SerializeField] private GameObject _tempPrefab;
+    [SerializeField] private Material _previewMat;
+    [SerializeField] private Material _nonBuildableMat;
+    [SerializeField] private PlayerInputs _playerInputs;
     [SerializeField] private LayerMask _groundLayer;
 
     [SerializeField] private int _raycastRange = 20;
     [SerializeField] private float _yGridSize = 0.1f;
     [SerializeField] private int _rotationAngle = 45;
 
-    [SerializeField] private Material _previewMat;
-    [SerializeField] private Material _nonBuildableMat;
-
-    [SerializeField] private PlayerInputs _playerInputs;
-
     private GameObject _obj;
     private GameObject _lastHitObjectForBreakMode;
     private BuildableObject _buildableObject;
 
     private bool _isHold = false;
-    private bool _canCreateObject = true;
     private bool _isBreakMode = false;
-
+    private bool _canCreateObject = true;
+    private int buildingLayer = 30;
 
     private void Start()
     {
@@ -85,7 +83,7 @@ public class BuildingSystem : MonoBehaviour
     private void SetMaterialForDeletion()
     {
         RaycastHit hit = RaycastHit();
-        if (hit.collider != null && hit.collider.gameObject.layer == 30)
+        if (hit.collider != null && hit.collider.gameObject.layer == buildingLayer)
         {
             if (_lastHitObjectForBreakMode != null && _lastHitObjectForBreakMode != hit.collider.gameObject)
                 _lastHitObjectForBreakMode.GetComponentInParent<BuildableObject>().SetOriginMaterial();
@@ -156,7 +154,7 @@ public class BuildingSystem : MonoBehaviour
         if (_isBreakMode)
         {
             GameObject toBeDestroyedObject = RaycastHit().collider.gameObject;
-            if (toBeDestroyedObject.layer == 30)
+            if (toBeDestroyedObject.layer == buildingLayer)
                 if (Input.GetMouseButtonDown(0))
                     Destroy(toBeDestroyedObject.transform.parent.gameObject);
         }
