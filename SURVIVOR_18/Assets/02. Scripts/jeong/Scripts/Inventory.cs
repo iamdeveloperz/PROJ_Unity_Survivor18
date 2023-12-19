@@ -23,15 +23,12 @@ public class ItemSlot
 }
 public class Inventory : MonoBehaviour
 {
-    
-    [SerializeField]
-    private GameObject go_SlotsParent;  // Slot들의 부모인 Grid Setting 
+    [SerializeField] private GameObject go_SlotsParent;  // Slot들의 부모인 Grid Setting 
+    [SerializeField] private Slot[] slots;  // 슬롯들 배열
+    public TextMeshProUGUI itemName;  // 슬롯들 배열
+    public TextMeshProUGUI itemInfo;  // 슬롯들 배열
 
-    [SerializeField]
-    private Slot[] slots;  // 슬롯들 배열
-
-    [SerializeField]
-    private List<ItemSlot> items;
+    public List<ItemSlot> items;
 
     public static Inventory Instance;
     private void Awake()
@@ -54,7 +51,7 @@ public class Inventory : MonoBehaviour
         {
             for (; i < slots.Length && i < items.Count; i++)
             {
-                slots[i].AddItem(items[i].item);
+                slots[i].AddItem(items[i]);
             }
         }
         for (; i < slots.Length; i++)
@@ -83,12 +80,5 @@ public class Inventory : MonoBehaviour
         {
             items.Add(new ItemSlot(item, 0));
         }
-    }
-    public void HandleDroppedItem(Slot slot, ItemData droppedItem)
-    {
-        // 드롭된 아이템 처리 로직을 구현합니다.
-        // 여기서는 간단한 예시로 아이템을 슬롯에 추가합니다.
-        AddItem(droppedItem);
-        CreateSlotItem(); // 인벤토리 UI 갱신
     }
 }
