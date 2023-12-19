@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ì°©ìš© ê°€ëŠ¥í•œ ì•„ì´í…œ ë¶€ìœ„
+// Âø¿ë °¡´ÉÇÑ ¾ÆÀÌÅÛ ºÎÀ§
 public enum EquipableParts
 {
     Head,
@@ -12,7 +13,7 @@ public enum EquipableParts
 
 public enum HandableType // GrabType
 {
-    None,
+    EmptyHand,
     Weapon,
     Axe,
     Pick,
@@ -20,12 +21,15 @@ public enum HandableType // GrabType
 
 public class EquipSystem : MonoBehaviour
 {
-    // ì†ì— ë“¤ê³  ìˆëŠ” ì•„ì´í…œ ì •ë³´
-    [field:SerializeField] public GrabbableItem HandleItem { get; private set; }
+    // ¼Õ¿¡ µé°í ÀÖ´Â ¾ÆÀÌÅÛ Á¤º¸
+    [field:SerializeField] public RegistableItem HandleItem { get; private set; }
 
     public GameObject[] items;
     public Transform hand;
     private PlayerInputs _playerInputs;
+    public GrabbleItemData tempItemData;
+    public event Action OnRegisted;
+    public event Action OnUnRegisted;
 
     private void Awake()
     {
@@ -40,11 +44,9 @@ public class EquipSystem : MonoBehaviour
         _playerInputs.OnPressedQuickNumber += SwitchingHandleItem;
 
 
-        items[0] = CreateItemObject("Pick");
+        Registe(0, tempItemData);
         SwitchingHandleItem(1);
     }
-    // ì•„ì´í…œ ë³„ë¡œ ë¦¬ì¹˜ê°€ ìˆìœ¼ë©´ ì¢‹ì„ë“¯
-    // 
 
     private GameObject CreateItemObject(string itemName)
     {
@@ -64,7 +66,7 @@ public class EquipSystem : MonoBehaviour
             if(i == n)
             {
                 items[i].SetActive(true);
-                HandleItem = items[i].GetComponent<GrabbableItem>();
+                HandleItem = items[i].GetComponent<RegistableItem>();
             }
             else
             {
@@ -73,19 +75,27 @@ public class EquipSystem : MonoBehaviour
         }
     }
 
-    // ì°©ìš© í•¨ìˆ˜
-    public void Registe(int index, Item item)
+    // Âø¿ë ÇÔ¼ö
+    public void Registe(int index, RegistableItemData itemData)
     {
-        // index ìŠ¬ë¡¯ì— item ë“±ë¡
+        // index ½½·Ô¿¡ item µî·Ï
+        UnRegiste(index);
+        if(itemData is HandleItemData)
+        {
+            var itemdata = itemData as HandleItemData;
+            var itemObject = CreateItemObject(itemdata.type.ToString());
+            items[index] = itemObject;
+        }
 
-        // GameObject ì— Resources.Load
+        // GameObject ¿¡ Resources.Load
 
         // 
     }
 
-    // í•´ì œ í•¨ìˆ˜
+    // ÇØÁ¦ ÇÔ¼ö
     public void UnRegiste(int index)
     {
-
+        Destroy(items[index]);
+        items[index] = null;
     }
 }

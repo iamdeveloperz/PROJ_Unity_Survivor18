@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrabbableItem : MonoBehaviour
+public class RegistableItem : MonoBehaviour
 {
-    public GrabbleItemData itemData;
+    public RegistableItemData itemData;
+}
+
+public class HandleTiem : RegistableItem
+{
+
 }
