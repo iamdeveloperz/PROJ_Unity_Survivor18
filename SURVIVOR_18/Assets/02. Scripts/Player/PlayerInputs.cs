@@ -2,6 +2,7 @@ using StarterAssets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,6 +27,14 @@ public class PlayerInputs : StarterAssetsInputs
         }
     }
 
+    public event Action OnCreateBluePrintAction;
+    public event Action OnInstallArchitectureAction;
+    public event Action OnRotateArchitectureLeftAction;
+    public event Action OnRotateArchitectureRightAction;
+    public event Action OnCancelBuildModeAction;
+    public event Action OnBreakModeAction;
+    public event Action OnBreakArchitectureAction;
+
     private void Awake()
     {
         var _playerStamina = GetComponent<PlayerStatHandler>().Stamina;
@@ -48,13 +57,51 @@ public class PlayerInputs : StarterAssetsInputs
         string strNumber = value.Get().ToString();
         Debug.Log("Press" + strNumber);
         int num = int.Parse(strNumber);
-        if(num != 0)
+        if (num != 0)
         {
             QuickSlotInput(num);
         }
     }
 
-#endif 
+    #region Building System
+
+    public void OnCreateBluePrintArchitecture()
+    {
+        OnCreateBluePrintAction?.Invoke();
+    }
+
+    public void OnRotateArchitectureLeft()
+    {
+        OnRotateArchitectureLeftAction?.Invoke();
+    }
+
+    public void OnRotateArchitectureRight()
+    {
+        OnRotateArchitectureRightAction?.Invoke();
+    }
+
+    public void OnCancelBuildMode()
+    {
+        OnCancelBuildModeAction?.Invoke();
+    }
+
+    public void OnInstallArchitecture()
+    {
+        OnInstallArchitectureAction?.Invoke();
+    }
+
+    public void OnBreakMode()
+    {
+        OnBreakModeAction?.Invoke();
+    }
+
+    public void OnBreakArchitecture()
+    {
+        OnBreakArchitectureAction?.Invoke();
+    }
+    #endregion
+
+#endif
 
     public void AttackInput(bool newAttackState)
     {

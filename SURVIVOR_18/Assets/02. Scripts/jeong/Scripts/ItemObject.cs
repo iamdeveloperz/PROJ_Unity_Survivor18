@@ -8,7 +8,7 @@ public class ItemObject : MonoBehaviour, IInteractable
 
     public string GetName()
     {
-        return itemData.name;
+        return itemData.displayName;
     }
 
     public void ObjectDestroy()
