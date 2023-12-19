@@ -84,4 +84,11 @@ public class Inventory : MonoBehaviour
             items.Add(new ItemSlot(item, 0));
         }
     }
+    public void HandleDroppedItem(Slot slot, ItemData droppedItem)
+    {
+        // 드롭된 아이템 처리 로직을 구현합니다.
+        // 여기서는 간단한 예시로 아이템을 슬롯에 추가합니다.
+        AddItem(droppedItem);
+        CreateSlotItem(); // 인벤토리 UI 갱신
+    }
 }
