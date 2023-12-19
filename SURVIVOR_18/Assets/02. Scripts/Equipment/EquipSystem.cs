@@ -27,7 +27,7 @@ public class EquipSystem : MonoBehaviour
     public GameObject[] items;
     public Transform hand;
     private PlayerInputs _playerInputs;
-    public GrabbleItemData tempItemData;
+    public RegistableItemData tempItemData;
     public event Action OnRegisted;
     public event Action OnUnRegisted;
 
