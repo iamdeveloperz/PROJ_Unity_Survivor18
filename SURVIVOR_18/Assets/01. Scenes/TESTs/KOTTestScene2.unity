@@ -1829,28 +1829,13 @@ PrefabInstance:
       addedObject: {fileID: 876366516}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 247900b9b2e670648b70c2782c36c350, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 876366515}
+      addedObject: {fileID: 876366521}
   m_SourcePrefab: {fileID: 100100000, guid: 247900b9b2e670648b70c2782c36c350, type: 3}
 --- !u!1 &876366514 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 247900b9b2e670648b70c2782c36c350, type: 3}
   m_PrefabInstance: {fileID: 876366513}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &876366515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 876366514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2157d4733cedc8042ad6b836059f73c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  curHealth: 100
-  target: {fileID: 354842475}
 --- !u!195 &876366516
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1923,6 +1908,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &876366521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876366514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dec471194f3fef40b4d10f504c00f7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  curHealth: 0
+  enemyAttackCoolTime: 0
+  enemyPower: 0
+  target: {fileID: 0}
 --- !u!1 &937202933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,28 +2274,13 @@ PrefabInstance:
       addedObject: {fileID: 1090347984}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a72095c5b42461e4faaa15cdf4370887, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1090347983}
+      addedObject: {fileID: 1090347989}
   m_SourcePrefab: {fileID: 100100000, guid: a72095c5b42461e4faaa15cdf4370887, type: 3}
 --- !u!1 &1090347982 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a72095c5b42461e4faaa15cdf4370887, type: 3}
   m_PrefabInstance: {fileID: 1090347981}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1090347983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090347982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2157d4733cedc8042ad6b836059f73c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  curHealth: 100
-  target: {fileID: 354842475}
 --- !u!195 &1090347984
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2366,6 +2353,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &1090347989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090347982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6fd3594bd9a324594b28ee2869daaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
+  curHealth: 0
+  enemyAttackCoolTime: 0
+  enemyPower: 0
+  target: {fileID: 0}
 --- !u!1 &1201806884
 GameObject:
   m_ObjectHideFlags: 0
