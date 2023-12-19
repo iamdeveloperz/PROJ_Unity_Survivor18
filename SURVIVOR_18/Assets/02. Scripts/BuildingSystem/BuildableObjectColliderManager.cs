@@ -11,11 +11,11 @@ public class BuildableObjectColliderManager : MonoBehaviour
     [SerializeField] private Material _redMat;
     [SerializeField] private Material _bluePrintMat;
     [SerializeField] private Renderer _thisObjectRenderer;
-    [SerializeField] private Collider _thisObjectAnotherColldier;
+    [SerializeField] private Collider _thisObjectAnotherCollider;
 
     private void OnTriggerStay(Collider other)
     {
-        if (other != _thisObjectAnotherColldier)
+        if (other != _thisObjectAnotherCollider)
         {
             _thisObjectRenderer.material = _redMat;
             OnRedMatAction?.Invoke();
