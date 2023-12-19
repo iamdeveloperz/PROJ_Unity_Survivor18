@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class BuildableObject : MonoBehaviour
 {
-    [SerializeField] private int _buildingHealth = 1;
-
+    //[SerializeField] private int _buildingHealth = 1;
     [SerializeField] private Renderer _renderer;
 
     private Material _originMat;
-
-    BuildableObjectColliderManager _colliderManager;
+    private BuildableObjectColliderManager _colliderManager;
 
     void Awake()
     {

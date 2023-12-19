@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildingSystem : MonoBehaviour
@@ -15,12 +16,25 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] private Material _previewMat;
     [SerializeField] private Material _nonBuildableMat;
 
+    [SerializeField] private PlayerInputs _playerInputs;
+
     private GameObject _obj;
     private BuildableObject _buildableObject;
 
     private bool _isHold = false;
     private bool _canCreateObject = true;
     private bool _isBreakMode = false;
+
+    private void Start()
+    {
+        _playerInputs.OnCreateBluePrintAction += HandleCreateBluePrint;
+        _playerInputs.OnRotateArchitectureLeftAction += HandleRotateArchitectureLeft;
+        _playerInputs.OnRotateArchitectureRightAction += HandleRotateArchitectureRight;
+        _playerInputs.OnCancelBuildModeAction += HandleCancelBuildMode;
+        _playerInputs.OnInstallArchitectureAction += HandleInstallArchitecture;
+        _playerInputs.OnBreakModeAction += HandleBreakMode;
+        _playerInputs.OnBreakArchitectureAction += HandleBreakArchitecture;
+    }
 
     void Update()
     {
@@ -30,54 +44,10 @@ public class BuildingSystem : MonoBehaviour
             if (hit.collider != null
                 && _groundLayer == (_groundLayer | (1 << hit.collider.gameObject.layer)))
                 SetObjPosition(hit.point);
-
-            if (Input.GetMouseButtonDown(0) && _canCreateObject)
-            {
-                _isHold = false;
-                _obj.GetComponentInChildren<BoxCollider>().isTrigger = false;
-                
-                _buildableObject.SetInitialObject();
-                _buildableObject.DestroyColliderManager();
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Destroy(_obj);
-                _isHold = false;
-            }
-            else if (Input.GetKeyDown(KeyCode.Z))
-                _obj.transform.Rotate(Vector3.up, _rotationAngle);
-            else if (Input.GetKeyDown(KeyCode.C))
-                _obj.transform.Rotate(Vector3.up, -_rotationAngle);
         }
-        else if (Input.GetKeyDown(KeyCode.J))
-        {
-            _isHold = true;
-            CreateBluePrintObject(RaycastHit().point);
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            if(_isHold)
-            {
-                Destroy(_obj);
-                _isHold = false;
-            }
-            _isBreakMode = _isBreakMode ? false : true;
-            Debug.Log("철거모드");
-        }
-
-        //if (_isBreakMode)
-        //{
-        //    GameObject toBeDestroyedObject = RaycastHit().collider.gameObject;
-        //    if (toBeDestroyedObject.layer == 30)
-        //    {
-        //        toBeDestroyedObject.GetComponentInChildren<BuildableObject>().SetMaterial(_nonBuildableMat);
-        //        if (Input.GetMouseButtonDown(0))
-        //            Destroy(toBeDestroyedObject);
-        //    }
-        //}
     }
 
+    #region
     private RaycastHit RaycastHit()
     {
         RaycastHit hit;
@@ -107,13 +77,86 @@ public class BuildingSystem : MonoBehaviour
         buildableObject.OnRedMatAction += HandleBuildableObjectTriggerEnter;
         buildableObject.OnBluePrintMatAction += HandleBuildableObjectTriggerExit;
     }
+    #endregion
+
+    #region Player Input Action Handle
+
+    private void HandleCreateBluePrint()
+    {
+        _isHold = true;
+        CreateBluePrintObject(RaycastHit().point);
+    }
+
+    private void HandleRotateArchitectureLeft()
+    {
+        if (_isHold)
+            _obj.transform.Rotate(Vector3.up, -_rotationAngle);
+    }
+
+    private void HandleRotateArchitectureRight()
+    {
+        if (_isHold)
+            _obj.transform.Rotate(Vector3.up, _rotationAngle);
+    }
+
+    private void HandleCancelBuildMode()
+    {
+        if (_isHold)
+        {
+            Destroy(_obj);
+            _isHold = false;
+        }
+    }
+
+    private void HandleInstallArchitecture()
+    {
+        if (_isHold && _canCreateObject && !_isBreakMode)
+        {
+            _isHold = false;
+            _obj.GetComponentInChildren<BoxCollider>().isTrigger = false;
+
+            _buildableObject.SetInitialObject();
+            _buildableObject.DestroyColliderManager();
+        }
+    }
+
+    private void HandleBreakMode()
+    {
+        if (_isHold)
+        {
+            Destroy(_obj);
+            _isHold = false;
+        }
+        _isBreakMode = _isBreakMode ? false : true;
+    }
+
+    private void HandleBreakArchitecture()
+    {
+        if (_isBreakMode)
+        {
+            GameObject toBeDestroyedObject = RaycastHit().collider.gameObject;
+            if (toBeDestroyedObject.layer == 30)
+            {
+                toBeDestroyedObject.GetComponentInParent<BuildableObject>().SetMaterial(_nonBuildableMat);
+                if (Input.GetMouseButtonDown(0))
+                    Destroy(toBeDestroyedObject);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Architecture Collider Action Handle
 
     private void HandleBuildableObjectTriggerEnter()
     {
         _canCreateObject = false;
     }
+
     private void HandleBuildableObjectTriggerExit()
     {
         _canCreateObject = true;
     }
+
+    #endregion
 }
