@@ -10,8 +10,8 @@ public enum ItemType
     Consumable
 }
 
-[CreateAssetMenu(fileName = "Item", menuName = "new item")]
-public class ItemData : ScriptableObject
+[CreateAssetMenu(fileName = "ItemData", menuName = "new item")]
+public class ItemDataInfo : ScriptableObject
 {
     [Header("Info")]
     public string itemName;
@@ -60,6 +60,6 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         // 드롭한 아이템을 슬롯에 추가하거나 교환 등의 동작을 구현합니다.
         // Inventory 클래스의 메서드를 호출하여 아이템을 처리할 수 있습니다.
-        Inventory.Instance.HandleDroppedItem(slot, GetComponent<ItemData>());
+        Inventory.Instance.HandleDroppedItem(slot, GetComponent<ItemDataInfo>());
     }
 }
