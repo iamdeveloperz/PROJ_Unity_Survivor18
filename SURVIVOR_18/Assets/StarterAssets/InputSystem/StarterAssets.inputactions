@@ -61,12 +61,12 @@
                 },
                 {
                     "name": "QuickSlot",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "41a3b8b1-3bf9-4ab6-bf9a-93e48f032d79",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Inventory",
@@ -357,6 +357,39 @@
                     "path": "<Keyboard>/2",
                     "interactions": "Press(pressPoint=0.5)",
                     "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "QuickSlot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0cda3570-1917-4251-9e1f-971351acefb6",
+                    "path": "<Keyboard>/3",
+                    "interactions": "Press(pressPoint=0.5)",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "QuickSlot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "454bd447-1f40-4737-9e98-939ed417b71f",
+                    "path": "<Keyboard>/4",
+                    "interactions": "Press(pressPoint=0.5)",
+                    "processors": "Scale(factor=4)",
+                    "groups": "",
+                    "action": "QuickSlot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9b0e44e-8dbf-47a7-8208-743a5e7ea491",
+                    "path": "<Keyboard>/5",
+                    "interactions": "Press(pressPoint=0.5)",
+                    "processors": "Scale(factor=5)",
                     "groups": "",
                     "action": "QuickSlot",
                     "isComposite": false,

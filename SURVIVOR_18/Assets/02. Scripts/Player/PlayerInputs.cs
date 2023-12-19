@@ -11,6 +11,21 @@ public class PlayerInputs : StarterAssetsInputs
     public bool attack;
     public bool interact;
     public event Action<int> OnPressedQuickNumber;
+    
+    [SerializeField] private bool _doSomething;
+    public bool DoSomething
+    {
+        get 
+        {
+            return _doSomething;
+        }
+        set
+        {
+            _doSomething = value;
+            GetComponent<PlayerInput>().enabled = !_doSomething;
+            //move = Vector2.zero;
+        }
+    }
 
     public event Action OnCreateBluePrintAction;
     public event Action OnInstallArchitectureAction;
@@ -29,7 +44,6 @@ public class PlayerInputs : StarterAssetsInputs
 #if ENABLE_INPUT_SYSTEM
     public void OnAttack(InputValue value)
     {
-        // 들고있는 아이템 체크
         AttackInput(value.isPressed);
     }
 
