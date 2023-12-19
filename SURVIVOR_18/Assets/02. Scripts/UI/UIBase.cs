@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -9,6 +10,34 @@ public abstract class UIBase : MonoBehaviour
 {
     // 명시적으로 상속받는 자식들이 구현해야 되는 부분
     public abstract void Initialize();
+
+
+    #region Enum Events
+
+    public enum UIEvents
+    {
+        Click,
+        PointerDown,
+        PointerUp,
+        PointerEnter,
+        PointerExit,
+        Drag,
+        BeginDrag,
+        EndDrag
+    }
+
+    public enum MouseEvents
+    {
+        Click,
+        PointerDown,
+        PointerUp,
+        PointerEnter,
+        Drag,
+        BeginDrag,
+        EndDrag
+    }
+
+    #endregion
 
     
 
@@ -78,7 +107,49 @@ public abstract class UIBase : MonoBehaviour
     
     #region Bind Events
     
-    
+    public static void BindEvent(GameObject go, Action<PointerEventData> action, UIEvents type = UIEvents.Click)
+    {
+        var evtHandler = Utility.GetOrAddComponent<UIEventHandler>(go);
+        
+        switch(type)
+        {
+            case UIEvents.Click:
+                evtHandler.OnClickEvent -= action;
+                evtHandler.OnClickEvent += action;
+                break;
+            case UIEvents.PointerDown:
+                evtHandler.OnPointerDownEvent -= action;
+                evtHandler.OnPointerDownEvent += action;
+                break;
+            case UIEvents.PointerUp:
+                evtHandler.OnPointerUpEvent -= action;
+                evtHandler.OnPointerUpEvent += action;
+                break;
+            case UIEvents.PointerEnter:
+                evtHandler.OnPointerEnterEvent -= action;
+                evtHandler.OnPointerEnterEvent += action;
+                break;
+            case UIEvents.PointerExit:
+                evtHandler.OnPointerExitEvent -= action;
+                evtHandler.OnPointerExitEvent += action;
+                break;
+            case UIEvents.Drag:
+                evtHandler.OnDragEvent -= action;
+                evtHandler.OnDragEvent += action;
+                break;
+            case UIEvents.BeginDrag:
+                evtHandler.OnBeginDragEvent -= action;
+                evtHandler.OnBeginDragEvent += action;
+                break;
+            case UIEvents.EndDrag:
+                evtHandler.OnEndDragEvent -= action;
+                evtHandler.OnEndDragEvent += action;
+                break;
+            
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+        }
+    }
     
     #endregion
 }
