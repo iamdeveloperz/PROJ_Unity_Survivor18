@@ -44,7 +44,7 @@ public class SingletonBehavior<T> : SingletonBase where T : MonoBehaviour
 
             if (_instance == null)
             {
-                var singletonObject = new GameObject { name = "Singleton] " + typeof(T) };
+                var singletonObject = new GameObject { name = "[Singleton] " + typeof(T) };
                 
                 _instance = singletonObject.AddComponent<T>();
 
