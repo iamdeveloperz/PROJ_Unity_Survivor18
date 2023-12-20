@@ -78,7 +78,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         Debug.Log("inventory Start");
         gameObject.SetActive(false);
