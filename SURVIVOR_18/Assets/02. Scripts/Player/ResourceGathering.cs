@@ -44,12 +44,12 @@ public class ResourceGathering : MonoBehaviour
                 {
                     Debug.Log($"{hit.collider.gameObject.name}");
                     _attackDelayTimer = 0.0f;
-                    _animator.SetTrigger(handleItemData.type.ToString());
+                    _animator.SetTrigger(handleItemData.handType.ToString());
 
                     RuntimeAnimatorController ac = _animator.runtimeAnimatorController;
                     for(int i = 0; i < ac.animationClips.Length; ++i)
                     {
-                        if(handleItemData.type.ToString() == ac.animationClips[i].name)
+                        if(handleItemData.handType.ToString() == ac.animationClips[i].name)
                         {
                             float time = ac.animationClips[i].length;
                             CoroutineManagement.Instance.StartManagedCoroutine(LockAdditionalInput(time));

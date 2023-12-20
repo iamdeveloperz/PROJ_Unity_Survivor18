@@ -11,7 +11,7 @@ public class HandleItemData : RegistableItemData
     public float range;
     public LayerMask targetLayer;
     public string target;
-    public HandableType type; // Weapon Type // Gear?
+    public HandableType handType; // Weapon Type // Gear?
 
     public HandleItemData() : base()
     {

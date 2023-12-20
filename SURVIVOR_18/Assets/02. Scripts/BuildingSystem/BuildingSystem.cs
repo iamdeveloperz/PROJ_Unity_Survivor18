@@ -37,11 +37,11 @@ public class BuildingSystem : MonoBehaviour
 
     private void Start()
     {
-        _playerInputs.OnCreateBluePrintAction += CreateBluePrintObject;
+        _playerInputs.OnInstallArchitectureAction += CreateAndSetArchitecture;
+
         _playerInputs.OnRotateArchitectureLeftAction += HandleRotateArchitectureLeft;
         _playerInputs.OnRotateArchitectureRightAction += HandleRotateArchitectureRight;
-        _playerInputs.OnCancelBuildModeAction += HandleCancelBuildMode;
-        //_playerInputs.OnInstallArchitectureAction += HandleInstallArchitecture;
+        _playerInputs.OnCancelBuildModeAction += HandleCancelBuildMode;        
         _playerInputs.OnBreakModeAction += HandleBreakMode;
         _playerInputs.OnBreakArchitectureAction += HandleBreakArchitecture;
     }
@@ -54,39 +54,6 @@ public class BuildingSystem : MonoBehaviour
         {
             SetObjPosition();
         }
-        else
-        {
-
-        }
-
-        if(_playerInputs.attack)            
-        {
-            if (!_isHold) // Click
-            {
-                var handItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
-                if (handItemData.type == HandableType.Building)
-                {
-                    Debug.Log("IsHold : " + _isHold);
-                    CreateBluePrintObject();
-                    _isHold = true;
-                }
-            }
-            else
-            {
-                HandleInstallArchitecture();
-            }
-        }
-        // 원본 코드
-        //if (_isHold)
-        //{
-        //    RaycastHit hit = RaycastHit();
-        //    if (hit.collider != null
-        //        && _groundLayer == (_groundLayer | (1 << hit.collider.gameObject.layer)))
-        //        SetObjPosition(hit.point);
-        //}
-        //else if (_isBreakMode)
-        //    SetMaterialForDeletion();
-        //
     }
 
     #region
@@ -235,10 +202,16 @@ public class BuildingSystem : MonoBehaviour
         if(_isHold)
         {
             // Set
+            HandleInstallArchitecture();
         }
         else
         {
             // Create
+            var handItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
+            if (handItemData.handType == HandableType.Building)
+            {
+                HandleCreateBluePrint();
+            }
         }
     }
 }

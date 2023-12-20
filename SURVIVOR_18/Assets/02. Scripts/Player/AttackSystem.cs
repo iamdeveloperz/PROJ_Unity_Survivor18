@@ -33,7 +33,7 @@ public class AttackSystem : MonoBehaviour
         if (_playerInputs.DoSomething) return;
 
         var handleItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
-        if (handleItemData == null || handleItemData.type == HandableType.EmptyHand || handleItemData.type == HandableType.Building) return;
+        if (handleItemData == null || handleItemData.handType == HandableType.EmptyHand || handleItemData.handType == HandableType.Building) return;
 
         _attackDelayTimer += Time.deltaTime;
         if (_attackDelayTimer < attackDelay) return;
@@ -45,7 +45,7 @@ public class AttackSystem : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, handleItemData.range, targetLayer))
             {
-                float weight = handleItemData.type == HandableType.Sword ? 1.0f : 0.5f;
+                float weight = handleItemData.handType == HandableType.Sword ? 1.0f : 0.5f;
                 hit.collider.gameObject.GetComponent<IHitable>()?.Hit(handleItemData.attackPower * weight);
             }
 
@@ -53,7 +53,7 @@ public class AttackSystem : MonoBehaviour
             RuntimeAnimatorController ac = _animator.runtimeAnimatorController;
             for (int i = 0; i < ac.animationClips.Length; ++i)
             {
-                if (handleItemData.type.ToString() == ac.animationClips[i].name)
+                if (handleItemData.handType.ToString() == ac.animationClips[i].name)
                 {
                     float time = ac.animationClips[i].length;
                     CoroutineManagement.Instance.StartManagedCoroutine(LockAdditionalInput(time));
