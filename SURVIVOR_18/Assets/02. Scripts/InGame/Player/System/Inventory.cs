@@ -15,6 +15,7 @@ public class ItemSlot
 {
     public ItemData item;
     public int quantity = 0;
+    public bool locked = false;
 
     public ItemSlot()
     {
@@ -70,7 +71,8 @@ public class Inventory : MonoBehaviour
 
     public void ClearBtn()
     {
-        curSlot.ClearSlot();
+        if(itemSlots[curSlot.index].locked == false)
+            curSlot.ClearSlot();
     }
 
     private void OnDisable()
@@ -198,10 +200,10 @@ public class Inventory : MonoBehaviour
             switch (item.consumables[i].type)
             {
                 case ConsumableType.Moisture:
-                    Inventory.Instance.playerStatHandler.Eat(item.consumables[i].value);
+                    playerStatHandler.Eat(item.consumables[i].value);
                     break;
                 case ConsumableType.Hunger:
-                    Inventory.Instance.playerStatHandler.Drink(item.consumables[i].value);
+                    playerStatHandler.Drink(item.consumables[i].value);
                     break;
             }
         }
