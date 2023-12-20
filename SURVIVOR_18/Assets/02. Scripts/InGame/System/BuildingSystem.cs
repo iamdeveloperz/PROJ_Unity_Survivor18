@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class BuildingSystem : MonoBehaviour
 {
@@ -105,10 +106,17 @@ public class BuildingSystem : MonoBehaviour
         buildableObject.OnBluePrintMatAction += HandleBuildableObjectTriggerExit;
     }
 
-    private void CreateBluePrintObject()
+    private void CreateBluePrintObject(GameObject go)
     {
-        Vector2 pos = RaycastHit().point;
-        CreateBluePrintObject(pos);
+        _obj = go;
+        //SetObjPosition(pos);
+
+        _buildableObject = _obj.GetComponent<BuildableObject>();
+        _buildableObject.SetMaterial(_previewMat);
+
+        BuildableObjectColliderManager buildableObject = _obj.GetComponentInChildren<BuildableObjectColliderManager>();
+        buildableObject.OnRedMatAction += HandleBuildableObjectTriggerEnter;
+        buildableObject.OnBluePrintMatAction += HandleBuildableObjectTriggerExit;
     }
 
     private void SetMaterialForDeletion()
@@ -230,15 +238,16 @@ public class BuildingSystem : MonoBehaviour
     {
         if (_isHold)
         {
-            // Set
+            // Set            
             HandleInstallArchitecture();
         }
         else if (_isBreakMode == false)
         {
-            // Create
-            var handItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
+            // Create            
+            var handItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;            
             if (handItemData.handType == HandableType.Building)
             {
+                _tempPrefab = Managers.Resource.GetPrefab(handItemData.searchName, Literals.PATH_STRUCTURE);
                 HandleCreateBluePrint();
             }
         }

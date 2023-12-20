@@ -32,6 +32,7 @@ public static class Literals
     public const string PATH_ITEM = "Prefabs/Item/";
     public const string PATH_HANDABLE = "Prefabs/Handable/";
     public const string PATH_PLAYER = "Prefabs/Player/";
+    public const string PATH_STRUCTURE = "Prefabs/Structure/";
     // public const string PATH_SO = "ScriptableObject/";
 
     #endregion
