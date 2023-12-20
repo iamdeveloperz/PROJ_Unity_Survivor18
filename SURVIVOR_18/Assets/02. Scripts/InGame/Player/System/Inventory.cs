@@ -30,7 +30,6 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Slot[] slots;  // ���Ե� �迭
     public GameObject slotPrefab;
 
-    public List<ItemSlot> items; // Do Delete
     public ItemSlot[] itemSlots;
 
     public static Inventory Instance;
@@ -180,7 +179,7 @@ public class Inventory : MonoBehaviour
         if (itemSlots[index].quantity - value >= 0)
         {
             itemSlots[index].quantity -= value;
-            slots[index].GetComponent<TextMeshProUGUI>().text = itemSlots[index].quantity.ToString();
+            slots[index].GetComponentInChildren<TextMeshProUGUI>().text = itemSlots[index].quantity.ToString();
             if (itemSlots[index].quantity == 0)
             {
                 slots[index].ClearSlot();

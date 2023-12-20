@@ -38,6 +38,8 @@ public class ItemData : ScriptableObject
 
 public class RegistableItemData : ItemData
 {
+    public int requiredWoodNum;
+    public int requiredRockNum;
     public RegistableItemData()
     {
         equipPart = EquipableParts.Hand;
