@@ -46,7 +46,7 @@ public class QuickSlotSystem : MonoBehaviour
         _playerInputs.OnPressedQuickNumber += OperatorQuickSlot;
 
 
-        Registe(0, tempItemData);
+        //Registe(0, tempItemData);
         _selectedIndex = 1;
         OperatorQuickSlot(_selectedIndex);
     }
@@ -54,7 +54,7 @@ public class QuickSlotSystem : MonoBehaviour
     private GameObject CreateItemObject(string itemName)
     {
         // var go = Instantiate(Resources.Load<GameObject>($"Prefabs/{itemName}"));
-        var go = Managers.Resource.Instantiate("EmptyHand", Literals.PATH_HANDABLE);
+        var go = Managers.Resource.Instantiate(itemName, Literals.PATH_HANDABLE);     // EmptyHand 변경    
         var tempTransform = go.transform;
         go.transform.parent = hand;
         go.transform.localPosition = tempTransform.position;
@@ -80,6 +80,7 @@ public class QuickSlotSystem : MonoBehaviour
 
     private void SwitchingHandleItem()
     {
+        Debug.Log("Switching " + _selectedIndex);
         for(int i = 0; i < items.Length;++i)
         {
             if(i == _selectedIndex)
@@ -98,6 +99,7 @@ public class QuickSlotSystem : MonoBehaviour
     {
         if(itemData is RegistableItemData)
         {
+            Debug.Log("Registe");
             var registableItemData = itemData as RegistableItemData;
             Registe(index, registableItemData);
         }
