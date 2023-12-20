@@ -58,24 +58,38 @@ public class Slot : MonoBehaviour, IPointerClickHandler
             }
         }
     }
-
+    private void PlusStatPlayer()
+    {
+        for (int i = 0; i < item.consumables.Length; i++)
+        {
+            switch (item.consumables[i].type)
+            {
+                case ConsumableType.Moisture:
+                    Inventory.Instance.playerStatHandler.Eat(item.consumables[i].value);
+                    break;
+                case ConsumableType.Hunger:
+                    Inventory.Instance.playerStatHandler.Drink(item.consumables[i].value);
+                    break;
+            }
+        }
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (item != null)
+        {
+            Inventory.Instance.itemText(item.displayName, item.description);
+        }
         if (eventData.button == PointerEventData.InputButton.Right) //오른쪽 클릭이면 해당 오브젝트의 아이템을 장착함
         {
             if (item != null)
             {
-                //아이템 타입에 따라 장착, 사용
-                //if (item.GetType == )
-                //{
-
-                //}
-                if (true)
+                if (item.type == ItemType.useItem)
                 {
                     // 소비
                     itemQuantity--;
                     if (itemQuantity <= 0)
                     {
+                        PlusStatPlayer();
                         ClearSlot();
                         return;
                     }

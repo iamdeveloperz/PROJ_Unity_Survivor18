@@ -23,13 +23,12 @@ public class ItemSlot
 }
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private GameObject go_SlotsParent;  // Slot���� �θ��� Grid Setting 
-    [SerializeField] private Slot[] slots;  // ���Ե� �迭
-    public TextMeshProUGUI itemName;  // ���Ե� �迭
-    public TextMeshProUGUI itemInfo;  // ���Ե� �迭
-
+    [SerializeField] private GameObject go_SlotsParent; 
+    [SerializeField] private Slot[] slots;  
+    public GameObject itemName;  
+    public GameObject itemInfo;
     public List<ItemSlot> items;
-
+    public PlayerStatHandler playerStatHandler;
     public static Inventory Instance;
     private void Awake()
     {
@@ -44,7 +43,22 @@ public class Inventory : MonoBehaviour
     {
         CreateSlotItem();
     }
-    public void CreateSlotItem() //���� ������ �ִ� ������ ���� �� Null
+    private void OnDisable()
+    {
+        if (itemName.activeSelf)
+        {
+            itemName.SetActive(false);
+            itemInfo.SetActive(false);
+        }
+    }
+    public void itemText(string itemNameText, string itemInfoText)
+    {
+        itemName.SetActive(true);
+        itemInfo.SetActive(true);
+        itemName.GetComponent<TextMeshProUGUI>().text = itemNameText;
+        itemInfo.GetComponent<TextMeshProUGUI>().text = itemInfoText;
+    }
+    public void CreateSlotItem() 
     {
         int i = 0;
         if (items != null)
@@ -61,15 +75,15 @@ public class Inventory : MonoBehaviour
     }
     public void AddItem(ItemData item)
     {
-        if (item.canStack) //�������� �����̸�
+        if (item.canStack)
         {
             if (items.Find(itemSlot => itemSlot.item == item) == null)
             {
                 items.Add(new ItemSlot(item, 0));
             }
-            for (int i = 0; i < items.Count; i++) //���� ���� �ִ� �������̶� ����
+            for (int i = 0; i < items.Count; i++) 
             {
-                if (items[i].item.name == item.name) //�������� ������ ���� ����
+                if (items[i].item.name == item.name) 
                 {
                     items[i].quantity++;
                     slots[i].CheckQuantity(items[i]);
