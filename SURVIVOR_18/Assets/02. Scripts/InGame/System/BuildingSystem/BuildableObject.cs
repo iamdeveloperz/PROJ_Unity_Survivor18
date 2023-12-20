@@ -38,6 +38,11 @@ public class BuildableObject : MonoBehaviour
         _renderer.material = material;
     }
 
+    public Material GetMaterial()
+    {
+        return _originMat;
+    }
+
     public void SetOriginMaterial()
     {
         _renderer.material = _originMat;

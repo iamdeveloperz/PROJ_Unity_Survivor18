@@ -2901,6 +2901,10 @@ PrefabInstance:
       propertyPath: index
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2610799133509294200, guid: c0c0b7da689483d4e9f86497c89f75c3, type: 3}
+      propertyPath: m_text
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5190857686844476307, guid: c0c0b7da689483d4e9f86497c89f75c3, type: 3}
       propertyPath: m_Name
       value: QuickSlot (1)
@@ -3882,6 +3886,10 @@ PrefabInstance:
       propertyPath: index
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2610799133509294200, guid: c0c0b7da689483d4e9f86497c89f75c3, type: 3}
+      propertyPath: m_text
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5190857686844476307, guid: c0c0b7da689483d4e9f86497c89f75c3, type: 3}
       propertyPath: m_Name
       value: QuickSlot (3)
@@ -4525,6 +4533,10 @@ PrefabInstance:
     - target: {fileID: 991115127909689531, guid: c0c0b7da689483d4e9f86497c89f75c3, type: 3}
       propertyPath: index
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2610799133509294200, guid: c0c0b7da689483d4e9f86497c89f75c3, type: 3}
+      propertyPath: m_text
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5190857686844476307, guid: c0c0b7da689483d4e9f86497c89f75c3, type: 3}
       propertyPath: m_Name
@@ -5664,6 +5676,10 @@ PrefabInstance:
     - target: {fileID: 991115127909689531, guid: c0c0b7da689483d4e9f86497c89f75c3, type: 3}
       propertyPath: index
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2610799133509294200, guid: c0c0b7da689483d4e9f86497c89f75c3, type: 3}
+      propertyPath: m_text
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5190857686844476307, guid: c0c0b7da689483d4e9f86497c89f75c3, type: 3}
       propertyPath: m_Name
@@ -8152,12 +8168,16 @@ MonoBehaviour:
   _previewMat: {fileID: 2100000, guid: 7d380342618d1d148a3af1efe02ec4f2, type: 2}
   _nonBuildableMat: {fileID: 2100000, guid: fedb6c69e954eb545977b62926bff384, type: 2}
   _playerInputs: {fileID: 0}
-  _groundLayer:
+  _buildableLayer:
     serializedVersion: 2
     m_Bits: 1610612736
+  _destroyLayer:
+    serializedVersion: 2
+    m_Bits: 1073741824
   _raycastRange: 20
   _yGridSize: 0.1
   _rotationAngle: 45
+  _obj: {fileID: 0}
 --- !u!4 &6983258930735701593
 Transform:
   m_ObjectHideFlags: 0
