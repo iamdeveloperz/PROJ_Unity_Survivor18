@@ -49,4 +49,10 @@ public class QuickSlotUI : MonoBehaviour, IDropHandler, IPointerClickHandler
             _quickSlotSystem.UnRegiste(index);
         }
     }
+
+    public void Clear()
+    {
+        _icon.sprite = null;
+        _quantity.gameObject.SetActive(false);
+    }
 }

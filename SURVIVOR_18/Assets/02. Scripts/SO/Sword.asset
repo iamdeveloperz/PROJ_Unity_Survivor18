@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9042a73f145eaa41b24af612315031c, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
+  searchName: Sword
   displayName: "\uAC80"
   description: 
   icon: {fileID: 21300000, guid: 4f2f320a217307a48a107491b1d17ebb, type: 3}
@@ -20,7 +21,7 @@ MonoBehaviour:
   canStack: 0
   maxStackCount: 1
   dropPrefab: {fileID: 0}
-  consumables: []
+  handType: 1
   requiredWoodNum: 2
   requiredRockNum: 0
   attackPower: 5
@@ -29,4 +30,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   target: Not
-  handType: 1

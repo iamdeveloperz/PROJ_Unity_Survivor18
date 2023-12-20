@@ -19,6 +19,7 @@ public enum HandableType // GrabType
     Axe,
     Pick,
     Building,
+    Food,
 }
 
 public class QuickSlotSystem : MonoBehaviour
@@ -33,10 +34,15 @@ public class QuickSlotSystem : MonoBehaviour
     private int _selectedIndex = 1;
     private int[] _targetIndexs;
 
+    public GameObject root_QuickSlots;
+    [SerializeField] private QuickSlotUI[] _quickSlotUis;
+
     private void Awake()
     {
         items = new GameObject[5];
         _targetIndexs = new int[5];
+        if (root_QuickSlots == null) Debug.Log("QuickSlotSystem >> root_QuickSlots [ IS NULL ]");
+        _quickSlotUis = root_QuickSlots.GetComponentsInChildren<QuickSlotUI>();
 
         for (int i = 0; i <  items.Length; ++i)
         {
@@ -46,7 +52,6 @@ public class QuickSlotSystem : MonoBehaviour
 
         _playerInputs = GetComponent<PlayerInputs>();
         _playerInputs.OnPressedQuickNumber += OperatorQuickSlot;
-
 
         //Registe(0, tempItemData);
         _selectedIndex = 1;
@@ -71,6 +76,12 @@ public class QuickSlotSystem : MonoBehaviour
         {
             case ConsumableItemData _:
                 Inventory.Instance.UseItem(_targetIndexs[_selectedIndex]);
+                if(Inventory.Instance.itemSlots[_targetIndexs[_selectedIndex]].quantity == 0)
+                {
+                    _quickSlotUis[_selectedIndex].Clear();
+                    UnRegiste(_selectedIndex);
+                    items[_selectedIndex] = CreateItemObject("EmptyHand");
+                }
                 break;
 
             case HandleItemData _:
@@ -98,6 +109,7 @@ public class QuickSlotSystem : MonoBehaviour
 
     public void Registe(int index, ItemData itemData, int targetIndex)
     {
+        UnRegiste(index);
         _targetIndexs[index] = targetIndex;
         Registe(index, itemData);
     }
@@ -106,7 +118,7 @@ public class QuickSlotSystem : MonoBehaviour
     {
         if(itemData is RegistableItemData)
         {
-            Debug.Log("Registe");
+            Debug.Log("Registe");            
             var registableItemData = itemData as RegistableItemData;
             Registe(index, registableItemData);
         }
@@ -117,19 +129,17 @@ public class QuickSlotSystem : MonoBehaviour
     // 착용 함수
     public void Registe(int index, RegistableItemData itemData)
     {
-        // index 슬롯에 item 등록
-        UnRegiste(index);
+        // index 슬롯에 item 등록        
         if(itemData is HandleItemData)
         {
             var itemdata = itemData as HandleItemData;
-            var itemObject = CreateItemObject(itemdata.handType.ToString());
+            var itemObject = CreateItemObject(itemdata.searchName);
             items[index] = itemObject;
         }
         else if(itemData is ConsumableItemData)
         {
             var itemdata = itemData as ConsumableItemData;
-            var itemObject = CreateItemObject(itemdata.handType.ToString());
-            //itemdata.GetComponent<RegistableItem>().itemData = itemData;
+            var itemObject = CreateItemObject(itemdata.searchName);
             items[index] = itemObject;
         }
     }
@@ -138,6 +148,7 @@ public class QuickSlotSystem : MonoBehaviour
     public void UnRegiste(int index)
     {
         Destroy(items[index]);
-        items[index] = CreateItemObject("EmptyHand");
+        _targetIndexs[index] = -1;
+        items[index] = null;
     }
 }
