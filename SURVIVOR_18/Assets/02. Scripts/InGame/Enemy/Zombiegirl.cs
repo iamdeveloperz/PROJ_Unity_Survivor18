@@ -4,7 +4,7 @@ public class Zombiegirl : Enemy
     {
         base.Start();
         enemyAttackCoolTime = 2;
-        enemyPower = 20;
+        enemyPower = 5;
         maxHealth = 60;
         curHealth = maxHealth;
     }
