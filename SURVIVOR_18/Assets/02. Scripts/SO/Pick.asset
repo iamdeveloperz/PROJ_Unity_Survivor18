@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9042a73f145eaa41b24af612315031c, type: 3}
   m_Name: Pick
   m_EditorClassIdentifier: 
+  searchName: Pick
   displayName: "\uB3CC \uACE1\uAD2D\uC774"
   description: 
   icon: {fileID: 21300000, guid: 2d5f2cee812b01c49975fb73bebc1d81, type: 3}
@@ -20,12 +21,12 @@ MonoBehaviour:
   canStack: 0
   maxStackCount: 1
   dropPrefab: {fileID: 0}
-  requiredWoodNum: 2
-  requiredRockNum: 3
+  handType: 3
+  requiredWoodNum: 0
+  requiredRockNum: 0
   attackPower: 1
   range: 7
   targetLayer:
     serializedVersion: 2
     m_Bits: 1536
   target: Stone
-  handType: 3

@@ -15,11 +15,27 @@ public class ItemSlot
 {
     public ItemData item;
     public int quantity = 0;
+    public bool locked = false;
+    public int quickslotIndex = -1;
 
     public ItemSlot()
     {
         this.item = null;
         this.quantity = 0;
+    }
+
+    public void RegisteQuick(int slotIndex)
+    {
+        quickslotIndex = slotIndex;
+        locked = true;
+    }
+
+    public int UnRegistQuick()
+    {
+        int temp = quickslotIndex;
+        quickslotIndex= -1;
+        locked = false;
+        return temp;
     }
 }
 public class Inventory : MonoBehaviour
@@ -70,7 +86,8 @@ public class Inventory : MonoBehaviour
 
     public void ClearBtn()
     {
-        curSlot.ClearSlot();
+        if(itemSlots[curSlot.index].locked == false)
+            curSlot.ClearSlot();
     }
 
     private void OnDisable()
@@ -155,6 +172,7 @@ public class Inventory : MonoBehaviour
     }
     public void UseItem(int index)
     {
+        Debug.Log("Use Item" + index);
         if (itemSlots[index].item != null)
         {
             if (itemSlots[index].item.type == ItemType.useItem)
@@ -164,7 +182,7 @@ public class Inventory : MonoBehaviour
                 PlusStatPlayer(slotdata);
                 if (itemSlots[index].quantity <= 0)
                 {
-                    curSlot.ClearSlot();
+                    slots[index].ClearSlot();
                     itemSlots[index] = new ItemSlot();
                     Inventory.Instance.TextClose();
                     return;
@@ -198,10 +216,10 @@ public class Inventory : MonoBehaviour
             switch (item.consumables[i].type)
             {
                 case ConsumableType.Moisture:
-                    Inventory.Instance.playerStatHandler.Eat(item.consumables[i].value);
+                    playerStatHandler.Eat(item.consumables[i].value);
                     break;
                 case ConsumableType.Hunger:
-                    Inventory.Instance.playerStatHandler.Drink(item.consumables[i].value);
+                    playerStatHandler.Drink(item.consumables[i].value);
                     break;
             }
         }

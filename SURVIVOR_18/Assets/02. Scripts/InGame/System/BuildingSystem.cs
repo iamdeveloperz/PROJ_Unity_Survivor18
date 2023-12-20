@@ -199,6 +199,11 @@ public class BuildingSystem : MonoBehaviour
         else
         {
             if (_obj == null) return;
+            
+            // SetOriginMaterial
+            // 현재 rayhit 한 _obj 가 새로 rayhit 된 object 와 다른 경우를 처리하지 않았음
+            // 현재는 _obj 가 rayHit 를 벗어나면.. 메테리얼을 원상복귀 하도록 만들었다.
+
             _obj.GetComponentInParent<BuildableObject>().SetMaterial(_origionmat);
             _playerInputs.gameObject.GetComponent<interactionManager>().promptText.gameObject.SetActive(false);
             _obj = null;
