@@ -17,7 +17,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject quantityTxt;
 
-    int itemQuantity;
+    private int itemQuantity;
     // 인벤토리에 새로운 아이템 슬롯 추가
     public void AddItem(ItemSlot _item)
     {
@@ -34,6 +34,22 @@ public class Slot : MonoBehaviour, IPointerClickHandler
                 itemQuantity = itemSlot.quantity;
                 CheckQuantity(itemSlot);
             }
+        }
+    }
+    public void Consumeitem(int value)
+    {
+        if (itemQuantity - value >= 0)
+        {
+            itemQuantity -= value;
+            quantityTxt.GetComponent<TextMeshProUGUI>().text = itemQuantity.ToString();
+            if (itemQuantity == 0)
+            {
+                ClearSlot();
+            }
+        }
+        else
+        {
+            Debug.Log("수량이 부족함");
         }
     }
     public void CheckQuantity(ItemSlot slot)
