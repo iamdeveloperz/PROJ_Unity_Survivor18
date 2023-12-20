@@ -70,15 +70,21 @@ public class CraftPopupUI : MonoBehaviour
     #region Craft Button
 
     // TODO
-    public void CreateAxe()
+    public void CreateWeapon1()
     {
         ConsumeItemInInventory(0);
         UpdateCraftPopup();
     }
 
-    public void CreateSword()
+    public void CreateWeapon2()
     {
         ConsumeItemInInventory(1);
+        UpdateCraftPopup();
+    }
+
+    public void CreateWeapon3()
+    {
+        ConsumeItemInInventory(2);
         UpdateCraftPopup();
     }
     #endregion
