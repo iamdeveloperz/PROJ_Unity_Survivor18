@@ -16,13 +16,15 @@ MonoBehaviour:
   description: 
   icon: {fileID: 21300000, guid: 2d5f2cee812b01c49975fb73bebc1d81, type: 3}
   equipPart: 1
+  type: 3
   canStack: 0
   maxStackCount: 1
   dropPrefab: {fileID: 0}
+  consumables: []
   attackPower: 1
   range: 7
   targetLayer:
     serializedVersion: 2
     m_Bits: 1536
   target: Stone
-  type: 3
+  handType: 3

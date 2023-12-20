@@ -63,8 +63,8 @@ public class Inventory : MonoBehaviour
     private void OnEnable()
     {
         Debug.Log("inventory OnEnable");
-        Button itemClearBtn = itemClear.GetComponent<Button>();
-        itemClearBtn.onClick.AddListener(ClearBtn);
+        //Button itemClearBtn = itemClear.GetComponent<Button>();
+        //itemClearBtn.onClick.AddListener(ClearBtn);
     }
 
     void Start()
@@ -80,10 +80,10 @@ public class Inventory : MonoBehaviour
 
     private void OnDisable()
     {
-        if (itemName.activeSelf)
-        {
-            TextClose();
-        }
+        //if (itemName.activeSelf)
+        //{
+        //    //TextClose();
+        //}
     }
     public void TextClose()
     {

@@ -16,13 +16,15 @@ MonoBehaviour:
   description: 
   icon: {fileID: 21300000, guid: 4f2f320a217307a48a107491b1d17ebb, type: 3}
   equipPart: 1
+  type: 1
   canStack: 0
   maxStackCount: 1
   dropPrefab: {fileID: 0}
+  consumables: []
   attackPower: 5
   range: 7
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
   target: Not
-  type: 1
+  handType: 1
