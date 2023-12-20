@@ -44,7 +44,7 @@ public class QuickSlotSystem : MonoBehaviour
         _playerInputs.OnPressedQuickNumber += OperatorQuickSlot;
 
 
-        Registe(0, tempItemData);
+        //Registe(0, tempItemData);
         OperatorQuickSlot(1);
     }
 
@@ -87,6 +87,15 @@ public class QuickSlotSystem : MonoBehaviour
             {
                 items[i].SetActive(false);
             }
+        }
+    }
+
+    public void Registe(int index, ItemData itemData)
+    {
+        if(itemData is RegistableItemData)
+        {
+            var registableItemData = itemData as RegistableItemData;
+            Registe(index, registableItemData);
         }
     }
 

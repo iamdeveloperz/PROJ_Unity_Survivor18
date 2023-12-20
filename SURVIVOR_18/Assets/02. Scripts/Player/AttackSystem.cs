@@ -30,6 +30,8 @@ public class AttackSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_playerInputs.DoSomething) return;
+
         var handleItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
         if (handleItemData == null || handleItemData.type == HandableType.EmptyHand) return;
 
