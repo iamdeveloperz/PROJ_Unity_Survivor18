@@ -16,7 +16,7 @@ public class ResourceManager
     private readonly Dictionary<string, ScriptableObject> _scriptableResources =
         new Dictionary<string, ScriptableObject>();
 
-    public bool IsLoaded { get; private set; } = false;
+    public bool IsLoaded { get; private set; }
 
     #endregion
 
@@ -29,6 +29,9 @@ public class ResourceManager
         LoadPrefabsByFolder(Literals.PATH_INIT);
         LoadPrefabsByFolder(Literals.PATH_UI);
         LoadPrefabsByFolder(Literals.PATH_RESOURCEMODEL);
+        LoadPrefabsByFolder(Literals.PATH_HANDABLE);
+        LoadPrefabsByFolder(Literals.PATH_ITEM);
+        LoadPrefabsByFolder(Literals.PATH_PLAYER);
         LoadScriptableByFolder();
 
         IsLoaded = true;
