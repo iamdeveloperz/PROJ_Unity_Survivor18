@@ -16,11 +16,10 @@ MonoBehaviour:
   description: 
   icon: {fileID: 21300000, guid: 871716272feb5754fb41b78be2f1c8f9, type: 3}
   equipPart: 1
-  type: 4
+  type: 1
   canStack: 0
   maxStackCount: 1
   dropPrefab: {fileID: 0}
-  consumables: []
   attackPower: 0
   range: 20
   targetLayer:

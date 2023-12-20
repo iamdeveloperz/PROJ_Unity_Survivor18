@@ -48,6 +48,9 @@ public class Inventory : MonoBehaviour
         Debug.Log("inventory awake");
         Instance = this;
 
+        Button itemClearBtn = itemClear.GetComponent<Button>();
+        itemClearBtn.onClick.AddListener(ClearBtn);
+
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
         for (int i = 0; i < slots.Length; ++i)
         {
@@ -58,13 +61,6 @@ public class Inventory : MonoBehaviour
         {
             itemSlots[i] = new ItemSlot();
         }
-    }
-    
-    private void OnEnable()
-    {
-        Debug.Log("inventory OnEnable");
-        //Button itemClearBtn = itemClear.GetComponent<Button>();
-        //itemClearBtn.onClick.AddListener(ClearBtn);
     }
 
     void Start()
@@ -80,10 +76,10 @@ public class Inventory : MonoBehaviour
 
     private void OnDisable()
     {
-        //if (itemName.activeSelf)
-        //{
-        //    //TextClose();
-        //}
+        if (itemName.activeSelf)
+        {
+            TextClose();
+        }
     }
     public void TextClose()
     {
@@ -154,9 +150,9 @@ public class Inventory : MonoBehaviour
 
     public void SubtractItem(ItemData item, int num)
     {
-        for (int i = 0; i < items.Count; i++)
-            if (items[i].item.name == item.name)
-                slots[i].Consumeitem(num);
+        //for (int i = 0; i < items.Count; i++)
+        //    if (items[i].item.name == item.name)
+        //            slots[i].Consumeitem(num);
     }
     public void UseItem(int index)
     {
@@ -178,6 +174,24 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+    //리스트로 찾을 때 해당하는 i의 값을 index에 value는 아이템을 마이너스 할 값
+    public void Consumeitem(int index, int value)
+    {
+        if (itemSlots[index].quantity - value >= 0)
+        {
+            itemSlots[index].quantity -= value;
+            slots[index].GetComponent<TextMeshProUGUI>().text = itemSlots[index].quantity.ToString();
+            if (itemSlots[index].quantity == 0)
+            {
+                slots[index].ClearSlot();
+                itemSlots[index] = new ItemSlot();
+            }
+        }
+        else
+        {
+            Debug.Log("수량이 부족함");
+        }
+    }
     private void PlusStatPlayer(ConsumableItemData item)
     {
         for (int i = 0; i < item.consumables.Length; i++)
@@ -193,11 +207,11 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    public void ItemInfoText(int index, Slot slot)
+    public void ItemInfoText(int index)
     {
         if (itemSlots[index].item != null)
         {
-            curSlot = slot;
+            curSlot = slots[index];
             if (itemSlots[index].item.type == ItemType.useItem)
             {
                 ConsumableItemData slotdata = (ConsumableItemData)itemSlots[index].item;
@@ -207,7 +221,7 @@ public class Inventory : MonoBehaviour
             else
             {
                 Inventory.Instance.TextClose();
-                Inventory.Instance.itemText(itemSlots[index].item.displayName, itemSlots[index].item.displayName);
+                Inventory.Instance.itemText(itemSlots[index].item.displayName, itemSlots[index].item.description);
             }
         }
     }
