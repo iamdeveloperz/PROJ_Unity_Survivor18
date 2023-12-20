@@ -7,7 +7,7 @@ public class RegistableItem : MonoBehaviour
     public RegistableItemData itemData;
 }
 
-public class HandleTiem : RegistableItem
+public class HandleItem : RegistableItem
 {
 
 }

@@ -30,11 +30,11 @@ public class interactionManager : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time - lastCheckTime > checkRate) //½Ã°£ÀÌ 
+        if (Time.time - lastCheckTime > checkRate) //ì‹œê°„ì´ 
         {
-            lastCheckTime = Time.time; // ÇöÀç ½Ã°£ ÀúÀå
+            lastCheckTime = Time.time; // í˜„ì¬ ì‹œê°„ ì €ì¥
 
-            Ray ray  = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2)); //È­¸é Á¤ Áß¾Ó¿¡¼­ ¹ß»ç
+            Ray ray  = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2)); //í™”ë©´ ì • ì¤‘ì•™ì—ì„œ ë°œì‚¬
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, macCheckDistance, layerMask))
             {
@@ -57,8 +57,9 @@ public class interactionManager : MonoBehaviour
     private void SetPromptText()
     {
         promptText.gameObject.SetActive(true);
-        promptText.text = $"[E] {curInteractable.GetName()} Áİ±â";
+        promptText.text = $"[E] {curInteractable.GetName()} ì¤ê¸°";
     }
+
     public void OnInteract()
     {
         if (curInteractable != null)
