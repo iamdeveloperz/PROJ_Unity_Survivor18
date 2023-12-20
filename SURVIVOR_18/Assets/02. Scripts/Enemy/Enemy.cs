@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IHitable
 {
 
     [SerializeField] protected int maxHealth;
@@ -59,6 +59,13 @@ public class Enemy : MonoBehaviour
         {
             Attacked(other);
         }
+    }
+
+    public void Hit(float damage)
+    {
+        curHealth -= (int)damage;
+        Debug.Log("HITTest");
+
     }
 
     private void Attack(Collision other)
