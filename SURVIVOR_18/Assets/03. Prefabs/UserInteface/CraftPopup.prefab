@@ -278,8 +278,8 @@ MonoBehaviour:
   - {fileID: 5165075768385795180}
   - {fileID: 8959516523705627313}
   - {fileID: 7263950805904400565}
-  _woodData: {fileID: 11400000, guid: 3cb6d52ec5b01444485f0a4dbbbf61f8, type: 2}
-  _rockData: {fileID: 11400000, guid: 9d7734a5742f72d4d8f237d867426357, type: 2}
+  _woodData: {fileID: 11400000, guid: db5efbe9fc3cc7e4c8cbc0ab3d771072, type: 2}
+  _rockData: {fileID: 11400000, guid: 14b0bfaf8e84e984fbba8a0cfee68699, type: 2}
   _weaponDatas:
   - {fileID: 11400000, guid: fbc1c0ff7d41cc742ba2d1842d51dffe, type: 2}
   - {fileID: 11400000, guid: 41fd5e3c8eb7347418c086a02bc1d81b, type: 2}

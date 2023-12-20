@@ -34,7 +34,8 @@ public class CraftPopupUI : MonoBehaviour
         {
             ItemSlot slot = Inventory.Instance.itemSlots[i];
             if (slot.item == null) continue;
-
+            
+            
             if (slot.item.name == Literals.WOOD)
             {
                 _ownWoodNum = slot.quantity;

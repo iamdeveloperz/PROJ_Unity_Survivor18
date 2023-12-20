@@ -20,8 +20,8 @@ MonoBehaviour:
   canStack: 0
   maxStackCount: 1
   dropPrefab: {fileID: 0}
-  requiredWoodNum: 1
-  requiredRockNum: 0
+  requiredWoodNum: 4
+  requiredRockNum: 1
   attackPower: 1
   range: 7
   targetLayer:
