@@ -115,7 +115,7 @@ public class QuickSlotSystem : MonoBehaviour
         if(itemData is HandleItemData)
         {
             var itemdata = itemData as HandleItemData;
-            var itemObject = CreateItemObject(itemdata.type.ToString());
+            var itemObject = CreateItemObject(itemdata.handType.ToString());
             items[index] = itemObject;
         }
     }
