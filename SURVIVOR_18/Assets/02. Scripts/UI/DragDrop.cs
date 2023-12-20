@@ -23,9 +23,12 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             Vector2 localPosition;
             RectTransform rt = _canvas.transform as RectTransform;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, mousePosition, _canvas.worldCamera, out localPosition);
-            ItemPreview.instance.gameObject.SetActive(true);
-            ItemPreview.instance.GetComponent<RectTransform>().localPosition = localPosition;
-            ItemPreview.instance.Init(_slot.index);
+            if (ItemPreview.instance.gameObject != null)
+            {
+                ItemPreview.instance.gameObject.SetActive(true);
+                ItemPreview.instance.GetComponent<RectTransform>().localPosition = localPosition;
+                ItemPreview.instance.Init(_slot.index);
+            }
         }
     }
 
