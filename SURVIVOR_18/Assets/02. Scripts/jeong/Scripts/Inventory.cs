@@ -120,4 +120,11 @@ public class Inventory : MonoBehaviour
             items.Add(new ItemSlot(item, 0));
         }
     }
+
+    public void SubtractItem(ItemData item, int num)
+    {
+        for (int i = 0; i < items.Count; i++)
+            if (items[i].item.name == item.name)
+                slots[i].Consumeitem(num);
+    }
 }
