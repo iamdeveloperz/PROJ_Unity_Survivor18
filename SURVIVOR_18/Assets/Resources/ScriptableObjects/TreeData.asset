@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0219cd9c2fe12b45ad3b260393d8fe8, type: 3}
+  m_Script: {fileID: 11500000, guid: d7a00b73a546ebb4687e9e14b175d743, type: 3}
   m_Name: TreeData
   m_EditorClassIdentifier: 
+  searchName: Wood
   displayName: "\uB098\uBB34 "
   description: "\uD3C9\uBC94\uD55C \uB098\uBB34\uC774\uB2E4."
   icon: {fileID: 21300000, guid: a5612e17f7779374da8564e7a11d823c, type: 3}
   equipPart: 1
+  type: 2
   canStack: 1
-  maxStackCount: 20
+  maxStackCount: 999
   dropPrefab: {fileID: 5404320733342463277, guid: c1de92efef2d6984390bc272d081e108, type: 3}

@@ -10,8 +10,7 @@ public class HandleItemData : RegistableItemData
     public float attackPower;
     public float range;
     public LayerMask targetLayer;
-    public string target;
-    public HandableType handType; // Weapon Type // Gear?
+    public string target;    
 
     public HandleItemData() : base()
     {

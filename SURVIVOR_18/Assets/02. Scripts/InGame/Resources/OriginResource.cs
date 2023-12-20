@@ -138,6 +138,8 @@ public class OriginResource : MonoBehaviour, IHitable, ICooldownHandler
     {
         yield return new WaitForSeconds(seconds);
 
+        if (item == null) yield break;
+
         var rb = item.GetComponent<Rigidbody>();
         
         if (rb == null) yield break;

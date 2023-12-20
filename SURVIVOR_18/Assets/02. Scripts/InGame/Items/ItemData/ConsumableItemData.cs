@@ -9,5 +9,6 @@ public class ConsumableItemData : RegistableItemData
     public ConsumableItemData() : base()
     {
         canStack = true;
+        handType = HandableType.EmptyHand;
     }
 }

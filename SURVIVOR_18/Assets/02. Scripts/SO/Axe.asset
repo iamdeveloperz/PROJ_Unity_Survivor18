@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9042a73f145eaa41b24af612315031c, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
+  searchName: Axe
   displayName: "\uB3CC \uB3C4\uB07C"
   description: "\uB3C4\uB07C\uB97C \uC774\uC6A9\uD558\uC5EC \uB098\uBB34\uB97C \uCC44\uC9D1\uD569\uB2C8\uB2E4."
   icon: {fileID: 21300000, guid: 06e8d836c76eb494db7ab3784ffcb0eb, type: 3}
@@ -20,12 +21,12 @@ MonoBehaviour:
   canStack: 0
   maxStackCount: 1
   dropPrefab: {fileID: 0}
-  requiredWoodNum: 1
-  requiredRockNum: 0
+  handType: 2
+  requiredWoodNum: 3
+  requiredRockNum: 1
   attackPower: 1
   range: 7
   targetLayer:
     serializedVersion: 2
     m_Bits: 1536
   target: Tree
-  handType: 2
