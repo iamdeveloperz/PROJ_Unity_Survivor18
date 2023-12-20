@@ -8,6 +8,18 @@ public enum ItemType
     equipItem,
     etcItem,
 }
+public enum ConsumableType
+{
+    Moisture,
+    Hunger
+}
+
+[System.Serializable]
+public class ItemDataConsumable
+{
+    public ConsumableType type;
+    public float value;
+}
 [CreateAssetMenu(fileName ="DefaultItemData", menuName ="New Item/Default", order= 0)]
 public class ItemData : ScriptableObject
 {
@@ -21,7 +33,8 @@ public class ItemData : ScriptableObject
     public ItemType type; 
     public bool canStack;
     public int maxStackCount;
-    public GameObject dropPrefab;
+    public GameObject dropPrefab; 
+    public ItemDataConsumable[] consumables;
 }
 
 public class RegistableItemData : ItemData

@@ -58,6 +58,21 @@ public class Slot : MonoBehaviour, IPointerClickHandler
             }
         }
     }
+    private void PlusStatPlayer()
+    {
+        for (int i = 0; i < item.consumables.Length; i++)
+        {
+            switch (item.consumables[i].type)
+            {
+                case ConsumableType.Moisture:
+                    Inventory.Instance.playerStatHandler.Eat(item.consumables[i].value);
+                    break;
+                case ConsumableType.Hunger:
+                    Inventory.Instance.playerStatHandler.Drink(item.consumables[i].value);
+                    break;
+            }
+        }
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (item != null)
@@ -74,6 +89,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
                     itemQuantity--;
                     if (itemQuantity <= 0)
                     {
+                        PlusStatPlayer();
                         ClearSlot();
                         return;
                     }

@@ -2665,6 +2665,11 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &4276598002557744157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5395026770932858410, guid: ed748276ff96fa64aabab1c16618c6ab, type: 3}
+  m_PrefabInstance: {fileID: 7457527092876458350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4303679675632722361
 Transform:
   m_ObjectHideFlags: 0
@@ -2762,6 +2767,7 @@ GameObject:
   - component: {fileID: 4416926083347132239}
   - component: {fileID: 8727238788301458041}
   - component: {fileID: 818973095961209652}
+  - component: {fileID: 8727238788301458042}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -3942,6 +3948,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4525072858554889600, guid: ed748276ff96fa64aabab1c16618c6ab, type: 3}
+      propertyPath: itemInfo
+      value: 
+      objectReference: {fileID: 8425222653881279951}
+    - target: {fileID: 4525072858554889600, guid: ed748276ff96fa64aabab1c16618c6ab, type: 3}
+      propertyPath: itemName
+      value: 
+      objectReference: {fileID: 4276598002557744157}
+    - target: {fileID: 4525072858554889600, guid: ed748276ff96fa64aabab1c16618c6ab, type: 3}
+      propertyPath: playerStatHandler
+      value: 
+      objectReference: {fileID: 8727238788301458042}
+    - target: {fileID: 5395026770932858410, guid: ed748276ff96fa64aabab1c16618c6ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5838234911546767204, guid: ed748276ff96fa64aabab1c16618c6ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6338688858986185657, guid: ed748276ff96fa64aabab1c16618c6ab, type: 3}
       propertyPath: m_Name
       value: Inventory
@@ -4520,6 +4546,11 @@ Transform:
   m_Father: {fileID: 3677380931794419406}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8425222653881279951 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5838234911546767204, guid: ed748276ff96fa64aabab1c16618c6ab, type: 3}
+  m_PrefabInstance: {fileID: 7457527092876458350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8432044266120112619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4651,6 +4682,40 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   promptText: {fileID: 1479751441}
+--- !u!114 &8727238788301458042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926083347132227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c6e9ce62f293a34cb22204a3b22520d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <HP>k__BackingField:
+    curValue: 0
+    maxValue: 100
+    regenRate: 10
+    decayRate: 5
+  <Hunger>k__BackingField:
+    curValue: 0
+    maxValue: 100
+    regenRate: 0
+    decayRate: 1
+  <Moisture>k__BackingField:
+    curValue: 0
+    maxValue: 100
+    regenRate: 0
+    decayRate: 1
+  <Stamina>k__BackingField:
+    curValue: 0
+    maxValue: 100
+    regenRate: 5
+    decayRate: 10
+  _isHungerEnough: 0
+  _isMoistureEnough: 0
 --- !u!4 &8818194237034159815
 Transform:
   m_ObjectHideFlags: 0

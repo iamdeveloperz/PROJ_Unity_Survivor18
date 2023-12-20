@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
     public GameObject itemName;  
     public GameObject itemInfo;
     public List<ItemSlot> items;
-
+    public PlayerStatHandler playerStatHandler;
     public static Inventory Instance;
     private void Awake()
     {
