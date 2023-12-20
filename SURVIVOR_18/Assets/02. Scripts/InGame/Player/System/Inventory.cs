@@ -90,12 +90,17 @@ public class Inventory : MonoBehaviour
             curSlot.ClearSlot();
     }
 
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
     private void OnDisable()
     {
         if (itemName.activeSelf)
         {
             TextClose();
         }
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public void TextClose()
     {
