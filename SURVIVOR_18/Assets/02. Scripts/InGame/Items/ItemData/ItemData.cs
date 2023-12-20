@@ -38,6 +38,7 @@ public class ItemData : ScriptableObject
 
 public class RegistableItemData : ItemData
 {
+    public HandableType handType; // Weapon Type // Gear?
     public RegistableItemData()
     {
         equipPart = EquipableParts.Hand;

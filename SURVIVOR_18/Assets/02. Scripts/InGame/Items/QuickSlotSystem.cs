@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // 착용 가능한 아이템 부위
@@ -30,11 +31,14 @@ public class QuickSlotSystem : MonoBehaviour
     private PlayerInputs _playerInputs;
     public RegistableItemData tempItemData;
     private int _selectedIndex = 1;
+    private int[] _targetIndexs;
 
     private void Awake()
     {
         items = new GameObject[5];
-        for(int i = 0; i <  items.Length; ++i)
+        _targetIndexs = new int[5];
+
+        for (int i = 0; i <  items.Length; ++i)
         {
             items[i] = CreateItemObject("EmptyHand");
             items[i].SetActive(false);
@@ -66,7 +70,7 @@ public class QuickSlotSystem : MonoBehaviour
         switch (data)
         {
             case ConsumableItemData _:
-                //items[index]
+                Inventory.Instance.UseItem(_targetIndexs[_selectedIndex]);
                 break;
 
             case HandleItemData _:
@@ -92,6 +96,12 @@ public class QuickSlotSystem : MonoBehaviour
         }
     }
 
+    public void Registe(int index, ItemData itemData, int targetIndex)
+    {
+        _targetIndexs[index] = targetIndex;
+        Registe(index, itemData);
+    }
+
     public void Registe(int index, ItemData itemData)
     {
         if(itemData is RegistableItemData)
@@ -101,10 +111,7 @@ public class QuickSlotSystem : MonoBehaviour
             Registe(index, registableItemData);
         }
 
-        if(_selectedIndex == index)
-        {
-            SwitchingHandleItem();
-        }
+        SwitchingHandleItem();
     }
 
     // 착용 함수
@@ -118,12 +125,19 @@ public class QuickSlotSystem : MonoBehaviour
             var itemObject = CreateItemObject(itemdata.handType.ToString());
             items[index] = itemObject;
         }
+        else if(itemData is ConsumableItemData)
+        {
+            var itemdata = itemData as ConsumableItemData;
+            var itemObject = CreateItemObject(itemdata.handType.ToString());
+            //itemdata.GetComponent<RegistableItem>().itemData = itemData;
+            items[index] = itemObject;
+        }
     }
 
     // 해제 함수
     public void UnRegiste(int index)
     {
         Destroy(items[index]);
-        items[index] = null;
+        items[index] = CreateItemObject("EmptyHand");
     }
 }
