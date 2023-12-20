@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class OriginResourceSpawner : MonoBehaviour
 {
     #region Member Variables
 
     private List<OriginResourceConfig> _originResourceConfigs;
-    [SerializeField] private Transform[] _spawnPoints;
+    private List<Transform> _spawnPoints;
+
+    public Transform SpawnPointGroup;
 
     #endregion
 
@@ -33,7 +34,28 @@ public class OriginResourceSpawner : MonoBehaviour
     private void Initialize()
     {
         LoadOriginResourceConfig();
+        SpawnGroupChild();
         InitSpawnOriginResources();
+    }
+    
+    private void LoadOriginResourceConfig()
+    {
+        var configs = (Managers.Data.GetOriginResourceConfigs());
+        
+        foreach (var config in configs)
+        {
+            _originResourceConfigs.Add(config);
+        }
+    }
+
+    private void SpawnGroupChild()
+    {
+        _spawnPoints ??= new List<Transform>();
+
+        for (var i = 0; i < SpawnPointGroup.childCount; ++i)
+        {
+            _spawnPoints.Add(SpawnPointGroup.GetChild(i));
+        }
     }
 
     private void InitSpawnOriginResources()
@@ -52,16 +74,6 @@ public class OriginResourceSpawner : MonoBehaviour
 
 
     #region Main Methods
-    
-    private void LoadOriginResourceConfig()
-    {
-        var configs = (Managers.Data.GetOriginResourceConfigs());
-        
-        foreach (var config in configs)
-        {
-            _originResourceConfigs.Add(config);
-        }
-    }
 
     private void SpawnOriginResource(ResourceType type, Transform spawnPoint)
     {
@@ -71,9 +83,9 @@ public class OriginResourceSpawner : MonoBehaviour
         if (config == null || config.ModelPrefab == null) return;
         
         // 추 후에 부모 Root를 지정해주는 것도 나쁘지 않아보임 [By. 희성]
-        var gameObject = Instantiate(config.ModelPrefab, spawnPoint.position, Quaternion.identity);
+        var go = Instantiate(config.ModelPrefab, spawnPoint.position, Quaternion.identity);
         
-        OriginResourcesSetup(config, gameObject, type);
+        OriginResourcesSetup(config, go, type);
     }
 
     #endregion
@@ -84,20 +96,23 @@ public class OriginResourceSpawner : MonoBehaviour
 
     private void OriginResourcesSetup(OriginResourceConfig config, GameObject originObject, ResourceType type)
     {
-        var originResource = gameObject.AddComponent<OriginResource>();
-        var initAmount = DetermineInitAmount(type);
-        
-        originResource.InitAmount(initAmount);
-        originResource.InitConfig(config);
+        var originResource = originObject.AddComponent<OriginResource>();
+
+        InitOriginResource(config, originResource, type);
     }
 
-    private int DetermineInitAmount(ResourceType type) => type switch
+    private void InitOriginResource(OriginResourceConfig config, OriginResource originResource, ResourceType type)
     {
-        // 임시적으로 리터럴을 사용 하겠습니다. [By. 희성]
-        ResourceType.Tree => 4,
-        ResourceType.Rock => 8,
-        _ => 1
-    };
+        switch (type)
+        {
+            case ResourceType.Tree:
+                originResource.Initialize(4, 1, 4, TimeSpan.FromSeconds(5f), config);
+                break;
+            case ResourceType.Rock:
+                originResource.Initialize(8, 3, 6, TimeSpan.FromSeconds(10f), config);
+                break;
+        }
+    }
 
     #endregion
 }

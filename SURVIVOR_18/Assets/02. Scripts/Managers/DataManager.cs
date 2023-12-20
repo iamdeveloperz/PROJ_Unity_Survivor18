@@ -10,7 +10,7 @@ public class DataManager
     // Origin Resource Configs
     private Dictionary<ResourceType, OriginResourceConfig> _originResourceConfigs;
 
-    public bool IsComplete { get; private set; } = false;
+    public bool IsComplete { get; private set; }
 
     #endregion
 

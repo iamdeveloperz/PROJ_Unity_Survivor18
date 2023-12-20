@@ -42,6 +42,5 @@ public class PlayerInputController : MonoBehaviour
         inventory.SetActive(isBool);
         isinvenOpen = isBool;
         _cameraMove.enabled = !isBool;
-        Time.timeScale = isBool ? 0 : 1;
     }
 }

@@ -3,7 +3,18 @@ public class UIMainGame : UIScene
 {
     #region Enums
 
-    
+    enum Texts
+    {
+        GameTimerText,
+    }
+
+    enum GameObjects
+    {
+        HPBar,
+        HungerBar,
+        MoistureBar,
+        StaminaBar
+    }
 
     #endregion
 
