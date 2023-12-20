@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class BuildingSystem : MonoBehaviour
 {
-    [SerializeField] private Camera _cam;
+    private Camera _cam;
     [SerializeField] private GameObject _tempPrefab;
     [SerializeField] private Material _previewMat;
     [SerializeField] private Material _nonBuildableMat;
     private Material _origionmat;
 
-    [SerializeField] private PlayerInputs _playerInputs;
+    private PlayerInputs _playerInputs;
     [SerializeField] private LayerMask _buildableLayer; // creatingLayer
     [SerializeField] private LayerMask _destroyLayer;
     private LayerMask _currentLayer;
@@ -54,14 +55,14 @@ public class BuildingSystem : MonoBehaviour
 
     void Update()
     {
-        if (_playerInputs.DoSomething) return;        
+        if (_playerInputs.DoSomething) return;
 
-        if(_isHold)
+        if (_isHold)
         {
             SetObjPosition();
         }
 
-        if(_isBreakMode)
+        if (_isBreakMode)
         {
             HandleBreakArchitecture();
         }
@@ -105,10 +106,17 @@ public class BuildingSystem : MonoBehaviour
         buildableObject.OnBluePrintMatAction += HandleBuildableObjectTriggerExit;
     }
 
-    private void CreateBluePrintObject()
+    private void CreateBluePrintObject(GameObject go)
     {
-        Vector2 pos = RaycastHit().point;
-        CreateBluePrintObject(pos);
+        _obj = go;
+        //SetObjPosition(pos);
+
+        _buildableObject = _obj.GetComponent<BuildableObject>();
+        _buildableObject.SetMaterial(_previewMat);
+
+        BuildableObjectColliderManager buildableObject = _obj.GetComponentInChildren<BuildableObjectColliderManager>();
+        buildableObject.OnRedMatAction += HandleBuildableObjectTriggerEnter;
+        buildableObject.OnBluePrintMatAction += HandleBuildableObjectTriggerExit;
     }
 
     private void SetMaterialForDeletion()
@@ -184,29 +192,29 @@ public class BuildingSystem : MonoBehaviour
     private void HandleBreakArchitecture()
     {
         RaycastHit();
-        
-        if(validHIt)
-        {
-            GameObject toBeDestroyedObject = RaycastHit().collider.gameObject;
-            _obj = toBeDestroyedObject;
-            _origionmat = _obj.GetComponentInParent<BuildableObject>().GetMaterial();
-            toBeDestroyedObject.GetComponentInParent<BuildableObject>().SetMaterial(_nonBuildableMat);
 
-            var promptText = _playerInputs.gameObject.GetComponent<interactionManager>().promptText;
-            promptText.gameObject.SetActive(true);
-            promptText.text = "파괴하기";
+        if (!validHIt)
+        {
+            if (_obj)
+            {
+                VacateObj();
+            }
+            return;
+        }
+
+        if (_obj)
+        {
+            // 같은 놈이면 리턴
+            if (_obj == RaycastHit().collider.gameObject) return;
+
+            // 다른 놈이면
+            VacateObj();
+            GetObjToRay();
         }
         else
         {
-            if (_obj == null) return;
-            
-            // SetOriginMaterial
-            // 현재 rayhit 한 _obj 가 새로 rayhit 된 object 와 다른 경우를 처리하지 않았음
-            // 현재는 _obj 가 rayHit 를 벗어나면.. 메테리얼을 원상복귀 하도록 만들었다.
-
-            _obj.GetComponentInParent<BuildableObject>().SetMaterial(_origionmat);
-            _playerInputs.gameObject.GetComponent<interactionManager>().promptText.gameObject.SetActive(false);
-            _obj = null;
+            // 등록된 놈이 없으면
+            GetObjToRay();
         }
     }
 
@@ -230,15 +238,16 @@ public class BuildingSystem : MonoBehaviour
     {
         if (_isHold)
         {
-            // Set
+            // Set            
             HandleInstallArchitecture();
         }
         else if (_isBreakMode == false)
         {
-            // Create
-            var handItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
+            // Create            
+            var handItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;            
             if (handItemData.handType == HandableType.Building)
             {
+                _tempPrefab = Managers.Resource.GetPrefab(handItemData.searchName, Literals.PATH_STRUCTURE);
                 HandleCreateBluePrint();
             }
         }
@@ -246,9 +255,28 @@ public class BuildingSystem : MonoBehaviour
 
     private void DestroyArchitecture()
     {
-        if(_isBreakMode && _obj)
+        if (_isBreakMode && _obj)
         {
             Destroy(_obj.transform.parent.gameObject);
         }
+    }
+
+    private void VacateObj()
+    {
+        _obj.GetComponentInParent<BuildableObject>().SetMaterial(_origionmat);
+        _playerInputs.gameObject.GetComponent<interactionManager>().promptText.gameObject.SetActive(false);
+        _obj = null;
+    }
+
+    private void GetObjToRay()
+    {
+        GameObject toBeDestroyedObject = RaycastHit().collider.gameObject;
+        _obj = toBeDestroyedObject;
+        _origionmat = _obj.GetComponentInParent<BuildableObject>().GetMaterial();
+        toBeDestroyedObject.GetComponentInParent<BuildableObject>().SetMaterial(_nonBuildableMat);
+
+        var promptText = _playerInputs.gameObject.GetComponent<interactionManager>().promptText;
+        promptText.gameObject.SetActive(true);
+        promptText.text = "파괴하기";
     }
 }

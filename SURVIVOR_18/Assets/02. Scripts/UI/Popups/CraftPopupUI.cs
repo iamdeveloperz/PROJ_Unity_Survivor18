@@ -85,5 +85,11 @@ public class CraftPopupUI : MonoBehaviour
         ConsumeItemInInventory(2);
         UpdateCraftPopup();
     }
+
+    public void CreateWeapon4()
+    {
+        ConsumeItemInInventory(3);
+        UpdateCraftPopup();
+    }
     #endregion
 }

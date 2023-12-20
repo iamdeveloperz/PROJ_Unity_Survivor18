@@ -21,8 +21,16 @@ public class interactionManager : MonoBehaviour
     private IInteractable curInteractable;
 
     public TextMeshProUGUI promptText;
+
+    [SerializeField] private TextMeshProUGUI waterText;
+
+    private PlayerStatHandler playerStatHandler;
     private Camera camera;
 
+    private void Awake()
+    {
+        playerStatHandler = GetComponent<PlayerStatHandler>();
+    }
     private void Start()
     {
         camera = Camera.main;
@@ -42,7 +50,7 @@ public class interactionManager : MonoBehaviour
                 {
                     curInteractGameObject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
-                    SetPromptText();
+                    SetPromptText($"[E] {curInteractable.GetName()} 줍기");
                 }
             }
             else
@@ -54,10 +62,10 @@ public class interactionManager : MonoBehaviour
         }
     }
 
-    private void SetPromptText()
+    private void SetPromptText(string str)
     {
         promptText.gameObject.SetActive(true);
-        promptText.text = $"[E] {curInteractable.GetName()} 줍기";
+        promptText.text = str;
     }
 
     public void OnInteract()
@@ -69,5 +77,24 @@ public class interactionManager : MonoBehaviour
             curInteractGameObject = null;
             promptText.gameObject.SetActive(false);
         }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            waterText.text = "[E] 물 마시기";
+            waterText.gameObject.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                playerStatHandler.Drink(10);
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            waterText.gameObject.SetActive(false);
+        } 
     }
 }
