@@ -18,6 +18,7 @@ public class QuickSlotUI : MonoBehaviour, IDropHandler
         _quantity = transform.Find("Quantity").GetComponent<TextMeshProUGUI>();
         _quickSlotSystem = GameObject.Find("Player").GetComponent<QuickSlotSystem>();
         _icon.sprite = null;
+        _quantity.gameObject.SetActive(false);
     }
 
     public void OnDrop(PointerEventData eventData)
