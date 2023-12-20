@@ -27,17 +27,27 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Slot[] slots;  
     public GameObject itemName;  
     public GameObject itemInfo;
+    public GameObject itemHp;
+    public GameObject itemWater;
+    public GameObject itemClear;
     public List<ItemSlot> items;
     public PlayerStatHandler playerStatHandler;
     public static Inventory Instance;
+    public Slot curSlot;
     private void Awake()
     {
         Instance = this;
+        Button itemClearBtn = itemClear.GetComponent<Button>();
+        itemClearBtn.onClick.AddListener(ClearBtn);
     }
 
     void Start()
     {
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
+    }
+    public void ClearBtn()
+    {
+        curSlot.ClearSlot();
     }
     private void OnEnable()
     {
@@ -47,16 +57,31 @@ public class Inventory : MonoBehaviour
     {
         if (itemName.activeSelf)
         {
-            itemName.SetActive(false);
-            itemInfo.SetActive(false);
+            TextClose();
         }
     }
-    public void itemText(string itemNameText, string itemInfoText)
+    public void TextClose()
+    {
+        itemName.SetActive(false);
+        itemInfo.SetActive(false);
+        itemHp.SetActive(false);
+        itemWater.SetActive(false);
+        itemClear.SetActive(false);
+    }
+    public void itemText(string itemNameText, string itemInfoText, ItemType type = ItemType.equipItem, float hpText = 0, float waterText = 0)
     {
         itemName.SetActive(true);
         itemInfo.SetActive(true);
+        itemClear.SetActive(true);
         itemName.GetComponent<TextMeshProUGUI>().text = itemNameText;
         itemInfo.GetComponent<TextMeshProUGUI>().text = itemInfoText;
+        if (type == ItemType.useItem)
+        {
+            itemHp.SetActive(true);
+            itemWater.SetActive(true);
+            itemHp.GetComponent<TextMeshProUGUI>().text = $"체력 : + {hpText}";
+            itemWater.GetComponent<TextMeshProUGUI>().text = $"수분 : + {waterText}";
+        }
     }
     public void CreateSlotItem() 
     {
