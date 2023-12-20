@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6768098081560765839}
   - component: {fileID: 1019859212604818810}
-  m_Layer: 30
+  - component: {fileID: 4442414011719682630}
+  m_Layer: 0
   m_Name: BulidableCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +48,28 @@ MonoBehaviour:
   _redMat: {fileID: 2100000, guid: fedb6c69e954eb545977b62926bff384, type: 2}
   _bluePrintMat: {fileID: 2100000, guid: 7d380342618d1d148a3af1efe02ec4f2, type: 2}
   _thisObjectRenderer: {fileID: 29782470267136064}
-  _thisObjectAnotherCollider: {fileID: 4283664232688707174}
+  _thisObjectAnotherCollider: {fileID: 2527709891231034390}
+--- !u!65 &4442414011719682630
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805571410342642359}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.5167253, y: 1.2233129, z: 0.13606328}
+  m_Center: {x: -1.254563, y: 0.70218253, z: 0.009799212}
 --- !u!1 &6122954660534173968
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +81,7 @@ GameObject:
   - component: {fileID: 8035535547127518052}
   - component: {fileID: 6989794622442998690}
   - component: {fileID: 1453913396929038039}
-  m_Layer: 30
+  m_Layer: 0
   m_Name: Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,12 +125,12 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6122954660534173968}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 1.4, y: 0.76, z: 0.25}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: -1.25, y: 0.75, z: 0}
   m_TimeToStationary: 0.5
@@ -123,10 +145,6 @@ PrefabInstance:
     - target: {fileID: 111856, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
       propertyPath: m_Name
       value: FenceStructure
-      objectReference: {fileID: 0}
-    - target: {fileID: 111856, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
-      propertyPath: m_Layer
-      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 441386, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
       propertyPath: m_RootOrder
@@ -172,48 +190,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6435202, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
+    - target: {fileID: 2557468716094392084, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 111856, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4283664232688707174}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
 --- !u!23 &29782470267136064 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2376514, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
   m_PrefabInstance: {fileID: 29782470268955394}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &29782470269050866 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 111856, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
-  m_PrefabInstance: {fileID: 29782470268955394}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &4283664232688707174
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29782470269050866}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.953144, y: 1.5000219, z: 0.5393259}
-  m_Center: {x: -1.2521691, y: 0.7430234, z: 0.02526132}
 --- !u!4 &29782470269114152 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 441386, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
+  m_PrefabInstance: {fileID: 29782470268955394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2527709891231034390 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2557468716094392084, guid: ab5e0beb1c36778479983f28b65d97dd, type: 3}
   m_PrefabInstance: {fileID: 29782470268955394}
   m_PrefabAsset: {fileID: 0}
