@@ -9,5 +9,7 @@ public class Zombieman : Enemy
         base.Start();
         enemyAttackCoolTime = 1;
         enemyPower = 30;
+        maxHealth = 100;
+        curHealth = maxHealth;
     }
 }

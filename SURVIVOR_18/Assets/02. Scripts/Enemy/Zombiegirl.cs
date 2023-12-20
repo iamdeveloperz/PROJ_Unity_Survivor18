@@ -9,5 +9,7 @@ public class Zombiegirl : Enemy
         base.Start();
         enemyAttackCoolTime = 1;
         enemyPower = 20;
+        maxHealth = 60;
+        curHealth = maxHealth;
     }
 }
