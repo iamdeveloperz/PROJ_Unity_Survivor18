@@ -92,6 +92,9 @@ public class interactionManager : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        waterText.gameObject.SetActive(false);
+        if (other.CompareTag("Water"))
+        {
+            waterText.gameObject.SetActive(false);
+        } 
     }
 }
