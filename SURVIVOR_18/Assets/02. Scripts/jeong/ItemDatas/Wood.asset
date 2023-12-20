@@ -16,6 +16,7 @@ MonoBehaviour:
   description: "\uD3C9\uBC94\uD55C \uB098\uBB34\uC774\uB2E4."
   icon: {fileID: 21300000, guid: a5612e17f7779374da8564e7a11d823c, type: 3}
   equipPart: 1
+  type: 2
   canStack: 1
   maxStackCount: 20
   dropPrefab: {fileID: 5404320733342463277, guid: c1de92efef2d6984390bc272d081e108, type: 3}

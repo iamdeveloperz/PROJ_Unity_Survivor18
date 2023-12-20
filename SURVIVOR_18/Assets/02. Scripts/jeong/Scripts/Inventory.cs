@@ -34,8 +34,6 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private GameObject go_SlotsParent;  // Slot���� �θ��� Grid Setting 
     [SerializeField] private Slot[] slots;  // ���Ե� �迭
-    public TextMeshProUGUI itemName;  // ���Ե� �迭
-    public TextMeshProUGUI itemInfo;  // ���Ե� �迭
     public GameObject slotPrefab;
 
     public List<ItemSlot> items; // Do Delete
@@ -43,10 +41,19 @@ public class Inventory : MonoBehaviour
 
     public static Inventory Instance;
 
+    public GameObject itemName;  
+    public GameObject itemInfo;
+    public GameObject itemHp;
+    public GameObject itemWater;
+    public GameObject itemClear;
+    public PlayerStatHandler playerStatHandler;
+    public Slot curSlot;
+
     private void Awake()
     {
         Debug.Log("inventory awake");
         Instance = this;
+
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
         for (int i = 0; i < slots.Length; ++i)
         {
@@ -62,7 +69,8 @@ public class Inventory : MonoBehaviour
     private void OnEnable()
     {
         Debug.Log("inventory OnEnable");
-        //CreateSlotItem();
+        Button itemClearBtn = itemClear.GetComponent<Button>();
+        itemClearBtn.onClick.AddListener(ClearBtn);
     }
 
     void Start()
@@ -71,20 +79,40 @@ public class Inventory : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void CreateSlotItem() //���� ������ �ִ� ������ ���� �� Null
+    public void ClearBtn()
     {
-        //int i = 0;
-        //if (items != null)
-        //{
-        //    for (; i < slots.Length && i < items.Count; i++)
-        //    {
-        //        slots[i].AddItem(items[i]);
-        //    }
-        //}
-        //for (; i < slots.Length; i++)
-        //{
-        //    slots[i].AddItem(null);
-        //}
+        curSlot.ClearSlot();
+    }
+
+    private void OnDisable()
+    {
+        if (itemName.activeSelf)
+        {
+            TextClose();
+        }
+    }
+    public void TextClose()
+    {
+        itemName.SetActive(false);
+        itemInfo.SetActive(false);
+        itemHp.SetActive(false);
+        itemWater.SetActive(false);
+        itemClear.SetActive(false);
+    }
+    public void itemText(string itemNameText, string itemInfoText, ItemType type = ItemType.equipItem, float hpText = 0, float waterText = 0)
+    {
+        itemName.SetActive(true);
+        itemInfo.SetActive(true);
+        itemClear.SetActive(true);
+        itemName.GetComponent<TextMeshProUGUI>().text = itemNameText;
+        itemInfo.GetComponent<TextMeshProUGUI>().text = itemInfoText;
+        if (type == ItemType.useItem)
+        {
+            itemHp.SetActive(true);
+            itemWater.SetActive(true);
+            itemHp.GetComponent<TextMeshProUGUI>().text = $"체력 : + {hpText}";
+            itemWater.GetComponent<TextMeshProUGUI>().text = $"수분 : + {waterText}";
+        }
     }
 
     public void AddItem(ItemData item)
@@ -95,7 +123,7 @@ public class Inventory : MonoBehaviour
         if(item.canStack)
         {
             for(int i = 0; i < itemSlots.Length; ++i)
-            {
+            { 
                 if (itemSlots[i].item == item && itemSlots[i].quantity != itemSlots[i].item.maxStackCount)
                 {
                     itemSlots[i].quantity += 1;
@@ -108,26 +136,6 @@ public class Inventory : MonoBehaviour
         itemSlots[emptyIndex].item = item;
         itemSlots[emptyIndex].quantity = 1;
         slots[emptyIndex].SetItemSlot(itemSlots[emptyIndex]);
-
-        //if (item.canStack) //�������� �����̸�
-        //{
-        //    if (items.Find(itemSlot => itemSlot.item == item) == null)
-        //    {
-        //        items.Add(new ItemSlot(item, 0));
-        //    }
-        //    for (int i = 0; i < items.Count; i++) //���� ���� �ִ� �������̶� ����
-        //    {
-        //        if (items[i].item.name == item.name) //�������� ������ ���� ����
-        //        {
-        //            items[i].quantity++;
-        //            slots[i].CheckQuantity(items[i]);
-        //        }
-        //    }
-        //}
-        //else
-        //{
-        //    items.Add(new ItemSlot(item, 0));
-        //}
     }
 
     private int FindEmptySlot()
@@ -148,5 +156,12 @@ public class Inventory : MonoBehaviour
 
         slots[sourceIndex].SetItemSlot(itemSlots[sourceIndex]);
         slots[targetIndex].SetItemSlot(itemSlots[targetIndex]);
+    }
+
+    public void SubtractItem(ItemData item, int num)
+    {
+        for (int i = 0; i < items.Count; i++)
+            if (items[i].item.name == item.name)
+                slots[i].Consumeitem(num);
     }
 }
