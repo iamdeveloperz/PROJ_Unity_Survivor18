@@ -9,9 +9,7 @@ public class CraftPopupUI : MonoBehaviour
     [SerializeField] private List<Button> _createButtons;
     [SerializeField] private List<TextMeshProUGUI> _ownWoodNumTexts;
     [SerializeField] private List<TextMeshProUGUI> _ownRockNumTexts;
-
-    [SerializeField] private ItemData _woodData;
-    [SerializeField] private ItemData _rockData;
+    
     [SerializeField] private List<RegistableItemData> _weaponDatas;
 
     private int _ownWoodNum = 0;
