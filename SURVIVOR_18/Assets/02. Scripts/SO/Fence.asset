@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9042a73f145eaa41b24af612315031c, type: 3}
-  m_Name: Building
+  m_Name: Fence
   m_EditorClassIdentifier: 
-  searchName: Building
-  displayName: "\uAC74\uBB3C"
-  description: 
-  icon: {fileID: 21300000, guid: 871716272feb5754fb41b78be2f1c8f9, type: 3}
+  searchName: Fence
+  displayName: "\uC6B8\uD0C0\uB9AC"
+  description: "\uBAAC\uC2A4\uD130\uC758 \uC811\uADFC\uC744 \uB9C9\uC544\uC904 \uC218
+    \uC788\uC744\uBC95\uD55C \uC6B8\uD0C0\uB9AC"
+  icon: {fileID: 21300000, guid: bbc5e0b20c02cb145bd8ca67febb576a, type: 3}
   equipPart: 1
-  type: 1
+  type: 2
   canStack: 0
   maxStackCount: 1
   dropPrefab: {fileID: 0}
