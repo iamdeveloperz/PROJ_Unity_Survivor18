@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour, IHitable
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
         Quaternion toRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 5f); // 회전 속도를 조절
+        transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 5f); // 5f=> 회전속도조절
     }
 
     private void OnCollisionEnter(Collision other) 
@@ -55,48 +55,49 @@ public class Enemy : MonoBehaviour, IHitable
         {
             Attack(other);
         }
-        if (other.gameObject.tag == "무기")
+        /*if (other.gameObject.tag == "무기")
         {
-            Attacked(other);
-        }
+            Attacked();
+        }*/
     }
 
     public void Hit(float damage)
     {
         curHealth -= (int)damage;
+        Attacked();
         Debug.Log("HITTest");
-
     }
-
-    private void Attack(Collision other)
+    private void Attacked()
     {
-        
-        anim.SetTrigger("attack");
-        //플레이어의 체력을 깍아야함 => 아마 싱글톤으로 플레이어 체력을 받아와야할듯함
-        //공격사운드호출
-        isAttacking = true;
-        Invoke("ResetAttack", enemyAttackCoolTime);
-    }
-    private void ResetAttack() { isAttacking = false; }
-
-    private void Attacked(Collision other)
-    {
-        //curHealth -= "무기데미지" => 아마 other의 데미지를 받아와야함
-        if(curHealth > 0)
+        if (curHealth > 0)
         {
-            anim.SetTrigger("damage");
             // 맞는 사운드 호출
+            anim.SetTrigger("damage");
         }
         else
         {
-            anim.SetTrigger("death");
             // 죽는 사운드 호출
-            Invoke("DestroyObject", 3f); // 3초뒤에 사라짐
+            anim.SetTrigger("death");
+            Invoke("DestroyObject", 3f);
         }
     }
-
     private void DestroyObject()
     {
         Destroy(gameObject);
+    }
+    private void Attack(Collision other)
+    {
+        //공격사운드호출
+        anim.SetTrigger("attack");
+        if (isAttacking != true)
+        {
+            other.gameObject.GetComponent<PlayerStatHandler>()?.Hit((float)enemyPower);
+        }
+        isAttacking = true;
+        Invoke("ResetAttack", enemyAttackCoolTime);
+    }
+    private void ResetAttack() 
+    { 
+        isAttacking = false; 
     }
 }
