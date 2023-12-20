@@ -27,4 +27,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1536
   target: Tree
-  type: 2
+  handType: 2
