@@ -3,53 +3,101 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IHitable
 {
-    public int maxHealth;
-    public int curHealth;
+
+    [SerializeField] protected int maxHealth;
+    [SerializeField] protected int curHealth;
+    [SerializeField] protected int enemyAttackCoolTime;
+    [SerializeField] protected int enemyPower;
+
     public Transform target;
+    private bool isAttacking;
 
-    Rigidbody rigid;
-    CapsuleCollider capsuleCollider;
-    Material mat;
     NavMeshAgent nav;
+    Animator anim;
 
-
-    void Awake()
+    protected virtual void Start()
     {
-        rigid = GetComponent<Rigidbody>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
-        mat = GetComponentInChildren<SkinnedMeshRenderer>().material;
         nav = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
+        isAttacking = false;
     }
 
     void Update()
     {
         nav.SetDestination(target.position);
-        // 에이전트가 이동 중인 경우
         if (nav.hasPath)
         {
-            // 이동 방향으로 회전
             RotateTowardsTarget(nav.steeringTarget);
         }
     }
 
-
-    // 목표 지점 방향으로 회전하는 메서드
     void RotateTowardsTarget(Vector3 targetPosition)
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
         Quaternion toRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 5f); // 회전 속도를 조절
+        transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 5f); // 5f=> 회전속도조절
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other) 
     {
-        if (other.tag == "Player")
+        CollisionProcess(other);
+    }
+    private void OnCollisionStay(Collision other)
+    {
+        CollisionProcess(other);
+    }
+
+    private void CollisionProcess(Collision other)
+    {
+        if (other.gameObject.tag == "Player")
         {
-
-
-
+            Attack(other);
         }
+        /*if (other.gameObject.tag == "무기")
+        {
+            Attacked();
+        }*/
+    }
+
+    public void Hit(float damage)
+    {
+        curHealth -= (int)damage;
+        Attacked();
+        Debug.Log("HITTest");
+    }
+    private void Attacked()
+    {
+        if (curHealth > 0)
+        {
+            // 맞는 사운드 호출
+            anim.SetTrigger("damage");
+        }
+        else
+        {
+            // 죽는 사운드 호출
+            anim.SetTrigger("death");
+            Invoke("DestroyObject", 3f);
+        }
+    }
+    private void DestroyObject()
+    {
+        Destroy(gameObject);
+    }
+    private void Attack(Collision other)
+    {
+        //공격사운드호출
+        anim.SetTrigger("attack");
+        if (isAttacking != true)
+        {
+            other.gameObject.GetComponent<PlayerStatHandler>()?.Hit((float)enemyPower);
+        }
+        isAttacking = true;
+        Invoke("ResetAttack", enemyAttackCoolTime);
+    }
+    private void ResetAttack() 
+    { 
+        isAttacking = false; 
     }
 }

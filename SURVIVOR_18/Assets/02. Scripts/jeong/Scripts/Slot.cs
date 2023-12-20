@@ -9,31 +9,29 @@ using static UnityEditor.Progress;
 
 public class Slot : MonoBehaviour, IPointerClickHandler
 {
-    public ItemData item; //아이템
-    public ItemSlot itemSlot; //아이템
     public Image itemImage;  // 아이템의 이미지
     public Button itemSelectBtn;  // 아이템 선택버튼
+    public int index = 0;
 
     [SerializeField]
     private GameObject quantityTxt;
 
-    int itemQuantity;
-    // 인벤토리에 새로운 아이템 슬롯 추가
-    public void AddItem(ItemSlot _item)
+    private int itemQuantity;
+
+    public void Consumeitem(int value)
     {
-        if (_item != null)
+        if (itemQuantity - value >= 0)
         {
-            item = _item.item;
-            itemSlot = _item;
-        }
-        if (item != null)
-        {
-            itemImage.sprite = item.icon;
-            if (item.canStack)
+            itemQuantity -= value;
+            quantityTxt.GetComponent<TextMeshProUGUI>().text = itemQuantity.ToString();
+            if (itemQuantity == 0)
             {
-                itemQuantity = itemSlot.quantity;
-                CheckQuantity(itemSlot);
+                ClearSlot();
             }
+        }
+        else
+        {
+            Debug.Log("수량이 부족함");
         }
     }
     public void CheckQuantity(ItemSlot slot)
@@ -47,40 +45,79 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     }
     public void ClearSlot()
     {
-        item = null;
         itemImage.sprite = null;
         quantityTxt.SetActive(false);
-        for (int i = 0; i < Inventory.Instance.items.Count; i++)
-        {
-            if (Inventory.Instance.items[i] == itemSlot)
-            {
-                Inventory.Instance.items.Remove(Inventory.Instance.items[i]);
-            }
-        }
+        Inventory.Instance.TextClose();
+    }
+
+    private void PlusStatPlayer()
+    {
+        // Inventory 에서 I아이템 사용을 구현
+        // 매개변수는 index 값을 사용
+        // slot UI 는 각각 index 값을 가진다.
+        // 해당 slot 이 눌리면 Inventory.Instance.UseItem(index) 이런 형식이 될 것 같습니다.
+
+        //for (int i = 0; i < item.consumables.Length; i++)
+        //{
+        //    switch (item.consumables[i].type)
+        //    {
+        //        case ConsumableType.Moisture:
+        //            Inventory.Instance.playerStatHandler.Eat(item.consumables[i].value);
+        //            break;
+        //        case ConsumableType.Hunger:
+        //            Inventory.Instance.playerStatHandler.Drink(item.consumables[i].value);
+        //            break;
+        //    }
+        //}
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right) //오른쪽 클릭이면 해당 오브젝트의 아이템을 장착함
-        {
-            if (item != null)
-            {
-                //아이템 타입에 따라 장착, 사용
-                //if (item.GetType == )
-                //{
+        //Inventory.Instance.curSlot = this;
+        //if (item != null && item.type == ItemType.useItem)
+        //{
+        //    Inventory.Instance.TextClose();
+        //    Inventory.Instance.itemText(item.displayName, item.description, item.type, item.consumables[0].value, item.consumables[1].value);
+        //}
+        //else if(item != null)
+        //{
+        //    Inventory.Instance.TextClose();
+        //    Inventory.Instance.itemText(item.displayName, item.description);
+        //}
+        //if (eventData.button == PointerEventData.InputButton.Right) //오른쪽 클릭이면 해당 오브젝트의 아이템을 장착함
+        //{
+        //if (item != null)
+        //{
+        //    if (item.type == ItemType.useItem)
+        //    {
+        //        // 소비
+        //        itemQuantity--;
+        //        if (itemQuantity <= 0)
+        //        {
+        //            PlusStatPlayer();
+        //            ClearSlot();
+        //            Inventory.Instance.TextClose();
+        //            return;
+        //        }
+        //        quantityTxt.GetComponent<TextMeshProUGUI>().text = itemQuantity.ToString();
+        //    }
+        //}
+    }
 
-                //}
-                if (true)
-                {
-                    // 소비
-                    itemQuantity--;
-                    if (itemQuantity <= 0)
-                    {
-                        ClearSlot();
-                        return;
-                    }
-                    quantityTxt.GetComponent<TextMeshProUGUI>().text = itemQuantity.ToString();
-                }
+    public void SetItemSlot(ItemSlot itemslot)
+    {
+        if(itemslot.item == null)
+        {
+            itemImage.sprite = null;
+            quantityTxt.SetActive(false);
+        }
+        else
+        {
+            itemImage.sprite = itemslot.item.icon;
+            quantityTxt.SetActive(itemslot.item.canStack);
+            if (itemslot.item.canStack)
+            {                
+                quantityTxt.GetComponent<TextMeshProUGUI>().text = itemslot.quantity.ToString();
             }
         }
     }

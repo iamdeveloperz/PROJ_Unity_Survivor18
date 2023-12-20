@@ -59,6 +59,7 @@ public class interactionManager : MonoBehaviour
         promptText.gameObject.SetActive(true);
         promptText.text = $"[E] {curInteractable.GetName()} 줍기";
     }
+
     public void OnInteract()
     {
         if (curInteractable != null)
