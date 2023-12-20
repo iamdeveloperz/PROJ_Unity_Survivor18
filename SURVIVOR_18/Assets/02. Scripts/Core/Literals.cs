@@ -10,5 +10,34 @@ public static class Literals
     public const int DAY_LENGTH_SECONDS = 20;
 
     #endregion
+
+
+
+    #region UI Resolution
+
+    public const float SCREEN_X = 1920f;
+    public const float SCREEN_Y = 1080f;
+
+    public const float MATCH_WIDTH = 0.33f;
+
+    #endregion
     
+    
+
+    #region Resources Path
+
+    public const string PATH_UI = "Prefabs/UI/";
+    public const string PATH_INIT = "Prefabs/InitOnLoad/";
+    public const string PATH_RESOURCEMODEL = "Prefabs/OriginResourceModel/";
+    public const string PATH_SO = "ScriptableObject/";
+
+    #endregion
+
+
+    #region Resources - UI
+
+    public const string UI_MAINGAME_Scene_Main = "Scene_UI_MainGame";
+
+    #endregion
+
 }
