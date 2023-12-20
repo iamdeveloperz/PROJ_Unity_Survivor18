@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   displayName: "\uB3CC \uB3C4\uB07C"
-  description: 
+  description: "\uB3C4\uB07C\uB97C \uC774\uC6A9\uD558\uC5EC \uB098\uBB34\uB97C \uCC44\uC9D1\uD569\uB2C8\uB2E4."
   icon: {fileID: 21300000, guid: 06e8d836c76eb494db7ab3784ffcb0eb, type: 3}
   equipPart: 1
   type: 2
   canStack: 0
   maxStackCount: 1
   dropPrefab: {fileID: 0}
-  consumables: []
   attackPower: 1
   range: 7
   targetLayer:

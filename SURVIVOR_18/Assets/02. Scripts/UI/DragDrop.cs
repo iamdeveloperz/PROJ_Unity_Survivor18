@@ -17,15 +17,20 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (Inventory.Instance.itemSlots[_slot.index].item == null) return;
+
         if(eventData.button == PointerEventData.InputButton.Left)
         {
             Vector2 mousePosition = Input.mousePosition;
             Vector2 localPosition;
             RectTransform rt = _canvas.transform as RectTransform;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, mousePosition, _canvas.worldCamera, out localPosition);
-            ItemPreview.instance.gameObject.SetActive(true);
-            ItemPreview.instance.GetComponent<RectTransform>().localPosition = localPosition;
-            ItemPreview.instance.Init(_slot.index);
+            if (ItemPreview.instance.gameObject != null)
+            {
+                ItemPreview.instance.gameObject.SetActive(true);
+                ItemPreview.instance.GetComponent<RectTransform>().localPosition = localPosition;
+                ItemPreview.instance.Init(_slot.index);
+            }
         }
     }
 

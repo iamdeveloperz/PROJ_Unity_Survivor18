@@ -29,8 +29,6 @@ public class QuickSlotSystem : MonoBehaviour
     public Transform hand;
     private PlayerInputs _playerInputs;
     public RegistableItemData tempItemData;
-    public event Action OnRegisted;
-    public event Action OnUnRegisted;
     private int _selectedIndex = 1;
 
     private void Awake()
@@ -53,8 +51,7 @@ public class QuickSlotSystem : MonoBehaviour
 
     private GameObject CreateItemObject(string itemName)
     {
-        // var go = Instantiate(Resources.Load<GameObject>($"Prefabs/{itemName}"));
-        var go = Managers.Resource.Instantiate(itemName, Literals.PATH_HANDABLE);     // EmptyHand 변경    
+        var go = Managers.Resource.Instantiate(itemName, Literals.PATH_HANDABLE);
         var tempTransform = go.transform;
         go.transform.parent = hand;
         go.transform.localPosition = tempTransform.position;

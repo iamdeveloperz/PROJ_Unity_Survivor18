@@ -16,12 +16,6 @@ public class ItemSlot
     public ItemData item;
     public int quantity = 0;
 
-    public ItemSlot(ItemData item,int quantity)
-    {
-        this.item = item;
-        this.quantity = quantity;
-    }
-
     public ItemSlot()
     {
         this.item = null;
@@ -54,6 +48,9 @@ public class Inventory : MonoBehaviour
         Debug.Log("inventory awake");
         Instance = this;
 
+        Button itemClearBtn = itemClear.GetComponent<Button>();
+        itemClearBtn.onClick.AddListener(ClearBtn);
+
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
         for (int i = 0; i < slots.Length; ++i)
         {
@@ -64,13 +61,6 @@ public class Inventory : MonoBehaviour
         {
             itemSlots[i] = new ItemSlot();
         }
-    }
-    
-    private void OnEnable()
-    {
-        Debug.Log("inventory OnEnable");
-        //Button itemClearBtn = itemClear.GetComponent<Button>();
-        //itemClearBtn.onClick.AddListener(ClearBtn);
     }
 
     void Start()
@@ -86,10 +76,10 @@ public class Inventory : MonoBehaviour
 
     private void OnDisable()
     {
-        //if (itemName.activeSelf)
-        //{
-        //    //TextClose();
-        //}
+        if (itemName.activeSelf)
+        {
+            TextClose();
+        }
     }
     public void TextClose()
     {
@@ -160,8 +150,79 @@ public class Inventory : MonoBehaviour
 
     public void SubtractItem(ItemData item, int num)
     {
-        for (int i = 0; i < items.Count; i++)
-            if (items[i].item.name == item.name)
-                slots[i].Consumeitem(num);
+        //for (int i = 0; i < items.Count; i++)
+        //    if (items[i].item.name == item.name)
+        //            slots[i].Consumeitem(num);
+    }
+    public void UseItem(int index)
+    {
+        if (itemSlots[index].item != null)
+        {
+            if (itemSlots[index].item.type == ItemType.useItem)
+            {
+                itemSlots[index].quantity--;
+                ConsumableItemData slotdata = (ConsumableItemData)itemSlots[index].item;
+                PlusStatPlayer(slotdata);
+                if (itemSlots[index].quantity <= 0)
+                {
+                    curSlot.ClearSlot();
+                    itemSlots[index] = new ItemSlot();
+                    Inventory.Instance.TextClose();
+                    return;
+                }
+                curSlot.quantityTxt.GetComponent<TextMeshProUGUI>().text = itemSlots[index].quantity.ToString();
+            }
+        }
+    }
+    //리스트로 찾을 때 해당하는 i의 값을 index에 value는 아이템을 마이너스 할 값
+    public void Consumeitem(int index, int value)
+    {
+        if (itemSlots[index].quantity - value >= 0)
+        {
+            itemSlots[index].quantity -= value;
+            slots[index].GetComponent<TextMeshProUGUI>().text = itemSlots[index].quantity.ToString();
+            if (itemSlots[index].quantity == 0)
+            {
+                slots[index].ClearSlot();
+                itemSlots[index] = new ItemSlot();
+            }
+        }
+        else
+        {
+            Debug.Log("수량이 부족함");
+        }
+    }
+    private void PlusStatPlayer(ConsumableItemData item)
+    {
+        for (int i = 0; i < item.consumables.Length; i++)
+        {
+            switch (item.consumables[i].type)
+            {
+                case ConsumableType.Moisture:
+                    Inventory.Instance.playerStatHandler.Eat(item.consumables[i].value);
+                    break;
+                case ConsumableType.Hunger:
+                    Inventory.Instance.playerStatHandler.Drink(item.consumables[i].value);
+                    break;
+            }
+        }
+    }
+    public void ItemInfoText(int index)
+    {
+        if (itemSlots[index].item != null)
+        {
+            curSlot = slots[index];
+            if (itemSlots[index].item.type == ItemType.useItem)
+            {
+                ConsumableItemData slotdata = (ConsumableItemData)itemSlots[index].item;
+                TextClose();
+                itemText(slotdata.displayName, slotdata.description, slotdata.type, slotdata.consumables[0].value, slotdata.consumables[1].value);
+            }
+            else
+            {
+                Inventory.Instance.TextClose();
+                Inventory.Instance.itemText(itemSlots[index].item.displayName, itemSlots[index].item.description);
+            }
+        }
     }
 }

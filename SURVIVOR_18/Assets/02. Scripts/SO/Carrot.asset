@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0219cd9c2fe12b45ad3b260393d8fe8, type: 3}
+  m_Script: {fileID: 11500000, guid: ca6da964d8e217644b47f7d60e3de4a6, type: 3}
   m_Name: Carrot
   m_EditorClassIdentifier: 
   displayName: "\uB2F9\uADFC"
@@ -18,10 +18,10 @@ MonoBehaviour:
   equipPart: 1
   type: 0
   canStack: 1
-  maxStackCount: 20
+  maxStackCount: 30
   dropPrefab: {fileID: 1624370028976402423, guid: a84ef8ffcd9f992479c444f7120b9471, type: 3}
   consumables:
   - type: 1
-    value: 10
+    value: 20
   - type: 0
-    value: 15
+    value: 20
