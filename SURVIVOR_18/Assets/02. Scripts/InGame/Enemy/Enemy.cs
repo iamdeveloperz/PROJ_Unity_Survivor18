@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour, IHitable
 
     public Transform target;
     private bool isAttacking;
-
+    private bool isDead;
     NavMeshAgent nav;
     Animator anim;
 
@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour, IHitable
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         isAttacking = false;
+        isDead = false;
     }
     private void FindPlayerTarget()
     {
@@ -41,10 +42,13 @@ public class Enemy : MonoBehaviour, IHitable
     }
     void Update()
     {
-        nav.SetDestination(target.position);
-        if (nav.hasPath)
+        if (!isDead)
         {
-            RotateTowardsTarget(nav.steeringTarget);
+            nav.SetDestination(target.position);
+            if (nav.hasPath)
+            {
+                RotateTowardsTarget(nav.steeringTarget);
+            }
         }
     }
     void RotateTowardsTarget(Vector3 targetPosition)
@@ -63,7 +67,7 @@ public class Enemy : MonoBehaviour, IHitable
     }
     private void CollisionProcess(Collision other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !isAttacking)
         {
             Attack(other);
         }
@@ -72,10 +76,14 @@ public class Enemy : MonoBehaviour, IHitable
             Attacked();
         }*/
     }
-    public void Hit(float damage)
+    public void Hit(float damage) // 몬스터가 데미지 받는부분
     {
+        damage = 100;
         curHealth -= (int)damage;
-        Attacked();
+        if (!isDead)
+        {
+            Attacked();
+        }
         Debug.Log("HITTest");
     }
     private void Attacked()
@@ -88,10 +96,20 @@ public class Enemy : MonoBehaviour, IHitable
         else
         {
             // 죽는 사운드 호출
+            goLittleDown();
+            isDead = true;
             anim.SetTrigger("death");
-            Invoke("DestroyObject", 3f);
+            Invoke("DestroyObject", 2f);
         }
     }
+
+    private void goLittleDown()
+    {
+        Vector3 newPosition = transform.position;
+        newPosition.y -= 0.5f; // 원하는 만큼 y좌표를 조정
+        transform.position = newPosition;
+    }
+
     private void DestroyObject()
     {
         Destroy(gameObject);
@@ -100,10 +118,7 @@ public class Enemy : MonoBehaviour, IHitable
     {
         //공격사운드호출
         anim.SetTrigger("attack");
-        if (isAttacking != true)
-        {
-            other.gameObject.GetComponent<PlayerStatHandler>()?.Hit((float)enemyPower);
-        }
+        other.gameObject.GetComponent<PlayerStatHandler>()?.Hit((float)enemyPower); // 캐릭터한테 데미지를 주는 부분
         isAttacking = true;
         Invoke("ResetAttack", enemyAttackCoolTime);
     }
