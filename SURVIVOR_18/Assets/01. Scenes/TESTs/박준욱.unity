@@ -8152,12 +8152,16 @@ MonoBehaviour:
   _previewMat: {fileID: 2100000, guid: 7d380342618d1d148a3af1efe02ec4f2, type: 2}
   _nonBuildableMat: {fileID: 2100000, guid: fedb6c69e954eb545977b62926bff384, type: 2}
   _playerInputs: {fileID: 0}
-  _groundLayer:
+  _buildableLayer:
     serializedVersion: 2
     m_Bits: 1610612736
+  _destroyLayer:
+    serializedVersion: 2
+    m_Bits: 1073741824
   _raycastRange: 20
   _yGridSize: 0.1
   _rotationAngle: 45
+  _obj: {fileID: 0}
 --- !u!4 &6983258930735701593
 Transform:
   m_ObjectHideFlags: 0

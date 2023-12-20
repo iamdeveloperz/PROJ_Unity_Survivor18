@@ -8,6 +8,7 @@ TagManager:
   - Stone
   - Tree
   - Enemy
+  - Not
   layers:
   - Default
   - TransparentFX

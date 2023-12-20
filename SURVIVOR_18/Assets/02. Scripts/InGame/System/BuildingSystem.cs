@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,14 +11,18 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] private GameObject _tempPrefab;
     [SerializeField] private Material _previewMat;
     [SerializeField] private Material _nonBuildableMat;
+    private Material _origionmat;
+
     [SerializeField] private PlayerInputs _playerInputs;
-    [SerializeField] private LayerMask _groundLayer; // creatingLayer
+    [SerializeField] private LayerMask _buildableLayer; // creatingLayer
+    [SerializeField] private LayerMask _destroyLayer;
+    private LayerMask _currentLayer;
 
     [SerializeField] private int _raycastRange = 20;
     [SerializeField] private float _yGridSize = 0.1f;
     [SerializeField] private int _rotationAngle = 45;
 
-    private GameObject _obj;
+    [SerializeField] private GameObject _obj;
     private GameObject _lastHitObjectForBreakMode;
     private BuildableObject _buildableObject;
 
@@ -26,6 +32,7 @@ public class BuildingSystem : MonoBehaviour
     private int buildingLayer = 30; // deleteLayer , 적용중인 레이어
 
     private QuickSlotSystem _quickSlotSystem;
+    private bool validHIt = false;
 
     private void Awake()
     {
@@ -37,12 +44,12 @@ public class BuildingSystem : MonoBehaviour
     private void Start()
     {
         _playerInputs.OnInstallArchitectureAction += CreateAndSetArchitecture;
+        _playerInputs.OnInstallArchitectureAction += DestroyArchitecture;
 
         _playerInputs.OnRotateArchitectureLeftAction += HandleRotateArchitectureLeft;
         _playerInputs.OnRotateArchitectureRightAction += HandleRotateArchitectureRight;
         _playerInputs.OnCancelBuildModeAction += HandleCancelBuildMode;
         _playerInputs.OnBreakModeAction += HandleBreakMode;
-        _playerInputs.OnBreakArchitectureAction += HandleBreakArchitecture;
     }
 
     void Update()
@@ -56,7 +63,7 @@ public class BuildingSystem : MonoBehaviour
 
         if(_isBreakMode)
         {
-
+            HandleBreakArchitecture();
         }
     }
 
@@ -65,8 +72,7 @@ public class BuildingSystem : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out hit, _raycastRange, _groundLayer);
-
+        validHIt = Physics.Raycast(ray, out hit, _raycastRange, _currentLayer);
         return hit;
     }
 
@@ -127,6 +133,7 @@ public class BuildingSystem : MonoBehaviour
         if (!_isHold)
         {
             _isHold = true;
+            _currentLayer = _buildableLayer;
             CreateBluePrintObject(RaycastHit().point);
         }
     }
@@ -170,17 +177,31 @@ public class BuildingSystem : MonoBehaviour
         {
             HandleCancelBuildMode();
         }
+        _currentLayer = _destroyLayer;
         _isBreakMode = _isBreakMode ? false : true;
     }
 
     private void HandleBreakArchitecture()
     {
-        if (_isBreakMode)
+        RaycastHit();
+        
+        if(validHIt)
         {
             GameObject toBeDestroyedObject = RaycastHit().collider.gameObject;
-            if (toBeDestroyedObject.layer == buildingLayer)
-                if (Input.GetMouseButtonDown(0))
-                    Destroy(toBeDestroyedObject.transform.parent.gameObject);
+            _obj = toBeDestroyedObject;
+            _origionmat = _obj.GetComponentInParent<BuildableObject>().GetMaterial();
+            toBeDestroyedObject.GetComponentInParent<BuildableObject>().SetMaterial(_nonBuildableMat);
+
+            var promptText = _playerInputs.gameObject.GetComponent<interactionManager>().promptText;
+            promptText.gameObject.SetActive(true);
+            promptText.text = "파괴하기";
+        }
+        else
+        {
+            if (_obj == null) return;
+            _obj.GetComponentInParent<BuildableObject>().SetMaterial(_origionmat);
+            _playerInputs.gameObject.GetComponent<interactionManager>().promptText.gameObject.SetActive(false);
+            _obj = null;
         }
     }
 
@@ -215,6 +236,14 @@ public class BuildingSystem : MonoBehaviour
             {
                 HandleCreateBluePrint();
             }
+        }
+    }
+
+    private void DestroyArchitecture()
+    {
+        if(_isBreakMode && _obj)
+        {
+            Destroy(_obj.transform.parent.gameObject);
         }
     }
 }

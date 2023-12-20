@@ -17,6 +17,8 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (Inventory.Instance.itemSlots[_slot.index].item == null) return;
+
         if(eventData.button == PointerEventData.InputButton.Left)
         {
             Vector2 mousePosition = Input.mousePosition;

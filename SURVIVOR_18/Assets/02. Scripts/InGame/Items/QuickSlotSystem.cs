@@ -29,8 +29,6 @@ public class QuickSlotSystem : MonoBehaviour
     public Transform hand;
     private PlayerInputs _playerInputs;
     public RegistableItemData tempItemData;
-    public event Action OnRegisted;
-    public event Action OnUnRegisted;
     private int _selectedIndex = 1;
 
     private void Awake()
