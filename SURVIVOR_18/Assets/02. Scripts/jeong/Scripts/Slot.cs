@@ -47,7 +47,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     {
         itemImage.sprite = null;
         quantityTxt.SetActive(false);
-        Inventory.Instance.TextClose();
+        //Inventory.Instance.TextClose();
     }
 
     private void PlusStatPlayer()
