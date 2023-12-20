@@ -18,6 +18,9 @@ public class GameManager
     /* Timers Getter */
     public TimeSpan GameTime => _gameTime;
     public TimeSpan RealTime => _realTime;
+    
+    /* InGame State */
+    public InGameStatement InGameState { get; set; }
 
     #endregion
 
