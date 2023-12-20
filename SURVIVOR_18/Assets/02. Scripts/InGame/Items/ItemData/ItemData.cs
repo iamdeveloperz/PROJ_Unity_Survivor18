@@ -34,7 +34,6 @@ public class ItemData : ScriptableObject
     public bool canStack;
     public int maxStackCount;
     public GameObject dropPrefab; 
-    public ItemDataConsumable[] consumables;
 }
 
 public class RegistableItemData : ItemData

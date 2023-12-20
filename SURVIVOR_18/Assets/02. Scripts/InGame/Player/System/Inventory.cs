@@ -16,12 +16,6 @@ public class ItemSlot
     public ItemData item;
     public int quantity = 0;
 
-    public ItemSlot(ItemData item,int quantity)
-    {
-        this.item = item;
-        this.quantity = quantity;
-    }
-
     public ItemSlot()
     {
         this.item = null;
@@ -163,5 +157,58 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < items.Count; i++)
             if (items[i].item.name == item.name)
                 slots[i].Consumeitem(num);
+    }
+    public void UseItem(int index)
+    {
+        if (itemSlots[index].item != null)
+        {
+            if (itemSlots[index].item.type == ItemType.useItem)
+            {
+                itemSlots[index].quantity--;
+                ConsumableItemData slotdata = (ConsumableItemData)itemSlots[index].item;
+                PlusStatPlayer(slotdata);
+                if (itemSlots[index].quantity <= 0)
+                {
+                    curSlot.ClearSlot();
+                    itemSlots[index] = new ItemSlot();
+                    Inventory.Instance.TextClose();
+                    return;
+                }
+                curSlot.quantityTxt.GetComponent<TextMeshProUGUI>().text = itemSlots[index].quantity.ToString();
+            }
+        }
+    }
+    private void PlusStatPlayer(ConsumableItemData item)
+    {
+        for (int i = 0; i < item.consumables.Length; i++)
+        {
+            switch (item.consumables[i].type)
+            {
+                case ConsumableType.Moisture:
+                    Inventory.Instance.playerStatHandler.Eat(item.consumables[i].value);
+                    break;
+                case ConsumableType.Hunger:
+                    Inventory.Instance.playerStatHandler.Drink(item.consumables[i].value);
+                    break;
+            }
+        }
+    }
+    public void ItemInfoText(int index, Slot slot)
+    {
+        if (itemSlots[index].item != null)
+        {
+            curSlot = slot;
+            if (itemSlots[index].item.type == ItemType.useItem)
+            {
+                ConsumableItemData slotdata = (ConsumableItemData)itemSlots[index].item;
+                TextClose();
+                itemText(slotdata.displayName, slotdata.description, slotdata.type, slotdata.consumables[0].value, slotdata.consumables[1].value);
+            }
+            else
+            {
+                Inventory.Instance.TextClose();
+                Inventory.Instance.itemText(itemSlots[index].item.displayName, itemSlots[index].item.displayName);
+            }
+        }
     }
 }
