@@ -34,8 +34,11 @@ public class ItemPreview : MonoBehaviour
 
     public void Init(int sourceIndex)
     {
-        var itemSlot = Inventory.Instance.itemSlots[sourceIndex];
-        _icon.sprite = itemSlot.item.icon;
-        this.sourceIndex = sourceIndex;
+        if (Inventory.Instance.itemSlots[sourceIndex].item != null)
+        {
+            var itemSlot = Inventory.Instance.itemSlots[sourceIndex];
+            _icon.sprite = itemSlot.item.icon;
+            this.sourceIndex = sourceIndex;
+        }
     }
 }
