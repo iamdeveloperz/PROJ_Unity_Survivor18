@@ -39,7 +39,7 @@ public class Inventory : MonoBehaviour
     public GameObject slotPrefab;
 
     public List<ItemSlot> items; // Do Delete
-    public ItemSlot[] itemSlots = new ItemSlot[_maxCapacity];
+    public ItemSlot[] itemSlots;
 
     public static Inventory Instance;
 
@@ -51,6 +51,11 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < slots.Length; ++i)
         {
             slots[i].index = i;
+        }
+        itemSlots = new ItemSlot[_maxCapacity];
+        for(int i = 0; i < itemSlots.Length; ++i)
+        {
+            itemSlots[i] = new ItemSlot();
         }
     }
     

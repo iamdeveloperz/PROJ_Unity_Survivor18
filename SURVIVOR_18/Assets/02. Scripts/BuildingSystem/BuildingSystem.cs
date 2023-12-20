@@ -25,28 +25,68 @@ public class BuildingSystem : MonoBehaviour
     private bool _canCreateObject = true;
     private int buildingLayer = 30;
 
+    private QuickSlotSystem _quickSlotSystem;
+
+    private void Awake()
+    {
+        _playerInputs = GetComponent<PlayerInputs>();
+        _quickSlotSystem = GetComponent<QuickSlotSystem>();
+        _cam = Camera.main;
+
+    }
+
     private void Start()
     {
-        _playerInputs.OnCreateBluePrintAction += HandleCreateBluePrint;
+        _playerInputs.OnCreateBluePrintAction += CreateBluePrintObject;
         _playerInputs.OnRotateArchitectureLeftAction += HandleRotateArchitectureLeft;
         _playerInputs.OnRotateArchitectureRightAction += HandleRotateArchitectureRight;
         _playerInputs.OnCancelBuildModeAction += HandleCancelBuildMode;
-        _playerInputs.OnInstallArchitectureAction += HandleInstallArchitecture;
+        //_playerInputs.OnInstallArchitectureAction += HandleInstallArchitecture;
         _playerInputs.OnBreakModeAction += HandleBreakMode;
         _playerInputs.OnBreakArchitectureAction += HandleBreakArchitecture;
     }
 
     void Update()
     {
-        if (_isHold)
+        if (_playerInputs.DoSomething) return;        
+
+        if(_isHold)
         {
-            RaycastHit hit = RaycastHit();
-            if (hit.collider != null
-                && _groundLayer == (_groundLayer | (1 << hit.collider.gameObject.layer)))
-                SetObjPosition(hit.point);
+            SetObjPosition();
         }
-        else if (_isBreakMode)
-            SetMaterialForDeletion();
+        else
+        {
+
+        }
+
+        if(_playerInputs.attack)            
+        {
+            if (!_isHold) // Click
+            {
+                var handItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
+                if (handItemData.type == HandableType.Building)
+                {
+                    Debug.Log("IsHold : " + _isHold);
+                    CreateBluePrintObject();
+                    _isHold = true;
+                }
+            }
+            else
+            {
+                HandleInstallArchitecture();
+            }
+        }
+        // 원본 코드
+        //if (_isHold)
+        //{
+        //    RaycastHit hit = RaycastHit();
+        //    if (hit.collider != null
+        //        && _groundLayer == (_groundLayer | (1 << hit.collider.gameObject.layer)))
+        //        SetObjPosition(hit.point);
+        //}
+        //else if (_isBreakMode)
+        //    SetMaterialForDeletion();
+        //
     }
 
     #region
@@ -54,7 +94,7 @@ public class BuildingSystem : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out hit, _raycastRange);
+        Physics.Raycast(ray, out hit, _raycastRange, _groundLayer);
 
         return hit;
     }
@@ -67,7 +107,15 @@ public class BuildingSystem : MonoBehaviour
         _obj.transform.position = _location;
     }
 
-    private void CreateBluePrintObject(Vector3 pos)
+    private void SetObjPosition()
+    {
+        Vector3 _location = RaycastHit().point;
+        _location.Set(Mathf.Round(_location.x), Mathf.Round(_location.y / _yGridSize) * _yGridSize, Mathf.Round(_location.z));
+
+        _obj.transform.position = _location;
+    }
+
+    private void CreateBluePrintObject(Vector2 pos)
     {
         _obj = Instantiate(_tempPrefab);
         SetObjPosition(pos);
@@ -78,6 +126,12 @@ public class BuildingSystem : MonoBehaviour
         BuildableObjectColliderManager buildableObject = _obj.GetComponentInChildren<BuildableObjectColliderManager>();
         buildableObject.OnRedMatAction += HandleBuildableObjectTriggerEnter;
         buildableObject.OnBluePrintMatAction += HandleBuildableObjectTriggerExit;
+    }
+
+    private void CreateBluePrintObject()
+    {
+        Vector2 pos = RaycastHit().point;
+        CreateBluePrintObject(pos);
     }
 
     private void SetMaterialForDeletion()
@@ -175,4 +229,16 @@ public class BuildingSystem : MonoBehaviour
     }
 
     #endregion
+
+    private void CreateAndSetArchitecture()
+    {
+        if(_isHold)
+        {
+            // Set
+        }
+        else
+        {
+            // Create
+        }
+    }
 }

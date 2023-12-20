@@ -22,8 +22,6 @@ public class PlayerInputs : StarterAssetsInputs
         set
         {
             _doSomething = value;
-            //GetComponent<PlayerInput>().enabled = !_doSomething;
-            //move = Vector2.zero;
             GetComponent<ThirdPersonController>().enabled = !_doSomething;
         }
     }

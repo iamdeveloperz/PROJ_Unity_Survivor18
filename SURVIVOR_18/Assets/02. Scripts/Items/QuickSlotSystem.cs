@@ -14,9 +14,10 @@ public enum EquipableParts
 public enum HandableType // GrabType
 {
     EmptyHand,
-    Weapon,
+    Sword,
     Axe,
     Pick,
+    Building,
 }
 
 public class QuickSlotSystem : MonoBehaviour
@@ -30,6 +31,7 @@ public class QuickSlotSystem : MonoBehaviour
     public RegistableItemData tempItemData;
     public event Action OnRegisted;
     public event Action OnUnRegisted;
+    private int _selectedIndex = 1;
 
     private void Awake()
     {
@@ -44,8 +46,9 @@ public class QuickSlotSystem : MonoBehaviour
         _playerInputs.OnPressedQuickNumber += OperatorQuickSlot;
 
 
-        //Registe(0, tempItemData);
-        OperatorQuickSlot(1);
+        Registe(0, tempItemData);
+        _selectedIndex = 1;
+        OperatorQuickSlot(_selectedIndex);
     }
 
     private GameObject CreateItemObject(string itemName)
@@ -60,7 +63,8 @@ public class QuickSlotSystem : MonoBehaviour
 
     private void OperatorQuickSlot(int index)
     {
-        var data = items[index].GetComponent<RegistableItem>().itemData;
+        _selectedIndex = index - 1;
+        var data = items[_selectedIndex].GetComponent<RegistableItem>().itemData;
         switch (data)
         {
             case ConsumableItemData _:
@@ -68,17 +72,16 @@ public class QuickSlotSystem : MonoBehaviour
                 break;
 
             case HandleItemData _:
-                SwitchingHandleItem(index);
+                SwitchingHandleItem();
                 break;
         }
     }
 
-    private void SwitchingHandleItem(int index)
+    private void SwitchingHandleItem()
     {
-        int n = index - 1;
         for(int i = 0; i < items.Length;++i)
         {
-            if(i == n)
+            if(i == _selectedIndex)
             {
                 items[i].SetActive(true);
                 HandleItem = items[i].GetComponent<RegistableItem>();
@@ -96,6 +99,11 @@ public class QuickSlotSystem : MonoBehaviour
         {
             var registableItemData = itemData as RegistableItemData;
             Registe(index, registableItemData);
+        }
+
+        if(_selectedIndex == index)
+        {
+            SwitchingHandleItem();
         }
     }
 
