@@ -66,6 +66,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         item = null;
         itemImage.sprite = null;
         quantityTxt.SetActive(false);
+        Inventory.Instance.TextClose();
         for (int i = 0; i < Inventory.Instance.items.Count; i++)
         {
             if (Inventory.Instance.items[i] == itemSlot)
@@ -91,8 +92,15 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (item != null)
+        Inventory.Instance.curSlot = this;
+        if (item != null && item.type == ItemType.useItem)
         {
+            Inventory.Instance.TextClose();
+            Inventory.Instance.itemText(item.displayName, item.description, item.type, item.consumables[0].value, item.consumables[1].value);
+        }
+        else if(item != null)
+        {
+            Inventory.Instance.TextClose();
             Inventory.Instance.itemText(item.displayName, item.description);
         }
         if (eventData.button == PointerEventData.InputButton.Right) //오른쪽 클릭이면 해당 오브젝트의 아이템을 장착함
@@ -107,6 +115,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
                     {
                         PlusStatPlayer();
                         ClearSlot();
+                        Inventory.Instance.TextClose();
                         return;
                     }
                     quantityTxt.GetComponent<TextMeshProUGUI>().text = itemQuantity.ToString();
