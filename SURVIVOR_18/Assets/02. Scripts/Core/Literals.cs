@@ -44,4 +44,12 @@ public static class Literals
 
     #endregion
 
+
+
+    #region Craft
+
+    public const string WOOD = "Wood";
+    public const string ROCK = "Rock";
+
+    #endregion
 }
