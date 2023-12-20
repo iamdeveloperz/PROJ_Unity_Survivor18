@@ -19,5 +19,5 @@ MonoBehaviour:
   equipPart: 1
   type: 2
   canStack: 1
-  maxStackCount: 20
-  dropPrefab: {fileID: 0}
+  maxStackCount: 999
+  dropPrefab: {fileID: 5404320733342463277, guid: c1de92efef2d6984390bc272d081e108, type: 3}

@@ -729,6 +729,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1504952636977628982, guid: 899d23211880b1e46addbef2d982fb20, type: 3}
+      propertyPath: root_QuickSlots
+      value: 
+      objectReference: {fileID: 994468897}
     - target: {fileID: 1521672761193821370, guid: 899d23211880b1e46addbef2d982fb20, type: 3}
       propertyPath: m_Name
       value: Player
@@ -976,6 +980,11 @@ RectTransform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 929470210069642389, guid: 899d23211880b1e46addbef2d982fb20, type: 3}
   m_PrefabInstance: {fileID: 715932574}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &994468897 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5506449479195194897, guid: d54576278275edc48b1d1bea5da434bc, type: 3}
+  m_PrefabInstance: {fileID: 45704908}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1023356906 stripped
 RectTransform:
