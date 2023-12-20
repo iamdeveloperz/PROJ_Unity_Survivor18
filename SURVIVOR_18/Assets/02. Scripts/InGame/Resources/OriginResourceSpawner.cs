@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class OriginResourceSpawner : MonoBehaviour
 {
@@ -63,8 +64,8 @@ public class OriginResourceSpawner : MonoBehaviour
         foreach (var spawnPoint in _spawnPoints)
         {
             // 원래는 이 형태로 사용해야 하지만 현재 Rock이 없기 때문에 주석 처리 [by. 희성]
-            // var type = (ResourceType)Random.Range(0, Enum.GetValues(typeof(ResourceType)).Length);
-            var type = ResourceType.Tree;
+             var type = (ResourceType)Random.Range(0, Enum.GetValues(typeof(ResourceType)).Length);
+            //var type = ResourceType.Tree;
             SpawnOriginResource(type, spawnPoint);
         }
     }

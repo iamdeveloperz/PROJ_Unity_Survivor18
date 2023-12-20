@@ -24,7 +24,7 @@ public class PlayerInputController : MonoBehaviour
     }
     private void Start()
     {
-        inventory.SetActive(false);
+        //inventory.SetActive(false);
     }
 
     public void OnInventory(InputValue value)

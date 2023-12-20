@@ -12,17 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9042a73f145eaa41b24af612315031c, type: 3}
   m_Name: EmptyHand
   m_EditorClassIdentifier: 
+  searchName: EmptyHand
   displayName: "\uC190"
   description: 
   icon: {fileID: 0}
   equipPart: 1
+  type: 0
   canStack: 0
   maxStackCount: 1
   dropPrefab: {fileID: 0}
+  handType: 0
+  requiredWoodNum: 0
+  requiredRockNum: 0
   attackPower: 0
   range: 7
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
   target: 
-  type: 0

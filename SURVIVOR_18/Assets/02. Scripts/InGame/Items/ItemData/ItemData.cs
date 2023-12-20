@@ -25,7 +25,7 @@ public class ItemData : ScriptableObject
 {
     [Header("Default Setting")]
     // [ 만약 아이템의 종류가 다양해진다면 ]
-    // public string searchName; 
+    public string searchName; 
     public string displayName;
     public string description;
     public Sprite icon;
@@ -38,8 +38,10 @@ public class ItemData : ScriptableObject
 
 public class RegistableItemData : ItemData
 {
+    public HandableType handType;
     public int requiredWoodNum;
     public int requiredRockNum;
+
     public RegistableItemData()
     {
         equipPart = EquipableParts.Hand;

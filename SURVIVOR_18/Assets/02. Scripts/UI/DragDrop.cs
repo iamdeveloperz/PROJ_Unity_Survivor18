@@ -17,8 +17,8 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (Inventory.Instance.itemSlots[_slot.index].item == null) return;
-
+        if (Inventory.Instance.itemSlots[_slot.index].item == null || Inventory.Instance.itemSlots[_slot.index].locked) return;
+        Debug.Log("Pointer Down");
         if(eventData.button == PointerEventData.InputButton.Left)
         {
             Vector2 mousePosition = Input.mousePosition;
@@ -43,6 +43,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     {
         ItemPreview.instance.transform.position = eventData.position;
     }
+
     public void OnEndDrag(PointerEventData eventData)
     {
         ItemPreview.instance.gameObject.SetActive(false);
@@ -50,6 +51,10 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnDrop(PointerEventData eventData)
     {
-        Inventory.Instance.SwitchingItemSlot(ItemPreview.instance.sourceIndex, _slot.index);
+        if (Inventory.Instance.itemSlots[ItemPreview.instance.sourceIndex].locked == false
+            && Inventory.Instance.itemSlots[_slot.index].locked == false)
+        {
+            Inventory.Instance.SwitchingItemSlot(ItemPreview.instance.sourceIndex, _slot.index);
+        }        
     }
 }

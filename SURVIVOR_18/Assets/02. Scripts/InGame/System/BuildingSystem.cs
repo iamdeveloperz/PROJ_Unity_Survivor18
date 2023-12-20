@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class BuildingSystem : MonoBehaviour
 {
-    [SerializeField] private Camera _cam;
+    private Camera _cam;
     [SerializeField] private GameObject _tempPrefab;
     [SerializeField] private Material _previewMat;
     [SerializeField] private Material _nonBuildableMat;
     private Material _origionmat;
 
-    [SerializeField] private PlayerInputs _playerInputs;
+    private PlayerInputs _playerInputs;
     [SerializeField] private LayerMask _buildableLayer; // creatingLayer
     [SerializeField] private LayerMask _destroyLayer;
     private LayerMask _currentLayer;
@@ -54,14 +54,14 @@ public class BuildingSystem : MonoBehaviour
 
     void Update()
     {
-        if (_playerInputs.DoSomething) return;        
+        if (_playerInputs.DoSomething) return;
 
-        if(_isHold)
+        if (_isHold)
         {
             SetObjPosition();
         }
 
-        if(_isBreakMode)
+        if (_isBreakMode)
         {
             HandleBreakArchitecture();
         }
@@ -184,24 +184,29 @@ public class BuildingSystem : MonoBehaviour
     private void HandleBreakArchitecture()
     {
         RaycastHit();
-        
-        if(validHIt)
-        {
-            GameObject toBeDestroyedObject = RaycastHit().collider.gameObject;
-            _obj = toBeDestroyedObject;
-            _origionmat = _obj.GetComponentInParent<BuildableObject>().GetMaterial();
-            toBeDestroyedObject.GetComponentInParent<BuildableObject>().SetMaterial(_nonBuildableMat);
 
-            var promptText = _playerInputs.gameObject.GetComponent<interactionManager>().promptText;
-            promptText.gameObject.SetActive(true);
-            promptText.text = "파괴하기";
+        if (!validHIt)
+        {
+            if (_obj)
+            {
+                VacateObj();
+            }
+            return;
+        }
+
+        if (_obj)
+        {
+            // 같은 놈이면 리턴
+            if (_obj == RaycastHit().collider.gameObject) return;
+
+            // 다른 놈이면
+            VacateObj();
+            GetObjToRay();
         }
         else
         {
-            if (_obj == null) return;
-            _obj.GetComponentInParent<BuildableObject>().SetMaterial(_origionmat);
-            _playerInputs.gameObject.GetComponent<interactionManager>().promptText.gameObject.SetActive(false);
-            _obj = null;
+            // 등록된 놈이 없으면
+            GetObjToRay();
         }
     }
 
@@ -241,9 +246,28 @@ public class BuildingSystem : MonoBehaviour
 
     private void DestroyArchitecture()
     {
-        if(_isBreakMode && _obj)
+        if (_isBreakMode && _obj)
         {
             Destroy(_obj.transform.parent.gameObject);
         }
+    }
+
+    private void VacateObj()
+    {
+        _obj.GetComponentInParent<BuildableObject>().SetMaterial(_origionmat);
+        _playerInputs.gameObject.GetComponent<interactionManager>().promptText.gameObject.SetActive(false);
+        _obj = null;
+    }
+
+    private void GetObjToRay()
+    {
+        GameObject toBeDestroyedObject = RaycastHit().collider.gameObject;
+        _obj = toBeDestroyedObject;
+        _origionmat = _obj.GetComponentInParent<BuildableObject>().GetMaterial();
+        toBeDestroyedObject.GetComponentInParent<BuildableObject>().SetMaterial(_nonBuildableMat);
+
+        var promptText = _playerInputs.gameObject.GetComponent<interactionManager>().promptText;
+        promptText.gameObject.SetActive(true);
+        promptText.text = "파괴하기";
     }
 }
