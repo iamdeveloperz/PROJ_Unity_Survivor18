@@ -23,8 +23,6 @@ public class QuickSlotUI : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("Quick Dropped");
-        //Inventory.Instance.itemSlots[ItemPreview.instance.sourceIndex].item;
-        //quickslotsystem.regist(
         var itemSlot = Inventory.Instance.itemSlots[ItemPreview.instance.sourceIndex];
         _quickSlotSystem.Registe(index, itemSlot.item);
         _icon.sprite = itemSlot.item.icon;

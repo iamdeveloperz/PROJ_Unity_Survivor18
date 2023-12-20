@@ -36,11 +36,11 @@ public class BuildingSystem : MonoBehaviour
 
     private void Start()
     {
-        _playerInputs.OnCreateBluePrintAction += CreateBluePrintObject;
+        _playerInputs.OnInstallArchitectureAction += CreateAndSetArchitecture;
+
         _playerInputs.OnRotateArchitectureLeftAction += HandleRotateArchitectureLeft;
         _playerInputs.OnRotateArchitectureRightAction += HandleRotateArchitectureRight;
         _playerInputs.OnCancelBuildModeAction += HandleCancelBuildMode;
-        //_playerInputs.OnInstallArchitectureAction += HandleInstallArchitecture;
         _playerInputs.OnBreakModeAction += HandleBreakMode;
         _playerInputs.OnBreakArchitectureAction += HandleBreakArchitecture;
     }
@@ -53,6 +53,7 @@ public class BuildingSystem : MonoBehaviour
         {
             SetObjPosition();
         }
+
         if(_isBreakMode)
         {
 
@@ -201,13 +202,19 @@ public class BuildingSystem : MonoBehaviour
 
     private void CreateAndSetArchitecture()
     {
-        if(_isHold)
+        if (_isHold)
         {
             // Set
+            HandleInstallArchitecture();
         }
-        else if(_isBreakMode == false)
+        else if (_isBreakMode == false)
         {
             // Create
+            var handItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
+            if (handItemData.handType == HandableType.Building)
+            {
+                HandleCreateBluePrint();
+            }
         }
     }
 }
