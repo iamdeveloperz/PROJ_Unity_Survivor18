@@ -37,6 +37,13 @@ public class ItemSlot
         locked = false;
         return temp;
     }
+
+    public void Clear()
+    {
+        this.item = null;
+        this.quantity = 0;
+        this.locked = false;
+    }
 }
 public class Inventory : MonoBehaviour
 {
@@ -71,6 +78,7 @@ public class Inventory : MonoBehaviour
         {
             slots[i].index = i;
         }
+
         itemSlots = new ItemSlot[_maxCapacity];
         for(int i = 0; i < itemSlots.Length; ++i)
         {
@@ -164,12 +172,6 @@ public class Inventory : MonoBehaviour
         slots[targetIndex].SetItemSlot(itemSlots[targetIndex]);
     }
 
-    public void SubtractItem(ItemData item, int num)
-    {
-        //for (int i = 0; i < items.Count; i++)
-        //    if (items[i].item.name == item.name)
-        //            slots[i].Consumeitem(num);
-    }
     public void UseItem(int index)
     {
         Debug.Log("Use Item" + index);
