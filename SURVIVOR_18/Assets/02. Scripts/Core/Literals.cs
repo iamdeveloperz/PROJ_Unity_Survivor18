@@ -32,7 +32,16 @@ public static class Literals
     public const string PATH_ITEM = "Prefabs/Item/";
     public const string PATH_HANDABLE = "Prefabs/Handable/";
     public const string PATH_PLAYER = "Prefabs/Player/";
+    public const string PATH_DAYCYCLE = "Prefabs/DayCycle/";
     // public const string PATH_SO = "ScriptableObject/";
+
+    #endregion
+    
+    
+    
+    #region Resources - DAY CYCLE System
+
+    public const string SUN_LIGHT = "Sun";
 
     #endregion
 
