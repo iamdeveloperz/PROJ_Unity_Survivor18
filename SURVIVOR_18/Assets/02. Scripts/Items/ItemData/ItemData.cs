@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemType
+{
+    useItem,
+    equipItem,
+    etcItem,
+}
 [CreateAssetMenu(fileName ="DefaultItemData", menuName ="New Item/Default", order= 0)]
 public class ItemData : ScriptableObject
 {
@@ -12,6 +18,7 @@ public class ItemData : ScriptableObject
     public string description;
     public Sprite icon;
     public EquipableParts equipPart;
+    public ItemType type; 
     public bool canStack;
     public int maxStackCount;
     public GameObject dropPrefab;
