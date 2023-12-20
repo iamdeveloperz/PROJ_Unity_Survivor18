@@ -29,6 +29,7 @@ public class ResourceGathering : MonoBehaviour
     private void Update()
     {
         var handleItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
+
         _attackDelayTimer += Time.deltaTime;
         if (_attackDelayTimer < _attackDelay) return;
                 

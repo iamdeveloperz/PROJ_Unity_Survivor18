@@ -14,12 +14,19 @@ public class PlayerInputController : MonoBehaviour
     private Inventory inven;
     private CinemachineBrain _cameraMove;
     public bool isinvenOpen = false;
+    private PlayerInputs _playerInputs;
 
     private void Awake()
     {
         _cameraMove = Camera.main.GetComponent<CinemachineBrain>();
         inven = inventory.GetComponent<Inventory>();
+        _playerInputs = GetComponent<PlayerInputs>();
     }
+    private void Start()
+    {
+        inventory.SetActive(false);
+    }
+
     public void OnInventory(InputValue value)
     {
         OpenInventory();
@@ -42,6 +49,7 @@ public class PlayerInputController : MonoBehaviour
         inventory.SetActive(isBool);
         isinvenOpen = isBool;
         _cameraMove.enabled = !isBool;
-        Time.timeScale = isBool ? 0 : 1;
+        //Time.timeScale = isBool ? 0 : 1;
+        _playerInputs.DoSomething = isBool;
     }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uAC80"
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 4f2f320a217307a48a107491b1d17ebb, type: 3}
   equipPart: 1
   canStack: 0
   maxStackCount: 1
@@ -23,6 +23,6 @@ MonoBehaviour:
   range: 7
   targetLayer:
     serializedVersion: 2
-    m_Bits: 0
-  target: 
+    m_Bits: 512
+  target: Not
   type: 1

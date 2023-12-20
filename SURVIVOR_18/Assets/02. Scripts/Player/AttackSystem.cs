@@ -30,8 +30,10 @@ public class AttackSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_playerInputs.DoSomething) return;
+
         var handleItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
-        if (handleItemData == null || handleItemData.type == HandableType.EmptyHand) return;
+        if (handleItemData == null || handleItemData.type == HandableType.EmptyHand || handleItemData.type == HandableType.Building) return;
 
         _attackDelayTimer += Time.deltaTime;
         if (_attackDelayTimer < attackDelay) return;
@@ -43,7 +45,7 @@ public class AttackSystem : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, handleItemData.range, targetLayer))
             {
-                float weight = handleItemData.type == HandableType.Weapon ? 1.0f : 0.5f;
+                float weight = handleItemData.type == HandableType.Sword ? 1.0f : 0.5f;
                 hit.collider.gameObject.GetComponent<IHitable>()?.Hit(handleItemData.attackPower * weight);
             }
 
