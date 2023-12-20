@@ -10,7 +10,7 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] private Material _previewMat;
     [SerializeField] private Material _nonBuildableMat;
     [SerializeField] private PlayerInputs _playerInputs;
-    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _groundLayer; // creatingLayer
 
     [SerializeField] private int _raycastRange = 20;
     [SerializeField] private float _yGridSize = 0.1f;
@@ -23,7 +23,7 @@ public class BuildingSystem : MonoBehaviour
     private bool _isHold = false;
     private bool _isBreakMode = false;
     private bool _canCreateObject = true;
-    private int buildingLayer = 30;
+    private int buildingLayer = 30; // deleteLayer , 적용중인 레이어
 
     private QuickSlotSystem _quickSlotSystem;
 
@@ -32,7 +32,6 @@ public class BuildingSystem : MonoBehaviour
         _playerInputs = GetComponent<PlayerInputs>();
         _quickSlotSystem = GetComponent<QuickSlotSystem>();
         _cam = Camera.main;
-
     }
 
     private void Start()
@@ -54,39 +53,10 @@ public class BuildingSystem : MonoBehaviour
         {
             SetObjPosition();
         }
-        else
+        if(_isBreakMode)
         {
 
         }
-
-        if(_playerInputs.attack)            
-        {
-            if (!_isHold) // Click
-            {
-                var handItemData = _quickSlotSystem.HandleItem.itemData as HandleItemData;
-                if (handItemData.handType == HandableType.Building)
-                {
-                    Debug.Log("IsHold : " + _isHold);
-                    CreateBluePrintObject();
-                    _isHold = true;
-                }
-            }
-            else
-            {
-                HandleInstallArchitecture();
-            }
-        }
-        // 원본 코드
-        //if (_isHold)
-        //{
-        //    RaycastHit hit = RaycastHit();
-        //    if (hit.collider != null
-        //        && _groundLayer == (_groundLayer | (1 << hit.collider.gameObject.layer)))
-        //        SetObjPosition(hit.point);
-        //}
-        //else if (_isBreakMode)
-        //    SetMaterialForDeletion();
-        //
     }
 
     #region
@@ -197,8 +167,7 @@ public class BuildingSystem : MonoBehaviour
     {
         if (_isHold)
         {
-            Destroy(_obj);
-            _isHold = false;
+            HandleCancelBuildMode();
         }
         _isBreakMode = _isBreakMode ? false : true;
     }
@@ -236,7 +205,7 @@ public class BuildingSystem : MonoBehaviour
         {
             // Set
         }
-        else
+        else if(_isBreakMode == false)
         {
             // Create
         }
