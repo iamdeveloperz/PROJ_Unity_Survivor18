@@ -12,68 +12,80 @@ public class CraftPopupUI : MonoBehaviour
 
     [SerializeField] private ItemData _woodData;
     [SerializeField] private ItemData _rockData;
-    [SerializeField] private ItemData _axeData;
-    //[SerializeField] private ItemData _swordData;
+    [SerializeField] private List<RegistableItemData> _weaponDatas;
 
     private int _ownWoodNum = 0;
     private int _ownRockNum = 0;
 
-    // TODO
-    private int _axeRequiredWoodNum = 1;
-    private int _axeRequiredRockNum = 0;
-    private int _swordRequiredWoodNum = 0;
-    private int _swordRequiredRockNum = 0;
+    private int _woodIndexInInventory = -1;
+    private int _rockIndexInInventory = -1;
 
     private void OnEnable()
     {
-        UpdateWoodRockNum();
-        EnabledButtons();
+        UpdateCraftPopup();
     }
 
-    private void UpdateWoodRockNum()
+    private void UpdateCraftPopup()
     {
         _ownWoodNum = 0;
         _ownRockNum = 0;
 
-        for (int i = 0; i < Inventory.Instance.items.Count; ++i)
+        for (int i = 0; i < Inventory.Instance.itemSlots.Length; ++i)
         {
-            ItemSlot slot = Inventory.Instance.items[i];
-            if (slot.item.name == "Wood")
+            ItemSlot slot = Inventory.Instance.itemSlots[i];
+            if (slot.item == null) continue;
+
+            if (slot.item.name == Literals.WOOD)
+            {
                 _ownWoodNum = slot.quantity;
-            if (slot.item.name == "Rock")
+                _woodIndexInInventory = i;
+            }
+            if (slot.item.name == Literals.ROCK)
+            {
                 _ownRockNum = slot.quantity;
+                _rockIndexInInventory = i;
+            }
         }
 
-        //TODO
-        foreach (TextMeshProUGUI _text in _ownWoodNumTexts)
-            _text.text = _ownWoodNum.ToString() + " / " + _axeRequiredWoodNum.ToString();
-        foreach (TextMeshProUGUI _text in _ownRockNumTexts)
-            _text.text = _ownRockNum.ToString() + " / " + _axeRequiredRockNum.ToString();
+        for(int i = 0; i< _weaponDatas.Count; ++i)
+        {
+            _ownWoodNumTexts[i].text = _ownWoodNum.ToString() + " / " + _weaponDatas[i].requiredWoodNum.ToString();
+            _ownRockNumTexts[i].text = _ownRockNum.ToString() + " / " + _weaponDatas[i].requiredRockNum.ToString();
+
+            _createButtons[i].enabled
+               = (_ownWoodNum >= _weaponDatas[i].requiredWoodNum
+               && _ownRockNum >= _weaponDatas[i].requiredRockNum);
+        }
     }
 
-    private void EnabledButtons()
+    private void ConsumeItemInInventory(int index)
     {
-        _createButtons[0].enabled = (_ownWoodNum >= _axeRequiredWoodNum && _ownRockNum >= _axeRequiredRockNum);
-        _createButtons[1].enabled = (_ownWoodNum >= _swordRequiredWoodNum && _ownRockNum >= _swordRequiredRockNum);
+        if (_woodIndexInInventory >= 0)
+            Inventory.Instance.Consumeitem(_woodIndexInInventory, _weaponDatas[index].requiredWoodNum);
+        if (_rockIndexInInventory >= 0)
+            Inventory.Instance.Consumeitem(_rockIndexInInventory, _weaponDatas[index].requiredRockNum);
+        Inventory.Instance.AddItem(_weaponDatas[index]);
     }
 
     #region Craft Button
 
-    public void CreateAxe()
+    // TODO
+    public void CreateWeapon1()
     {
-        Inventory.Instance.SubtractItem(_woodData, _axeRequiredWoodNum);
-        Inventory.Instance.SubtractItem(_rockData, _axeRequiredRockNum);
-        Inventory.Instance.AddItem(_axeData);
-
-        UpdateWoodRockNum();
-        EnabledButtons();
+        ConsumeItemInInventory(0);
+        UpdateCraftPopup();
     }
 
-    public void CreateSword()
+    public void CreateWeapon2()
     {
-        //Inventory.Instance.SubtractItem(_woodData, _swordRequiredWoodNum);
-        //Inventory.Instance.SubtractItem(_rockData, _swordRequiredRockNum);
-        //Inventory.Instance.AddItem(_swordData);
+        ConsumeItemInInventory(1);
+        UpdateCraftPopup();
+    }
+
+    public void CreateWeapon3()
+    {
+        ConsumeItemInInventory(2);
+        UpdateCraftPopup();
     }
     #endregion
 }

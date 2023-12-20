@@ -21,6 +21,8 @@ MonoBehaviour:
   maxStackCount: 1
   dropPrefab: {fileID: 0}
   consumables: []
+  requiredWoodNum: 2
+  requiredRockNum: 0
   attackPower: 5
   range: 7
   targetLayer:
