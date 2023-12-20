@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,11 +17,28 @@ public class Enemy : MonoBehaviour, IHitable
 
     protected virtual void Start()
     {
+        defaultSetting();
+        FindPlayerTarget();
+    }
+    private void defaultSetting()
+    {
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         isAttacking = false;
     }
+    private void FindPlayerTarget()
+    {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
 
+        if (playerObject != null)
+        {
+            target = playerObject.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Player not found in the scene!");
+        }
+    }
     void Update()
     {
         nav.SetDestination(target.position);
@@ -32,14 +47,12 @@ public class Enemy : MonoBehaviour, IHitable
             RotateTowardsTarget(nav.steeringTarget);
         }
     }
-
     void RotateTowardsTarget(Vector3 targetPosition)
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
         Quaternion toRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, Time.deltaTime * 5f); // 5f=> 회전속도조절
     }
-
     private void OnCollisionEnter(Collision other) 
     {
         CollisionProcess(other);
@@ -48,7 +61,6 @@ public class Enemy : MonoBehaviour, IHitable
     {
         CollisionProcess(other);
     }
-
     private void CollisionProcess(Collision other)
     {
         if (other.gameObject.tag == "Player")
@@ -60,7 +72,6 @@ public class Enemy : MonoBehaviour, IHitable
             Attacked();
         }*/
     }
-
     public void Hit(float damage)
     {
         curHealth -= (int)damage;
