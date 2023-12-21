@@ -101,18 +101,22 @@
 
 ## In Game Screenshot
 
+Building System
+
 <p align="center">
-	<img src="https://i.imgur.com/5LhiczQ.gif" width="49%"/>
-	<img src="https://i.imgur.com/zCbRb9i.gif" width="49%"/>
+	<img src="https://i.imgur.com/VaOyZby.gif" width="98%"/>
 </p>
+<p align="center">
+	<img src="https://i.imgur.com/zCbRb9i.gif" width="49%"/>
+	<img src="https://i.imgur.com/WhheYDF.gif" width="49%"/>
+</p>
+
 <p align="center">
 	<img src="https://i.imgur.com/RVFWXTB.gif" width="49%"/>
 	<img src="https://i.imgur.com/Qq0BiKb.gif" width="49%"/>
 </p>
+
 <p align="center">
 	<img src="https://i.imgur.com/CnX5M2o.gif" width="49%"/>
 	<img src="https://i.imgur.com/a03uZkd.gif" width="49%"/>
-</p>
-<p align="center">
-	<img src="https://i.imgur.com/WhheYDF.gif" width="98%"/>
 </p>
