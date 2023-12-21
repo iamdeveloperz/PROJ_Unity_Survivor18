@@ -23,7 +23,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //Inventory.Instance.ItemInfoText(this.index);
+        Inventory.Instance.ItemInfoText(this.index);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -32,7 +32,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
         {
             Inventory.Instance.UseItem(this.index);
         }
-        if (eventData.button == PointerEventData.InputButton.Left) //오른쪽 클릭이면 해당 오브젝트의 아이템을 사용
+        if (eventData.button == PointerEventData.InputButton.Left) 
         {
             Inventory.Instance.ItemInfoText(this.index);
         }

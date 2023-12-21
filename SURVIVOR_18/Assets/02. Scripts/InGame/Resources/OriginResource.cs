@@ -164,6 +164,7 @@ public class OriginResource : MonoBehaviour, IHitable, ICooldownHandler
     public void Hit(float amount)
     {
         Amount -= 1;
+        Managers.Sound.PlayEffectSound(transform, this.name);
         Debug.LogWarning(Amount);
         if (Amount == 0)
         {

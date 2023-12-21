@@ -228,6 +228,9 @@ public class Inventory : MonoBehaviour
                 case ConsumableType.Hunger:
                     playerStatHandler.Drink(item.consumables[i].value);
                     break;
+                case ConsumableType.HP:
+                    playerStatHandler.Recover(item.consumables[i].value);
+                    break;
             }
         }
     }

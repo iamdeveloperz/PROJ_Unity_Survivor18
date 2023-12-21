@@ -16,6 +16,9 @@ public class ResourceManager
     private readonly Dictionary<string, ScriptableObject> _scriptableResources =
         new Dictionary<string, ScriptableObject>();
 
+    private readonly Dictionary<string, AudioClip> _audioResources =
+        new Dictionary<string, AudioClip>();
+
     public bool IsLoaded { get; private set; }
 
     #endregion
@@ -35,7 +38,7 @@ public class ResourceManager
         LoadPrefabsByFolder(Literals.PATH_DAYCYCLE);
         LoadPrefabsByFolder(Literals.PATH_STRUCTURE);
         LoadScriptableByFolder();
-
+        LoadAuidoClipByFolder();
         IsLoaded = true;
     }
 
@@ -72,6 +75,20 @@ public class ResourceManager
             if (!_scriptableResources.TryAdd(scriptableObject.name, scriptableObject))
             {
                 Debug.LogWarning($"ScriptableObject with name {scriptableObject.name} already exists in the dictionary for folder {folderKey}");
+            }
+        }
+    }
+
+    private void LoadAuidoClipByFolder(string folderPath = null)
+    {
+        var folderKey = folderPath ?? "Sounds";
+        var audioClips = Resources.LoadAll<AudioClip>(folderKey);
+
+        foreach(var audioClip in audioClips)
+        {
+            if(!_audioResources.TryAdd(audioClip.name, audioClip))
+            {
+                Debug.LogWarning($"AudioClip with name {audioClip.name} already exists in the dictionary for folder {folderKey}");
             }
         }
     }
@@ -119,6 +136,17 @@ public class ResourceManager
     public ScriptableObject[] GetScriptableObjects()
     {
         return new List<ScriptableObject>(_scriptableResources.Values).ToArray();
+    }
+
+    public AudioClip GetAudioClip(string audioClipName)
+    {
+        if(_audioResources.TryGetValue(audioClipName, out var audioClip))
+        {
+            return audioClip;
+        }
+
+        Debug.LogWarning($"AudioClip with name {audioClipName} not found.");
+        return null;
     }
 
     #endregion
