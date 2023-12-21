@@ -5,9 +5,9 @@ public class AdjustObjectsToTerrain : MonoBehaviour
     public Terrain terrain;
     public GameObject emptyObjectsParent;
 
-    int numberOfObjects = 100; // 생성할 오브젝트 수
+    int numberOfObjects = 120; // 생성할 오브젝트 수
     float max = 40f; // x 좌표의 최대값
-    float min = -40f; // z 좌표의 최대값
+    float min = 10f;
 
 
     void Awake()
@@ -22,9 +22,9 @@ public class AdjustObjectsToTerrain : MonoBehaviour
         {
             Vector3 randomPosition;
             // x, z 좌표를 무작위로 설정
-            float randomX = Random.Range(min, max);
-            float randomZ = Random.Range(min, max);
-            if(randomX > -20 && randomX < 20 && randomZ > -20 && randomZ < 20 ) { continue; }
+            float randomX = Random.Range(-max, max);
+            float randomZ = Random.Range(-max, max);
+            if(randomX > -min && randomX < min && randomZ > -min && randomZ < min ) { continue; }
             randomPosition = new Vector3(randomX, 0f, randomZ);
             // 빈 오브젝트 생성
             GameObject emptyObject = new GameObject($"{i}");
