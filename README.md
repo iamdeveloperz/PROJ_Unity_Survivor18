@@ -101,8 +101,6 @@
 
 ## In Game Screenshot
 
-Building System
-
 <p align="center">
 	<img src="https://i.imgur.com/VaOyZby.gif" width="98%"/>
 </p>
