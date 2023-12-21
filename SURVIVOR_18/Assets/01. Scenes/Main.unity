@@ -2145,6 +2145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IitemCarrot
       objectReference: {fileID: 0}
+    - target: {fileID: 4746075744791371658, guid: a84ef8ffcd9f992479c444f7120b9471, type: 3}
+      propertyPath: m_Radius
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6932154468546041984, guid: a84ef8ffcd9f992479c444f7120b9471, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -2189,7 +2193,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2950991656642859012, guid: a84ef8ffcd9f992479c444f7120b9471, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2684,6 +2689,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IitemCarrot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4746075744791371658, guid: a84ef8ffcd9f992479c444f7120b9471, type: 3}
+      propertyPath: m_Radius
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6932154468546041984, guid: a84ef8ffcd9f992479c444f7120b9471, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -2728,7 +2737,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2950991656642859012, guid: a84ef8ffcd9f992479c444f7120b9471, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3676,6 +3686,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IitemCarrot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4746075744791371658, guid: a84ef8ffcd9f992479c444f7120b9471, type: 3}
+      propertyPath: m_Radius
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6932154468546041984, guid: a84ef8ffcd9f992479c444f7120b9471, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -3720,7 +3734,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2950991656642859012, guid: a84ef8ffcd9f992479c444f7120b9471, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
