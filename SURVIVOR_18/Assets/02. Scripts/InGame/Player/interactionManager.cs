@@ -80,7 +80,7 @@ public class interactionManager : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Water"))
+        if (other != null && other.CompareTag("Water"))
         {
             waterText.text = "[E] 물 마시기";
             waterText.gameObject.SetActive(true);

@@ -23,7 +23,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //Inventory.Instance.ItemInfoText(this.index);
+        Inventory.Instance.ItemInfoText(this.index);
     }
 
     public void OnPointerClick(PointerEventData eventData)
