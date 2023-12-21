@@ -8,8 +8,8 @@ public class ZombieSpawner : MonoBehaviour
 
     void Start()
     {
-        spawnInterval = 3f;
-        InvokeRepeating("SpawnZombie", 0, spawnInterval);
+        spawnInterval = 30f;
+        InvokeRepeating("SpawnZombie", 30, spawnInterval);
     }
 
     void SpawnZombie()
