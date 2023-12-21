@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchName: Sword
   displayName: "\uAC80"
-  description: 
+  description: "\uAC80\uC744 \uC774\uC6A9\uD558\uC5EC \uC801\uC744 \uACF5\uACA9\uD560
+    \uC218 \uC788\uC2B5\uB2C8\uB2E4."
   icon: {fileID: 21300000, guid: 4f2f320a217307a48a107491b1d17ebb, type: 3}
   equipPart: 1
   type: 1
