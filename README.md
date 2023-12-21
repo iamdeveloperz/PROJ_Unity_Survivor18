@@ -1,7 +1,8 @@
-# SURVIVOR 18
+ SURVIVOR 18
 
 ## 🎪 프로젝트 소개
-3D 서바이벌 게임
+- 3D 서바이벌 게임
+- SURVIVOR_18
 ***
 ### 📺 [시연영상](https://www.youtube.com/watch?v=pK86Qp1ib9Q&ab_channel=%EC%8B%B8%EB%B9%84)
 ***
@@ -95,3 +96,23 @@
 - 크래프팅 시스템
 - 시간
 - 퀵 슬롯
+
+---
+
+## In Game Screenshot
+
+<p align="center">
+	<img src="https://i.imgur.com/5LhiczQ.gif" width="49%"/>
+	<img src="https://i.imgur.com/zCbRb9i.gif" width="49%"/>
+</p>
+<p align="center">
+	<img src="https://i.imgur.com/RVFWXTB.gif" width="49%"/>
+	<img src="https://i.imgur.com/Qq0BiKb.gif" width="49%"/>
+</p>
+<p align="center">
+	<img src="https://i.imgur.com/CnX5M2o.gif" width="49%"/>
+	<img src="https://i.imgur.com/a03uZkd.gif" width="49%"/>
+</p>
+<p align="center">
+	<img src="https://i.imgur.com/WhheYDF.gif" width="98%"/>
+</p>
