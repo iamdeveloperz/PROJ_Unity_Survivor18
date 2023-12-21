@@ -165,7 +165,6 @@ public class OriginResource : MonoBehaviour, IHitable, ICooldownHandler
     {
         Amount -= 1;
         Managers.Sound.PlayEffectSound(transform, this.name);
-        Debug.LogWarning(Amount);
         if (Amount == 0)
         {
             DestroyAction();
