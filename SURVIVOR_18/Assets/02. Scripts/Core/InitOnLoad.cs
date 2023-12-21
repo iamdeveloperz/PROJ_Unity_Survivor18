@@ -45,6 +45,11 @@ public static class InitOnLoad
             isComplete = true;
         }
 
+        if(!Managers.Sound.isLoaded)
+        {
+            Managers.Sound.Init();
+        }
+
         return isComplete;
     }
 }
