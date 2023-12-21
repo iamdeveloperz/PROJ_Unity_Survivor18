@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9042a73f145eaa41b24af612315031c, type: 3}
+  m_Name: Fence
+  m_EditorClassIdentifier: 
+  searchName: Fence
+  displayName: "\uC6B8\uD0C0\uB9AC"
+  description: "\uBAAC\uC2A4\uD130\uC758 \uC811\uADFC\uC744 \uB9C9\uC544\uC904 \uC218
+    \uC788\uC744\uBC95\uD55C \uC6B8\uD0C0\uB9AC"
+  icon: {fileID: 21300000, guid: bbc5e0b20c02cb145bd8ca67febb576a, type: 3}
+  equipPart: 1
+  type: 2
+  canStack: 0
+  maxStackCount: 1
+  dropPrefab: {fileID: 0}
+  handType: 4
+  requiredWoodNum: 2
+  requiredRockNum: 0
+  attackPower: 0
+  range: 20
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 536870912
+  target: Not
