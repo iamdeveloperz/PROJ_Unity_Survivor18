@@ -9,9 +9,7 @@ public class CraftPopupUI : MonoBehaviour
     [SerializeField] private List<Button> _createButtons;
     [SerializeField] private List<TextMeshProUGUI> _ownWoodNumTexts;
     [SerializeField] private List<TextMeshProUGUI> _ownRockNumTexts;
-
-    [SerializeField] private ItemData _woodData;
-    [SerializeField] private ItemData _rockData;
+    
     [SerializeField] private List<RegistableItemData> _weaponDatas;
 
     private int _ownWoodNum = 0;
@@ -35,11 +33,8 @@ public class CraftPopupUI : MonoBehaviour
             ItemSlot slot = Inventory.Instance.itemSlots[i];
             if (slot.item == null) continue;
             
-            Debug.LogWarning(slot.item.name);
-            
             if (slot.item.name == Literals.WOOD)
             {
-                Debug.LogWarning(slot.item.name + "1");
                 _ownWoodNum = slot.quantity;
                 _woodIndexInInventory = i;
             }
