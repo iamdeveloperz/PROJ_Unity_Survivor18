@@ -11,7 +11,8 @@ public enum ItemType
 public enum ConsumableType
 {
     Moisture,
-    Hunger
+    Hunger,
+    HP
 }
 
 [System.Serializable]
