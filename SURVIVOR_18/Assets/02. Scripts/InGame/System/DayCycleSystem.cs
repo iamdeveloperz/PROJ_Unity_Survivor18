@@ -1,10 +1,13 @@
 
 using System;
 using UnityEngine;
+using Random = System.Random;
 
 public class DayCycleSystem : MonoBehaviour
 {
     #region Member Variables
+
+    private Transform _dailyRotationRoot;
 
     /* Timer */
     private DayTimer _dayTimer;
@@ -12,6 +15,9 @@ public class DayCycleSystem : MonoBehaviour
     /* Timer Setup */
     // 임시 테스트용으로 변경해보면 시작 시간이 변경 됩니다. [by. 희성]
     [SerializeField] private float _startHour = 12f;
+    
+    /* Sun Time */
+    private DayLight _dayLight;
 
     #endregion
     
@@ -45,6 +51,9 @@ public class DayCycleSystem : MonoBehaviour
     {
         _dayTimer = new DayTimer();
         _dayTimer.Initialize(_startHour);
+
+        _dayLight = new DayLight();
+        _dayLight.Initialize(transform);
         
         // Day Timer Event Subscribe.
         _dayTimer.OnGameTimeChanged += OnGameTimeChanged;
@@ -60,6 +69,8 @@ public class DayCycleSystem : MonoBehaviour
     private void StartTimer()
     {
         _dayTimer.StartGameAndRealTimers();
+        
+        _dayLight.StartSunRotate();
     }
     
     /* Events */
@@ -72,6 +83,14 @@ public class DayCycleSystem : MonoBehaviour
     {
         Managers.Game.SetupRealTime(realTime);
     }
+
+    #endregion
+
+
+
+    #region Coroutine
+
+    
 
     #endregion
 }

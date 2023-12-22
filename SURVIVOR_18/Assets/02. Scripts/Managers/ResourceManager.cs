@@ -35,6 +35,7 @@ public class ResourceManager
         LoadPrefabsByFolder(Literals.PATH_HANDABLE);
         LoadPrefabsByFolder(Literals.PATH_ITEM);
         LoadPrefabsByFolder(Literals.PATH_PLAYER);
+        LoadPrefabsByFolder(Literals.PATH_DAYCYCLE);
         LoadPrefabsByFolder(Literals.PATH_STRUCTURE);
         LoadScriptableByFolder();
         LoadAuidoClipByFolder();
