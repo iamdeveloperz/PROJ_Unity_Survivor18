@@ -1,4 +1,4 @@
- SURVIVOR 18
+Unity Engine, PROJECT - Survival Game
 
 ## 🎪 프로젝트 소개
 - 3D 서바이벌 게임
